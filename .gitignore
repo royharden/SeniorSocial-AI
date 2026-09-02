@@ -1,0 +1,42 @@
+# SeniorSocial — .gitignore
+#
+# This file is authored in the coding tree (SeniorSocial-AI-Bts\) and copied
+# into the public repo by scripts\sync-public.ps1. It is read by both histories.
+#
+# It is NOT the public/private boundary. That lives in the public repo's own
+# local exclude file, SeniorSocial-AI\.git\info\exclude, which is default-deny:
+# files copied into the public tree are only committed if re-included there.
+
+
+# --- Secrets ---
+# Credentials live at the private root (..\.creds\), outside this tree, so the
+# sync script cannot reach them. These rules are belt-and-braces.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!*.public.key
+.creds/
+
+
+# --- Build + local cruft ---
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+*.local
+*.local.*
+*.bak
+*.orig
+*.tmp
+*~
+.DS_Store
+Thumbs.db
