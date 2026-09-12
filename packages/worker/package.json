@@ -8,5 +8,5 @@
     "test:integration": "vitest run tests/integration/WP-001 --root ../.."
   },
   "dependencies": { "@seniorsocial/assistance": "workspace:*", "@seniorsocial/notify": "workspace:*", "@seniorsocial/db": "workspace:*", "@seniorsocial/messaging": "workspace:*", "pg-boss": "12.26.3" },
-  "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "tsx": "4.23.13" }
+  "devDependencies": { "@types/node": "26.5.0", "typescript": "5.9.3", "tsx": "4.23.13" }
 }
