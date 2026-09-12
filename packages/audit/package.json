@@ -9,5 +9,5 @@
     "lint": "eslint src --max-warnings 0"
   },
   "dependencies": { "@seniorsocial/db": "workspace:*" },
-  "devDependencies": { "typescript": "5.9.3" }
+  "devDependencies": { "typescript": "6.0.3" }
 }
