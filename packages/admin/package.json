@@ -11,5 +11,5 @@
     "test:integration": "vitest run --root ../.. tests/integration/WP-019"
   },
   "dependencies": { "@seniorsocial/db": "workspace:*" },
-  "devDependencies": { "typescript": "5.9.3", "vitest": "5.0.0" }
+  "devDependencies": { "typescript": "6.0.3", "vitest": "5.0.0" }
 }

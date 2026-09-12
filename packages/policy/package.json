@@ -12,5 +12,5 @@
     "test:integration": "vitest run tests/integration/WP-005 --root ../.."
   },
   "dependencies": { "postgres": "3.4.9" },
-  "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "vitest": "5.0.0" }
+  "devDependencies": { "@types/node": "24.13.4", "typescript": "6.0.3", "vitest": "5.0.0" }
 }
