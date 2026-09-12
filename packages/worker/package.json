@@ -7,6 +7,6 @@
     "start": "tsx src/main.ts",
     "test:integration": "vitest run tests/integration/WP-001 --root ../.."
   },
-  "dependencies": { "@seniorsocial/assistance": "workspace:*", "@seniorsocial/notify": "workspace:*", "@seniorsocial/db": "workspace:*", "@seniorsocial/messaging": "workspace:*", "pg-boss": "12.26.3" },
+  "dependencies": { "@seniorsocial/assistance": "workspace:*", "@seniorsocial/notify": "workspace:*", "@seniorsocial/db": "workspace:*", "@seniorsocial/messaging": "workspace:*", "pg-boss": "12.30.0" },
   "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "tsx": "4.23.13" }
 }
