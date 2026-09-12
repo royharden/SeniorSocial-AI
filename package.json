@@ -45,7 +45,7 @@
     "verify:full:evals": "node scripts/verify-stage.mjs --name full:evals --file scripts/eval-guard.ts -- node scripts/eval-guard.ts --mode stub --all"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.11.1",
+    "@axe-core/playwright": "4.13.0",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.63.0",
     "@types/node": "24.13.4",
