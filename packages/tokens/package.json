@@ -1,0 +1,15 @@
+{
+  "name": "@seniorsocial/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Porchlight design tokens for SeniorSocial.",
+  "exports": {
+    ".": "./design-tokens.json",
+    "./design-tokens.json": "./design-tokens.json",
+    "./theme.css": "./theme.css"
+  },
+  "files": [
+    "design-tokens.json",
+    "theme.css"
+  ]
+}

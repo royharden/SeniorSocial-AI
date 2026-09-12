@@ -1,0 +1,10 @@
+{
+  "concierge": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 800 },
+  "moderation": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 200 },
+  "translation_assist": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 1200 },
+  "triage": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 200 },
+  "intake_routing": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 200 },
+  "event_rerank": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 300 },
+  "conversation_starters": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 400 },
+  "summaries": { "provider": "anthropic-api", "model": "claude-haiku-4-5", "maxOutputTokens": 800 }
+}

@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "fixtureVersion": "wp-034.v1+ss-n0.v1",
+  "recordingStatus": "complete-private-local",
+  "runnable": true,
+  "readinessBlockers": [],
+  "credentialedCloseout": {
+    "status": "passed",
+    "command": "corepack pnpm exec playwright test --config tests/e2e/es/credentialed.playwright.config.ts",
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0,
+    "duration": "4.5m",
+    "composition": {
+      "credentialedFullPass": 8,
+      "crossModuleActions": 24,
+      "controlledApprovals": 6,
+      "spanishStandardEasyActions": 12,
+      "shippedPagesChecked": 21
+    },
+    "scope": "WP-030 and WP-032 credentialed EN/ES Standard/Easy journeys, controlled approvals, and role-bound governed-copy coverage",
+    "provenanceCommit": "6ed23f1",
+    "adoptedCommit": "c78d13c",
+    "integrationCommit": "71ab2b1"
+  },
+  "captureGate": {
+    "status": "passed",
+    "blockedBy": null,
+    "commands": [
+      "git status --short",
+      "git rev-parse HEAD",
+      "corepack pnpm exec playwright test --config tests/e2e/es/credentialed.playwright.config.ts",
+      "pnpm demo:down",
+      "pnpm demo:reset",
+      "pnpm demo:up",
+      "curl.exe -fsS http://127.0.0.1:3100/api/v1/health",
+      "pnpm demo:down"
+    ],
+    "requiredCredentialedEnvironment": [
+      "WP030_E2E_ALLOWED=true",
+      "WP030_E2E_DISPOSABLE_CLUSTER=true",
+      "WP030_E2E_OWNER_DATABASE_URL supplied through the approved private operator channel and targeting a disposable local maintenance database",
+      "WP030_E2E_RUN_ID set to a fresh 4-16 character lowercase alphanumeric value"
+    ],
+    "evidenceFields": [
+      "scope",
+      "sealedApplicationSha",
+      "integratedReceiptCommit",
+      "receiptPath",
+      "credentialedCommand",
+      "credentialedPassed",
+      "credentialedFailed",
+      "credentialedSkipped",
+      "credentialedDuration",
+      "fixtureVersion",
+      "staffQueueHttpStatus",
+      "adminQueueHttpStatus",
+      "recordingStartedAt",
+      "recordingEndedAt",
+      "wallClockSeconds",
+      "mediaContainerSeconds",
+      "mediaFile",
+      "mediaSha256",
+      "capturedBy",
+      "teardownStatus",
+      "excludedDiagnostics"
+    ],
+    "stopConditions": [
+      "working tree is dirty or HEAD does not equal the sealed candidate SHA",
+      "credentialed rerun is not exactly 38 passed, 0 failed, 0 skipped",
+      "demo reset, startup, fixture-version, web-health, or role-session preparation fails",
+      "a required journey or scored criterion cannot be shown truthfully",
+      "real provider egress or a non-synthetic identity appears",
+      "elapsed time would exceed 719 seconds",
+      "candidate revision changes before checksum and teardown evidence are retained"
+    ]
+  },
+  "captureEvidence": {
+    "scope": "complete private-local evidence only",
+    "sealedApplicationSha": "c379d2b69a162d8fab46409bdb5ed9af1373b3da",
+    "integratedReceiptCommit": "8863b94",
+    "receiptPath": "docs/evidence/WP-041-sealed-recording-c379d2b.md",
+    "credentialedCommand": "corepack pnpm exec playwright test --config tests/e2e/es/credentialed.playwright.config.ts",
+    "credentialedPassed": 38,
+    "credentialedFailed": 0,
+    "credentialedSkipped": 0,
+    "credentialedDuration": "8.4m",
+    "fixtureVersion": "wp-034.v1+ss-n0.v1",
+    "staffQueueHttpStatus": 200,
+    "adminQueueHttpStatus": 200,
+    "recordingStartedAt": "2026-09-12T03:20:09.344Z",
+    "recordingEndedAt": "2026-09-12T03:21:55.508Z",
+    "wallClockSeconds": 106.164,
+    "mediaContainerSeconds": 109.120,
+    "mediaFile": "WP-041-sealed-tour-c379d2b-r3-realtime2.webm",
+    "mediaSha256": "1A46195319956BE71F6B6CBE7589D7F7B7361753DE2147AC11429E4A2410BF26",
+    "capturedBy": "0209_Codex_GPT56-SOL",
+    "teardownStatus": "zero ss-n0 containers, volumes, networks, generated state, and temporary auth state",
+    "excludedDiagnostics": [
+      "all R1 and R2 attempts",
+      "WP-041-sealed-tour-c379d2b-r3.webm",
+      "WP-041-sealed-tour-c379d2b-r3-realtime-incomplete1.webm"
+    ]
+  },
+  "webStart": {
+    "command": "pnpm demo:up",
+    "bindAddress": "127.0.0.1",
+    "port": 3100,
+    "healthPath": "/api/v1/health",
+    "healthStatus": "ok",
+    "detached": true,
+    "downCommand": "pnpm demo:down",
+    "coldRehearsed": true
+  },
+  "journeyFixtures": {
+    "caregiverLinkId": "41000000-0000-4000-8100-000000000001",
+    "caregiverState": "pending",
+    "preGrantedScopeCount": 0,
+    "readBackCount": 0,
+    "fullEventId": "41000000-0000-4000-8200-000000000001",
+    "capacity": 1,
+    "attendingCount": 1,
+    "waitlistedCount": 1
+  },
+  "aiOffFixture": {
+    "orgFlags": { "ai.master": false, "ai.concierge": false },
+    "effective": { "ai.master": false, "ai.concierge": false },
+    "aiEventCount": 0,
+    "nativePages": ["/concierge", "/services", "/help"]
+  },
+  "recordingGate": "satisfied for sealed application SHA c379d2b69a162d8fab46409bdb5ed9af1373b3da with exact-candidate credentialed 38/38, integrated receipt 8863b94, retained accepted-media checksum, and teardown evidence",
+  "maximumSeconds": 719,
+  "plannedSeconds": 660,
+  "baseUrls": {
+    "web": "http://localhost:3100",
+    "mailpit": "http://localhost:8125",
+    "adminer": "http://localhost:8180"
+  },
+  "criteria": [
+    { "id": "F-1", "source": "agentops/build/board.csv:WP-041; docs/specs/01-full-app-plan.md:31" },
+    { "id": "A-8", "source": "agentops/build/board.csv:WP-041; docs/specs/01-full-app-plan.md:71" },
+    { "id": "SC-07", "source": "agentops/build/board.csv:WP-041; docs/specs/01-full-app-plan.md:257" },
+    { "id": "F-2", "source": "agentops/build/board.csv:WP-030; docs/specs/01-full-app-plan.md:31" },
+    { "id": "F-7", "source": "agentops/build/board.csv:WP-030; docs/specs/01-full-app-plan.md:127" },
+    { "id": "F-8", "source": "agentops/build/board.csv:WP-030; docs/specs/01-full-app-plan.md:95" },
+    { "id": "F-11", "source": "agentops/build/board.csv:WP-030; docs/specs/01-full-app-plan.md:47" },
+    { "id": "F-13", "source": "agentops/build/board.csv:WP-030; docs/specs/01-full-app-plan.md:127,143" }
+  ],
+  "accounts": [
+    { "role": "senior", "name": "[SYNTHETIC] Avery Example", "userId": "34000000-0000-4000-8000-000000000001", "code": "DEMO-SENIOR" },
+    { "role": "caregiver", "name": "[SYNTHETIC] Casey Example", "userId": "34000000-0000-4000-8000-000000000002", "code": "DEMO-CAREGIVER" },
+    { "role": "staff", "name": "[SYNTHETIC] Jordan Example", "userId": "34000000-0000-4000-8000-000000000003", "code": "DEMO-STAFF" },
+    { "role": "partner", "name": "[SYNTHETIC] Morgan Example", "userId": "34000000-0000-4000-8000-000000000004", "code": "DEMO-PARTNER" },
+    { "role": "support", "name": "[SYNTHETIC] Riley Example", "userId": "34000000-0000-4000-8000-000000000005", "code": "DEMO-SUPPORT" },
+    { "role": "admin", "name": "[SYNTHETIC] Taylor Example", "userId": "34000000-0000-4000-8000-000000000006", "code": "DEMO-ADMIN" }
+  ],
+  "expiry": {
+    "accountCodeExpiresAt": "2099-01-01T00:00:00Z",
+    "codeUse": "single-use until the next successful demo reset",
+    "sessionLifetimeHours": 12
+  },
+  "routes": [
+    { "path": "/auth/demo-code", "kind": "api", "source": "apps/web/app/(auth)/auth/demo-code/route.ts" },
+    { "path": "/api/v1/health", "kind": "api", "source": "apps/web/app/api/v1/health/route.ts" },
+    { "path": "/home", "kind": "page", "source": "apps/web/app/(shell)/home/page.tsx" },
+    { "path": "/services", "kind": "page", "source": "apps/web/app/services/page.tsx" },
+    { "path": "/concierge", "kind": "page", "source": "apps/web/app/concierge/page.tsx" },
+    { "path": "/events", "kind": "page", "source": "apps/web/app/(shell)/events/page.tsx" },
+    { "path": "/rides", "kind": "page", "source": "apps/web/app/(shell)/rides/page.tsx" },
+    { "path": "/help", "kind": "page", "source": "apps/web/app/(shell)/help/page.tsx" },
+    { "path": "/caregiver", "kind": "page", "source": "apps/web/app/(shell)/caregiver/page.tsx" },
+    { "path": "/admin", "kind": "page", "source": "apps/web/app/(shell)/admin/page.tsx" }
+  ],
+  "segments": [
+    { "id": "opening", "seconds": 30, "criteria": ["A-8", "SC-07"] },
+    { "id": "sign-in", "seconds": 45, "criteria": ["F-1", "F-2"] },
+    { "id": "service-handoff", "seconds": 90, "criteria": ["F-8", "F-13"] },
+    { "id": "events", "seconds": 75, "criteria": [] },
+    { "id": "rides", "seconds": 90, "criteria": ["F-7"] },
+    { "id": "assistance", "seconds": 75, "criteria": ["F-13"] },
+    { "id": "caregiver", "seconds": 105, "criteria": ["F-11"] },
+    { "id": "ai-off", "seconds": 75, "criteria": ["F-8", "F-13", "SC-07"] },
+    { "id": "mode-language", "seconds": 45, "criteria": ["A-8", "SC-07"] },
+    { "id": "limitations", "seconds": 30, "criteria": ["A-8", "SC-07"] }
+  ],
+  "knownLimitations": "docs/demo/known-limitations.md"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@seniorsocial/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "db:migrate": "tsx src/migrate.ts up",
+    "db:down": "tsx src/migrate.ts down",
+    "db:seed": "tsx seed/run.ts",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration"
+  },
+  "dependencies": {
+    "@seniorsocial/contracts": "workspace:*",
+    "drizzle-orm": "0.45.2",
+    "postgres": "3.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.4",
+    "@vitest/coverage-v8": "5.0.0",
+    "drizzle-kit": "0.31.10",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

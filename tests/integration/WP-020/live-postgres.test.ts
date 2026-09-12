@@ -1,0 +1,39 @@
+import {Buffer} from 'node:buffer';
+import {randomUUID} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {afterAll,beforeAll,describe,expect,it} from 'vitest';
+import {createDatabaseClient,type DatabaseClient} from '../../../packages/db/src/index.ts';
+import {EnvironmentExportKeys,PostgresIndividualAuthority,PostgresIndividualSnapshot,createIndividualGateway,reauthorizeIndividual,type IndividualGateway} from '../../../packages/reporting/src/index.ts';
+import type {ExportActor} from '../../../packages/individual-exports/src/index.ts';
+
+const databaseUrl=process.env.WP020_TEST_DATABASE_URL;
+if(databaseUrl&&process.env.WP020_TEST_DB_ALLOWED!=='true')throw new Error('WP-020 live tests require WP020_TEST_DB_ALLOWED=true for destructive dedicated-database setup');
+const live=databaseUrl!==undefined&&process.env.WP020_TEST_DB_ALLOWED==='true';
+const migration=(name:string)=>readFile(new URL(`../../../packages/db/migrations/${name}`,import.meta.url),'utf8');
+const role=`seniorsocial_wp020_${process.pid}`;
+const password='synthetic-wp020-only';
+const orgA=randomUUID(),orgB=randomUUID(),residentA=randomUUID(),residentB=randomUUID();
+const actorA:ExportActor={orgId:orgA,userId:residentA,roles:['senior']};
+const actorB:ExportActor={orgId:orgB,userId:residentB,roles:['senior']};
+const v1=Buffer.alloc(32,1).toString('base64'),v2=Buffer.alloc(32,2).toString('base64');
+let owner:DatabaseClient,runtime:DatabaseClient;
+
+function gateway(keyring=`current=v1;v1=${v1}`):IndividualGateway{const authority=new PostgresIndividualAuthority(runtime);return createIndividualGateway({client:runtime,authority,snapshots:new PostgresIndividualSnapshot(runtime),keys:new EnvironmentExportKeys(keyring),reauthorize:reauthorizeIndividual});}
+
+describe.skipIf(!live)('WP-020 live PostgreSQL individual exports',()=>{
+  beforeAll(async()=>{owner=createDatabaseClient(databaseUrl);await owner.unsafe('DROP SCHEMA public CASCADE; CREATE SCHEMA public');await owner.unsafe(await migration('0001_wp-003_core_tables.sql'));await owner.unsafe(await migration('0030_wp-006_audit_flags.sql'));await owner.unsafe(await migration('0031_wp-006_audit_fields.sql'));const up=await migration('0140_wp-020_reporting.sql'),down=await migration('0140_wp-020_reporting.down.sql');await owner.unsafe(up);await owner.unsafe(down);expect((await owner<Array<{table_name:string|null}>>`select to_regclass('public.individual_report_exports')::text table_name`)[0]?.table_name).toBeNull();await owner.unsafe(up);await owner`insert into orgs(id,name,slug) values(${orgA},'Synthetic A',${`wp020-a-${process.pid}`}),(${orgB},'Synthetic B',${`wp020-b-${process.pid}`})`;await owner`insert into users(id,org_id,display_name) values(${residentA},${orgA},'Resident Secret Sentinel'),(${residentB},${orgB},'Other Resident')`;await owner`insert into user_roles(org_id,user_id,role) values(${orgA},${residentA},'senior'),(${orgB},${residentB},'senior')`;await owner`insert into profiles(org_id,user_id,preferred_name) values(${orgA},${residentA},'Synthetic A'),(${orgB},${residentB},'Synthetic B')`;await owner.unsafe(`drop role if exists ${role}`);await owner.unsafe(`create role ${role} login password '${password}' in role seniorsocial_app`);const url=new URL(databaseUrl!);url.username=role;url.password=password;runtime=createDatabaseClient(url.toString());},60_000);
+
+  afterAll(async()=>{if(runtime)await runtime.end();if(owner){await owner.unsafe('DROP SCHEMA public CASCADE; CREATE SCHEMA public');await owner.unsafe(`drop role if exists ${role}`);await owner.end();}},30_000);
+
+  it('runs under a constrained role and conceals cross-tenant jobs through forced RLS',async()=>{const roleState=(await runtime<Array<{rolsuper:boolean;rolbypassrls:boolean}>>`select rolsuper,rolbypassrls from pg_roles where rolname=current_user`)[0];expect(roleState).toEqual({rolsuper:false,rolbypassrls:false});const created=await gateway().create(actorA,{scope:['profile'],format:'json'},'rls-a');const hidden=await gateway().get(actorB,created.id);expect(hidden).toBeNull();const sql=await runtime.reserve();try{await sql`begin`;await sql`select set_config('app.current_org_id',${orgB},true)`;expect(await sql`select id from individual_report_exports where id=${created.id}`).toHaveLength(0);await sql`commit`;}finally{sql.release();}});
+
+  it('converges concurrent identical requests on one durable job',async()=>{const service=gateway();const results=await Promise.all([service.create(actorA,{scope:['profile'],format:'json'},'same-live-key'),service.create(actorA,{scope:['profile'],format:'json'},'same-live-key')]);expect(new Set(results.map(result=>result.id)).size).toBe(1);const converged=await service.get(actorA,results[0].id);expect(converged?.state).toBe('ready');expect(await owner`select id from individual_report_exports where org_id=${orgA} and mutation_key='same-live-key'`).toHaveLength(1);});
+
+  it('survives a service restart and decrypts a retained v1 artifact after v2 rotation',async()=>{const created=await gateway(`current=v1;v1=${v1}`).create(actorA,{scope:['profile'],format:'json'},'restart-key');const restarted=gateway(`current=v2;v1=${v1};v2=${v2}`);const artifact=await restarted.download(actorA,created.id,'application/json');expect(artifact?.contentType).toBe('application/json');if(!artifact)throw new Error('artifact unavailable after restart');expect(new TextDecoder().decode(artifact.bytes)).toContain('Synthetic A');});
+
+  it('releases zero bytes and writes no release audit after integrity failure',async()=>{const service=gateway(),created=await service.create(actorA,{scope:['profile'],format:'json'},'integrity-key');await owner`update individual_report_exports set ciphertext=set_byte(ciphertext,0,get_byte(ciphertext,0)#1) where id=${created.id}`;await expect(service.download(actorA,created.id,'application/json')).rejects.toMatchObject({code:'artifact_integrity'});expect(await owner`select id from audit_events where action='export.downloaded' and target=${`individual_export:${created.id}`}`).toHaveLength(0);});
+
+  it('rolls back ready state and ciphertext when atomic audit persistence fails',async()=>{await owner.unsafe("create function wp020_reject_export_audit() returns trigger language plpgsql as $$ begin if new.action='export.created' then raise exception 'synthetic audit failure'; end if; return new; end $$; create trigger wp020_reject_export_audit before insert on audit_events for each row execute function wp020_reject_export_audit()");const service=gateway();await expect(service.create(actorA,{scope:['profile'],format:'json'},'rollback-key')).rejects.toThrow('synthetic audit failure');await owner.unsafe('drop trigger wp020_reject_export_audit on audit_events; drop function wp020_reject_export_audit()');const job=(await owner<Array<{state:string;ciphertext:Uint8Array|null}>>`select state,ciphertext from individual_report_exports where org_id=${orgA} and mutation_key='rollback-key'`)[0];expect(job).toEqual({state:'failed',ciphertext:null});});
+
+  it('keeps audit metadata free of resident values and denies release after role revocation',async()=>{const service=gateway(),created=await service.create(actorA,{scope:['profile'],format:'json'},'revoke-key');const audits=await owner<Array<{reason:string|null;fields:string[]}>>`select reason,fields from audit_events where target=${`individual_export:${created.id}`}`;expect(audits).toEqual([{reason:'scope=individual;format=json;section_count=1',fields:['scope','format','section_count']}]);expect(JSON.stringify(audits)).not.toContain('Resident Secret Sentinel');await owner`delete from user_roles where org_id=${orgA} and user_id=${residentA} and role='senior'`;const artifact=await service.download(actorA,created.id,'application/json');expect(artifact).toBeNull();expect(await owner`select id from audit_events where action='export.downloaded' and target=${`individual_export:${created.id}`}`).toHaveLength(0);});
+});

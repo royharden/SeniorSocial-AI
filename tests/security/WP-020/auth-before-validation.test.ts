@@ -1,0 +1,14 @@
+import {describe,expect,it,vi} from 'vitest';
+import {createExportHandler} from '../../../apps/web/app/api/v1/admin/exports/route.ts';
+import {ReportingForbidden,type ReportingActor} from '../../../packages/reporting/src/index.ts';
+
+const actor:ReportingActor={id:'11111111-1111-4111-8111-111111111111',orgId:'22222222-2222-4222-8222-222222222222',roles:['admin','senior']};
+const malformed=()=>new Request('http://localhost/api/v1/admin/exports',{method:'POST',headers:{'content-type':'application/json'},body:'{'});
+
+describe('WP-020 export authentication order',()=>{
+  it('rejects an unauthenticated caller before reading or validating malformed JSON',async()=>{const request=malformed(),json=vi.spyOn(request,'json'),context=vi.fn(()=>Promise.reject(new ReportingForbidden('authenticated session required'))),aggregate=vi.fn(),individual=vi.fn();const response=await createExportHandler((()=>({createExport:aggregate})) as never,context,()=>({create:individual,get:vi.fn(),download:vi.fn()}))(request);expect(response.status).toBe(403);expect(await response.json()).toEqual({type:'about:blank',title:'Forbidden',status:403});expect(context).toHaveBeenCalledOnce();expect(json).not.toHaveBeenCalled();expect(aggregate).not.toHaveBeenCalled();expect(individual).not.toHaveBeenCalled();});
+
+  it('returns 422 for the same malformed JSON only after authentication succeeds',async()=>{const request=malformed(),json=vi.spyOn(request,'json'),context=vi.fn(()=>Promise.resolve(actor));const response=await createExportHandler((()=>{throw new Error('service must not run');}),context,(()=>{throw new Error('individual must not run');}))(request);expect(response.status).toBe(422);expect(context).toHaveBeenCalledOnce();expect(json).toHaveBeenCalledOnce();});
+
+  it.each([{body:{report_name:'channel-activity',format:'json',filters:{}},branch:'aggregate'},{body:{scope:['profile'],format:'json'},branch:'individual'}] as const)('reuses one resolved identity for the valid $branch branch',async({body,branch})=>{const context=vi.fn(()=>Promise.resolve(actor)),aggregate=vi.fn(()=>Promise.resolve({ok:true})),individual=vi.fn(()=>Promise.resolve({id:'33333333-3333-4333-8333-333333333333',state:'ready' as const,scope:['profile'] as const,completeness_note:'complete',download_url:'/download',expires_at:'2026-09-12T00:00:00.000Z'}));const handler=createExportHandler((()=>({createExport:aggregate})) as never,context,()=>({create:individual,get:vi.fn(),download:vi.fn()}));const response=await handler(new Request('http://localhost/api/v1/admin/exports',{method:'POST',headers:{'content-type':'application/json','idempotency-key':'auth-order'},body:JSON.stringify(body)}));expect(response.status).toBe(202);expect(context).toHaveBeenCalledOnce();expect(branch==='aggregate'?aggregate:individual).toHaveBeenCalledOnce();expect(branch==='aggregate'?individual:aggregate).not.toHaveBeenCalled();});
+});

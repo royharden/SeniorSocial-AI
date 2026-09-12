@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "seed/**/*.ts", "tests/**/*.ts", "drizzle.config.ts"]
+}

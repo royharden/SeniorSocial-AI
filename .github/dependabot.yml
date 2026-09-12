@@ -1,0 +1,67 @@
+# Dependabot (WP-001; 10-security.md line 235, SEC-050).
+#
+# Two things this file is NOT:
+#
+#   * It is not an auto-merge policy. Every bump opens a pull request that runs
+#     the full `pnpm verify`, and a human merges it. A supply-chain control that
+#     merges itself is a supply-chain attack surface.
+#   * It is not a substitute for `verify:audit`. Dependabot tells you a fix
+#     exists; the audit stage tells you the tree you are about to merge is clean.
+#
+# SEC-053: the `github-actions` ecosystem below is what keeps SHA-pinned actions
+# from silently rotting. Dependabot rewrites the SHA and updates the trailing
+# version comment, so the pin stays a pin and still gets patched.
+
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+      - security
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    commit-message:
+      prefix: "deps"
+    labels:
+      - dependencies
+    groups:
+      # One PR per concern rather than ten PRs a week, each still gated by verify.
+      dev-tooling:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "typescript*"
+          - "vitest"
+          - "turbo"
+          - "tsx"
+        update-types:
+          - minor
+          - patch
+      types:
+        patterns:
+          - "@types/*"
+    ignore:
+      # Framework and runtime majors are a WP-001 pin decision, not a weekly bump:
+      # 03-parallel-build-architecture.md s1 fixes Next 16 / React 19 so no two
+      # builders build against different majors. A major moves by decision.
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      # @playwright/test's version must equal the Compose image tag exactly
+      # (compose-plan.md s1). Bumping it alone breaks that pairing silently.
+      - dependency-name: "@playwright/test"

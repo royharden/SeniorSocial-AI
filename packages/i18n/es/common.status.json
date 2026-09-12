@@ -1,0 +1,20 @@
+{
+  "common.confirm": {
+    "status": "draft",
+    "source_version": "sha256:20fddb046c93920e0b143a18e8fc51f5a84c5791058a02fefc463116c3541bd3",
+    "critical": false,
+    "machine_generated": true
+  },
+  "common.go_back": {
+    "status": "draft",
+    "source_version": "sha256:20fddb046c93920e0b143a18e8fc51f5a84c5791058a02fefc463116c3541bd3",
+    "critical": false,
+    "machine_generated": true
+  },
+  "common.translation_draft": {
+    "status": "draft",
+    "source_version": "sha256:20fddb046c93920e0b143a18e8fc51f5a84c5791058a02fefc463116c3541bd3",
+    "critical": false,
+    "machine_generated": true
+  }
+}

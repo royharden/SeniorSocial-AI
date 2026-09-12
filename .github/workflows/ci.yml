@@ -1,0 +1,119 @@
+# SeniorSocial CI (WP-001).
+#
+# SEC-053: every action is pinned to a COMMIT SHA, with the human-readable tag in
+# a trailing comment. A tag is a moving pointer that the action's owner can
+# repoint; a SHA is the code that was reviewed. SHAs resolved 2026-09-10 from the
+# GitHub API. Bumping one is a deliberate edit, never a Dependabot auto-merge.
+#
+# SEC-050: install is `--frozen-lockfile`, always.
+#
+# This workflow runs exactly the same `pnpm verify` a builder runs. It does not
+# re-list the stages: a second copy of the gate composition is a second truth,
+# and the one in package.json is the one the composition test asserts.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Deterministic and free: no lane may reach a real provider from CI.
+  AI_PROVIDER: stub
+  SMS_PROVIDER: simulator
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/seniorsocial_wp003_test
+  DATABASE_SSL: disable
+  AUTH_TEST_CLUSTER_URL: postgres://postgres:postgres@localhost:5432/postgres
+  # No voice key: voice is cut at rank 1 for this run (ADR-009), so there is no
+  # adapter to disable. Do not add one back without a docket that un-cuts voice.
+  NEXT_TELEMETRY_DISABLED: '1'
+  DO_NOT_TRACK: '1'
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
+jobs:
+  verify:
+    name: pnpm verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: seniorsocial_wp003_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d seniorsocial_wp003_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # verify:lint / verify:typecheck filter with `...[HEAD^]`, and
+          # verify:lockfile diffs against a base. A shallow clone has neither.
+          fetch-depth: 0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: package.json
+          cache: pnpm
+
+      - name: Install
+        # SEC-050 frozen lockfile + SEC-051 no dependency lifecycle scripts.
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Leak terms
+        # C10: the scanner exits 1 when LEAK_TERMS_FILE is unset, missing or
+        # empty, and that is correct behaviour, not a CI problem to work around.
+        # The list names the customer, so it is a repository secret, never a file
+        # in this tree. If the secret is absent the gate goes red and stays red.
+        env:
+          LEAK_TERMS: ${{ secrets.LEAK_TERMS }}
+        run: |
+          if [ -z "${LEAK_TERMS}" ]; then
+            echo "::error::LEAK_TERMS secret is not set. The leak scan cannot pass without a term list, and it must never pass for lack of one."
+            exit 1
+          fi
+          printf '%s\n' "${LEAK_TERMS}" > "${RUNNER_TEMP}/leak-terms.txt"
+          echo "LEAK_TERMS_FILE=${RUNNER_TEMP}/leak-terms.txt" >> "${GITHUB_ENV}"
+
+      - name: Verify
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: pnpm verify
+
+  image:
+    name: Build runtime image
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: verify
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build
+        # Proves the artifact that ships still builds, on the same Dockerfile the
+        # Compose stack and the deploy target use. Not pushed from CI: the
+        # integrator is the only session that publishes anything.
+        run: docker build --target runtime --file infra/docker/Dockerfile --tag seniorsocial:ci .

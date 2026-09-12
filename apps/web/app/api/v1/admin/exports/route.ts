@@ -1,0 +1,7 @@
+import {validateInput} from '../../../../../../../packages/contracts/src/index.ts';
+import {ReportingInvalid} from '../../../../../../../packages/reporting/src/index.ts';
+import {reportingError,reportingRuntime} from '../reports/_runtime';
+import {exportActor,exportContext,individualProblem,individualRuntime} from './_individual';
+export const dynamic='force-dynamic';export const runtime='nodejs';
+export function createExportHandler(service=reportingRuntime,context=exportContext,individual=individualRuntime){return async(request:Request)=>{try{const actor=await context(request);if(!request.headers.get('content-type')?.toLowerCase().startsWith('application/json'))throw new ReportingInvalid('content type');let raw:unknown;try{raw=await request.json();}catch{throw new ReportingInvalid('valid JSON required');}const aggregate=validateInput('AggregateExportRequest',raw);if(aggregate.success){const result=await service().createExport(actor,aggregate.data,request.headers.get('idempotency-key')??'');return Response.json(result,{status:202,headers:{'cache-control':'no-store'}});}const individualRequest=validateInput('ExportRequest',raw);if(individualRequest.success){const result=await individual().create(exportActor(actor),individualRequest.data,request.headers.get('idempotency-key')??'');return Response.json(result,{status:202,headers:{'cache-control':'no-store'}});}throw new ReportingInvalid('invalid export request');}catch(error){return individualProblem(error)??reportingError(error);}};}
+export const POST=createExportHandler();

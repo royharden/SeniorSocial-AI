@@ -1,0 +1,101 @@
+{
+  "package": "WP-001",
+  "layer": "security",
+  "generated_by": "0149_Claude_Sonnet5_Sub_Build_TestAuthor_WP-001",
+  "files": [
+    {
+      "path": "tests/security/WP-001/sec-050-frozen-lockfile-and-audit.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-050"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "An install without a frozen lockfile could resolve a different dependency tree than the one reviewed, and an unaudited high-severity advisory could ship silently — CI's --frozen-lockfile flag and the verify:audit high-severity gate would both be unproven."
+    },
+    {
+      "path": "tests/security/WP-001/sec-051-postinstall-allowlist.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-051"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A transitive dependency's postinstall script could run arbitrary code on every install (dev machine and CI runner alike) with no allowlist catching it."
+    },
+    {
+      "path": "tests/security/WP-001/sec-051-build-script-frozen-install.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-051-DISPOSITION", "SEC-051-FROZEN-NOOP"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A dependency with an install script that is neither allow-listed nor explicitly ignored fails a fresh frozen install in CI and in the merge gauntlet, or worse, silently runs a script nobody reviewed — this is the exact class the original sec-051-postinstall-allowlist.test.ts missed, because it only asserted the allowlist's shape and never drove pnpm's own build-script gate against a truly fresh node_modules the way CI does."
+    },
+    {
+      "path": "tests/security/WP-001/sec-052-image-pins-and-nonroot.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-052"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A floating base image tag could silently change the base under a passing build, and a container running as root would turn a container escape into host access, with nothing catching either."
+    },
+    {
+      "path": "tests/security/WP-001/sec-053-actions-pinned-shas.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-053"],
+      "story_ids": ["rfp:S-5"],
+      "what_breaks_if_deleted": "An unpinned GitHub Action (tag/branch ref instead of a commit SHA) is a supply-chain write to CI that nothing would catch."
+    },
+    {
+      "path": "tests/security/WP-001/sec-054-leak-scan-wired-fail-closed.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-054"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A leak scan that exists but is not wired into pnpm verify is a script nobody runs; without this test a planted or non-ASCII term, token-boundary regression, unset/invalid/zero-term list, empty explicit scope, unreadable target, or traversal of excluded/reparse-point output could escape the scanner contract."
+    },
+    {
+      "path": "tests/security/WP-001/sec-065-leak-scan-default-surface.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-076", "SEC-077"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A leak scan wired to a subset of the public surface passes while a customer term sits in a root config file or a workflow that ships to the public repo (review-WP-001-2.md finding b, attempt-3 R-3 remediation)."
+    },
+    {
+      "path": "tests/security/WP-001/sec-059-tls-database-hsts.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-059"],
+      "story_ids": ["rfp:T-9"],
+      "what_breaks_if_deleted": "TLS could go unenforced on the database hop, or HSTS could be absent from the base headers config, while the encryption claim in the bid stayed unchallenged."
+    },
+    {
+      "path": "tests/security/WP-001/sec-064-demo-sms-voice-disabled.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-064"],
+      "story_ids": ["rfp:AI-8"],
+      "what_breaks_if_deleted": "Real SMS/voice could be left enabled by configuration in the demo environment, sending a synthetic reminder to a real phone number the first time a reviewer clicks a demo journey."
+    },
+    {
+      "path": "tests/security/WP-001/sec-078-pgboss-runtime-privileges.test.ts",
+      "layer": "security",
+      "package": "WP-001",
+      "check_ids": ["SEC-078"],
+      "story_ids": ["rfp:T-3", "rfp:T-15"],
+      "what_breaks_if_deleted": "The long-lived worker could regain database-wide schema creation or pg-boss could expose ambient function access instead of relying on owner-provisioned, object-scoped rights."
+    }
+  ],
+  "checks": [
+    { "check_id": "SEC-050", "test_id": "sec-050-frozen-lockfile-and-audit", "layer": "security", "status": "passing", "notes": "5/5 assertions pass. R-3 (ADR-012, DK-011, supersedes ADR-007/DK-005): the verify:audit assertion now asserts exactly \"pnpm audit --audit-level high\" (10-security.md wording) instead of the superseded \"npm audit --audit-level=high\" (04-tests-and-evals.md s4.2 sketch) — independently re-run, npm audit --audit-level=high exits 1 with ENOLOCK on this pnpm-only workspace (no package-lock.json); the builder's package.json already matched ADR-012 (\"verify:audit\": \"pnpm audit --audit-level high\"), unchanged by this docket." },
+    { "check_id": "SEC-051", "test_id": "sec-051-postinstall-allowlist", "layer": "security", "status": "passing", "notes": "test-4 (R-4, ADR-016, docs\\decisions\\ADR-016-sec-051-control-is-allowbuilds.md): re-pointed at pnpm-workspace.yaml's allowBuilds map (the register pnpm >= 11 actually enforces) instead of onlyBuiltDependencies; onlyBuiltDependencies/ignoredBuiltDependencies are treated as non-authoritative mirrors only, never as proof of disposition even when empty. 2/2 assertions pass against the builder's committed allowBuilds: {esbuild: false} plus the unchanged dangerouslyAllowAllBuilds check." },
+    { "check_id": "SEC-051-DISPOSITION", "test_id": "sec-051-build-script-frozen-install", "layer": "security", "status": "passing", "notes": "test-4 (R-4, ADR-016): re-pointed at allowBuilds — every installed package with a lifecycle script must be an explicit true/false key in allowBuilds (SOURCE B), not merely present in onlyBuiltDependencies/ignoredBuiltDependencies. Added a third assertion: no allowBuilds:true entry may lack a one-line trailing justification comment, which specifically catches the empty-onlyBuiltDependencies-plus-allowBuilds:{X:true} bypass ADR-016 names. pendingBuilds check (SOURCE C) unchanged. 3/3 assertions pass on this worktree's actual node_modules against the builder's committed allowBuilds: {esbuild: false}." },
+    { "check_id": "SEC-051-FROZEN-NOOP", "test_id": "sec-051-build-script-frozen-install", "layer": "security", "status": "passing", "notes": "test-4 (R-5): unchanged assertion, given an explicit 150_000ms it() timeout already in place (kept as-is per dispatch). 1/1 assertion passes: pnpm install --offline --frozen-lockfile in an isolated scratch copy exits 0 and leaves package.json/pnpm-lock.yaml/pnpm-workspace.yaml/.npmrc byte-identical (observed 12.8s, well inside the 150s timeout)." },
+    { "check_id": "SEC-052", "test_id": "sec-052-image-pins-and-nonroot", "layer": "security", "status": "passing" },
+    { "check_id": "SEC-053", "test_id": "sec-053-actions-pinned-shas", "layer": "security", "status": "passing", "notes": "CI-pinning half only; providers.yml half forwarded to WP-008/WP-019, not asserted here" },
+    { "check_id": "SEC-054", "test_id": "sec-054-leak-scan-wired-fail-closed", "layer": "security", "status": "passing", "notes": "Exercises the wired scanner and fail-closed boundaries with 60-second process ceilings: planted-term failure identifies the exact file/line/term; UTF-8 non-ASCII and standalone multi-word names match; alphanumeric substrings do not; clean input passes; unset, missing and zero-term lists fail; zero-file and unreadable-target scans fail; excluded node_modules and directory-junction targets remain outside the scan surface." },
+    { "check_id": "SEC-059", "test_id": "sec-059-tls-database-hsts", "layer": "security", "status": "passing", "notes": "config-level assertions only (DATABASE_URL TLS template presence, HSTS in a base headers config); both now found in the worktree and passing, ahead of this test-author's own expectation that they would be failing-expected until WP-033/WP-042" },
+    { "check_id": "SEC-064", "test_id": "sec-064-demo-sms-voice-disabled", "layer": "security", "status": "passing" },
+    { "check_id": "SEC-076", "test_id": "sec-065-leak-scan-default-surface", "layer": "security", "status": "passing", "notes": "attempt-3 R-3 regression, RENUMBERED from SEC-065 at attempt 5 dispatch 8 (CK-141 found it collides with story-test-map.csv's SEC-065, assigned to WP-003): copies scripts/verify-stage.mjs + scripts/leak-scan.ps1 into an outside-tree scratch repo (os.tmpdir()) and invokes them with the exact argv scripts[\"verify:leak\"] names; plants the SEC-054 synthetic term (zzyzxglarnok) in a scratch root package.json and in a scratch .github/workflows/ci.yml and asserts a nonzero exit for each, plus a clean-scratch exit-0 control. Observed at freeze time: scripts[\"verify:leak\"] passes \"-Paths apps,packages,infra,README.md,package.json,pnpm-workspace.yaml,tsconfig.base.json,turbo.json,.npmrc,.editorconfig,.dockerignore,eslint.config.mjs,.github\" explicitly -> the scratch package.json and .github/workflows/ci.yml plants are both reached -> 3/3 pass." },
+    { "check_id": "SEC-077", "test_id": "sec-065-leak-scan-default-surface", "layer": "security", "status": "passing", "notes": "attempt-3 R-3 regression, RENUMBERED from SEC-066 at attempt 5 dispatch 8 (CK-141 found it collides with story-test-map.csv's SEC-066, assigned to WP-009): structural — fails if scripts[\"verify:leak\"] carries an explicit -Paths/--paths override that does not also name root config or .github, since leak-scan.ps1 treats any bound -Paths as a scoped override and drops its default root-config/.github additions. Observed at freeze time: the wired -Paths value explicitly names package.json, README.md, .github, etc. -> 1/1 passes." },
+    { "check_id": "SEC-078", "test_id": "sec-078-pgboss-runtime-privileges", "layer": "security", "status": "passing", "notes": "Owner-provisioned pg-boss v37 revokes PUBLIC and grants the constrained runtime role only schema usage plus table/sequence/function object rights; no database-wide CREATE or elevated role attributes are introduced. Static assertions pass 2/2 and the guarded dedicated-database integration passes migrate:false startup, drift detection, durable queue completion, CREATE SCHEMA denial and down/up repetition." }
+  ]
+}

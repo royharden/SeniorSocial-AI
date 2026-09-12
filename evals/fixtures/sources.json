@@ -1,0 +1,10 @@
+{
+  "default_case_ids": ["EV-wp008-kill-01", "EV-wp008-cache-01", "EV-wp008-egress-01", "EV-wp011-stub-01", "EV-wp021-workflow-01", "EV-wp021-fidelity-01", "EV-wp023-hybrid-01"],
+  "adapters": [
+    { "adapter_id": "adapter-wp008-zero-spend-v1", "source": "evals/WP-008/zero-spend.yaml", "source_sha256": "9cd937076d2497ee5575ed49cb22c5753f2feece3b9a5330d12126fac33619ed", "kind": "legacy-adapted", "execution": "wp008-zero-spend", "fixture_case_ids": ["EV-wp008-kill-01", "EV-wp008-cache-01", "EV-wp008-egress-01"] },
+    { "adapter_id": "adapter-wp011-concierge-v1", "source": "evals/WP-011/concierge-core.yaml", "source_sha256": "2b8c51269c1275c82fc86c2ec659b7ee06ff9096b0e97748b636bbef5632b229", "kind": "legacy-adapted", "fixture_case_ids": ["EV-wp011-stub-01"] },
+    { "adapter_id": "adapter-wp021-translation-v1", "source": "evals/WP-021/translation-assist.eval.test.ts", "source_sha256": "355c59ac9f6abab18bc104e5752a6172fa072b0a2a265852479a6b3e778e067d", "kind": "executable-adapted", "execution": "wp021-translation", "fixture_case_ids": ["EV-wp021-workflow-01", "EV-wp021-fidelity-01"] },
+    { "adapter_id": "adapter-wp021-seed-binding-v1", "source": "evals/WP-021/translation-assist.yaml", "source_sha256": "c91808e0eec7e1bf4923036538655e2c1fbdaa0f6eab0f1b3e1e2b97dd73064d", "kind": "legacy-adapted", "binding_only": true, "fixture_case_ids": [] },
+    { "adapter_id": "adapter-wp023-hybrid-v1", "source": "evals/WP-023/hybrid-retrieval.eval.test.ts", "source_sha256": "8f4a3152f69b0b35dbede9b0689d439060ea05af5e24e0a6ee280a2b5d95f4f3", "kind": "executable-adapted", "execution": "wp023-hybrid", "fixture_case_ids": ["EV-wp023-hybrid-01"] }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "authority": "local-preparation-only",
+  "external_actions_authorized": false,
+  "artifact": {
+    "dockerfile": "infra/docker/Dockerfile",
+    "target": "release",
+    "immutable_source_format": "OCI_REPOSITORY@sha256:<64 lowercase hex characters>",
+    "required_identity": "IMAGE_DIGEST",
+    "promotion_rule": "Staging and production web and worker services must reference the same resolved IMAGE_DIGEST. A tag is never promotion evidence.",
+    "release_record_schema": 2,
+    "production_evidence_rule": "A production record must embed the passed staging record SHA-256 and exactly match its sealed candidate SHA and image digest."
+  },
+  "services": {
+    "web": {
+      "process": "web",
+      "environment": {
+        "SENIORSOCIAL_PROCESS": "web",
+        "PORT": "3000"
+      },
+      "healthcheck": {
+        "path": "/api/v1/health",
+        "port_environment_variable": "PORT",
+        "timeout_seconds": 300,
+        "activation_requirement": "Railway deployment status is SUCCESS/Active only after the configured healthcheck returns 2xx"
+      }
+    },
+    "worker": {
+      "process": "worker",
+      "environment": {
+        "SENIORSOCIAL_PROCESS": "worker",
+        "PORT": "9100",
+        "WORKER_HEALTH_PORT": "9100"
+      },
+      "healthcheck": {
+        "path": "/healthz",
+        "port_environment_variable": "PORT",
+        "timeout_seconds": 300,
+        "activation_requirement": "Railway deployment status is SUCCESS/Active only after the configured healthcheck returns 2xx"
+      }
+    },
+    "predeploy": {
+      "process": "migrate-seed",
+      "command": "node infra/railway/process-entrypoint.mjs migrate-seed",
+      "timeout_seconds": 600,
+      "environment": {
+        "SENIORSOCIAL_SEED_ALLOWED": "true"
+      },
+      "failure_rule": "A nonzero migration or seed exit stops the deployment; never retry past the first unexplained failure."
+    }
+  },
+  "database": {
+    "postgres_major": 16,
+    "image": null,
+    "image_selection_rule": "Do not select a database image until one candidate is proven to provide PostgreSQL 16, the vector extension used by migration 0170, and Railway PITR/pgBackRest support together.",
+    "required_live_probes": [
+      "select current_setting('server_version_num')::integer between 160000 and 169999",
+      "select exists(select 1 from pg_available_extensions where name = 'vector')",
+      "select extversion from pg_extension where extname = 'vector'",
+      "railway postgres pitr status reports enabled with a healthy archiver and an available restore range",
+      "first pg_dump custom-format artifact exists outside the repository and has a recorded SHA-256",
+      "pg_restore --no-owner --exit-on-error succeeds against an isolated scratch database"
+    ],
+    "evidence_order": "PITR range and first dump/isolated restore are evidenced before migrate, migrate before seed, and seed before application deployment."
+  },
+  "release_evidence": {
+    "placeholder_policy": "PENDING, placeholder, TODO, TBD, and unresolved deployment identities fail validation.",
+    "evidence_integrity": "Every gate and destructive rehearsal carries a sha256 evidence digest and UTC completion time.",
+    "one_failure_policy": "A PASSED attempt records zero unexplained failures and zero retries.",
+    "rollback_policy": "Rollback names a distinct digest plus the known-good release-record digest, proves rollback health, restores the candidate digest, and proves candidate health."
+  },
+  "required_secret_names": [
+    "DATABASE_URL",
+    "FIELD_ENCRYPTION_KEY",
+    "ASSISTANCE_ENCRYPTION_KEY",
+    "AUTH_TOKEN_PEPPER",
+    "CAREGIVER_RECIPIENT_HMAC_KEY",
+    "SENIORSOCIAL_EXPORT_KEYRING"
+  ],
+  "required_non_secret_settings": {
+    "NODE_ENV": "production",
+    "DATABASE_SSL": "require",
+    "ENABLE_HSTS": "true",
+    "SMS_PROVIDER": "simulator",
+    "AI_KILL_SWITCH_GLOBAL": "true-until-separately-approved"
+  },
+  "prohibited_committed_values": [
+    "database credentials",
+    "encryption or HMAC keys",
+    "provider API keys",
+    "Railway project or environment tokens",
+    "real resident or customer data"
+  ]
+}

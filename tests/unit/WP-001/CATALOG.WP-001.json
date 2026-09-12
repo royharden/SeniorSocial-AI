@@ -1,0 +1,125 @@
+{
+  "package": "WP-001",
+  "layer": "unit",
+  "generated_by": "0149_Claude_Sonnet5_Sub_Build_TestAuthor_WP-001",
+  "files": [
+    {
+      "path": "tests/unit/WP-001/verify-composition.test.ts",
+      "layer": "unit",
+      "package": "WP-001",
+      "check_ids": ["CK-097"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A stage silently dropped from the root package.json `verify` chain (or demoted to a no-op) would go undetected: every later package would pass a gauntlet that no longer runs that stage, reproducing the EMR-SO `run_eval_gate.sh` failure mode that 04-tests-and-evals.md s4.2 names explicitly as the reason this file exists."
+    },
+    {
+      "path": "tests/unit/WP-001/verify-gate-selection.test.ts",
+      "layer": "unit",
+      "package": "WP-001",
+      "check_ids": ["CK-136", "CK-137"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A merge gate that selects zero tasks on the candidate it is gating reports green after running nothing, so every later package merges past checks that never executed (review-WP-001-2.md finding b, attempt-3 R-2 remediation)."
+    },
+    {
+      "path": "tests/unit/WP-001/lint-config-untyped-scripts.test.ts",
+      "layer": "unit",
+      "package": "WP-001",
+      "check_ids": ["CK-132", "CK-133", "CK-134", "CK-135", "CK-140"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A root lint config that applies type-aware rules to untyped Node scripts fails the first package that ships one, and a config that fixes it by loosening typed rules silently drops the gate for product code (attempt-4 post-merge maintenance regression, planning/handoffs/WP-001.attempt-4.lease-request.0146.json; corrected and extended at attempt 5 dispatch 8 per review-WP-001-4.md remediations 2 and 3, plus this dispatch's own item 7 root-cause fix for the sec-051 lockfile mutation)."
+    },
+    {
+      "path": "tests/unit/WP-001/turbo-config-inputs.test.ts",
+      "layer": "unit",
+      "package": "WP-001",
+      "check_ids": ["CK-138", "CK-139"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A gate task whose cache key ignores the root config replays a green result for a config change that could have broken every package, which is a merge gate reporting success for work it did not do (attempt-5 maintenance regression, planning/handoffs/WP-001.attempt-5.lease-request.0146.json; CK-138 restated and CK-139 added at dispatch 8 per review-WP-001-4.md remediation 1)."
+    },
+    {
+      "path": "tests/unit/WP-001/check-id-uniqueness.test.ts",
+      "layer": "unit",
+      "package": "WP-001",
+      "check_ids": ["CK-141"],
+      "story_ids": ["rfp:T-15"],
+      "what_breaks_if_deleted": "A merged package's check_ids that collide with a different package's ids (in the shared story-test-map.csv or another package's own catalog) make the global catalog ambiguous -- a report against that id cannot say which test it refers to (attempt-5 dispatch-8 item 6, review-WP-001-4.md remediation 4 second half)."
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "CK-097",
+      "test_id": "verify-composition",
+      "layer": "unit",
+      "status": "passing"
+    },
+    {
+      "check_id": "CK-136",
+      "test_id": "verify-gate-selection",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "attempt-3 R-2 regression, renumbered from CK-098 at attempt 5 to resolve a cross-package collision with story-test-map.csv's CK-098 (WP-002): fails if verify:typecheck/lint/unit/integration select Turbo's package set solely via a HEAD^-relative single-parent filter. Observed at freeze time: none of the four use --filter at all (unfiltered turbo run) -> 4/4 pass. (c) behavioural probe (scratch worktree + root-config-only commit) recorded as not encodable in this dispatch's timebox; see the reason documented at the bottom of the test file."
+    },
+    {
+      "check_id": "CK-137",
+      "test_id": "verify-gate-selection",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "attempt-3 R-2 regression, renumbered from CK-099 at attempt 5 to resolve a cross-package collision with story-test-map.csv's CK-099 (WP-003): fails unless a verify:* stage runs vitest over tests/unit and is chained into the top-level verify script. Observed at freeze time: scripts[\"verify:unit\"] = \"turbo run test:unit -- --coverage && node scripts/verify-stage.mjs --name unit:root --dir tests/unit ... -- vitest run tests/unit\", and \"verify\" chains \"pnpm verify:unit\" -> 2/2 pass."
+    },
+    {
+      "check_id": "CK-132",
+      "test_id": "lint-config-untyped-scripts",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "attempt-4 post-merge maintenance regression. Expected RED against the pre-repair root eslint.config.mjs (plain-ESM override matched only root-relative scripts/**/*.mjs). PROBE LOCATION MOVED at dispatch 8 from packages/zz-lint-probe-ta149/ (a real pnpm workspace member -- root cause of the sec-051 lockfile mutation this dispatch diagnosed) to tests/fixtures/WP-001/zz-lint-probe-ta149/ (this role's own grant, not workspace-glob-matched). Observed at run time: pnpm exec eslint --max-warnings 0 tests/fixtures/WP-001/zz-lint-probe-ta149/scripts/probe.mjs exits 0, and the lane's pnpm-lock.yaml is byte-identical before/after. 1/1 pass."
+    },
+    {
+      "check_id": "CK-133",
+      "test_id": "lint-config-untyped-scripts",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "attempt-4 post-merge maintenance regression, strictness-kept negative. EXTENDED at dispatch 8 (review-WP-001-4.md remediation 3) from .ts only to all four typed extensions the config's own files[] pattern names: .ts, .tsx, .mts, .cts, each its own fixture file (bad-ts.ts, bad-tsx.tsx, bad-mts.mts, bad-cts.cts -- distinct basenames per extension; a shared \"bad.<ext>\" basename across .ts/.tsx triggered a real typescript-eslint project-service declaration-output collision, diagnosed and fixed this dispatch). Expected GREEN both before and after the repair (typed rules were never the defect) -- stated plainly, no red manufactured. Observed: all four fixtures report @typescript-eslint/no-floating-promises with a non-zero exit. 4/4 pass."
+    },
+    {
+      "check_id": "CK-134",
+      "test_id": "lint-config-untyped-scripts",
+      "layer": "unit",
+      "status": "failing",
+      "notes": "attempt-4 post-merge maintenance regression, REWRITTEN at dispatch 8 (review-WP-001-4.md remediation 2) to assert GATE WIRING, not a manual eslint invocation's exit code. The prior version ran eslint directly and called that \"the root scripts folder is gated\" -- but root package.json's actual verify:lint (\"turbo run lint -- --max-warnings 0\") only runs each WORKSPACE PACKAGE's own lint script; root scripts/ and eslint.config.mjs sit outside every package, so nothing in the real merge gate reaches them. Now: (1) parses every verify:* (and verify) script for a clause that invokes eslint against \"scripts\" and \"eslint.config.mjs\" with --max-warnings 0; (2) requires that stage be (or be chained into) the top-level verify script; (3) runs the found clause for real and asserts exit 0. Expected and observed RED at freeze time: no verify:* script contains such a clause at all -- 0/3 pass. Stays red until the builder wires it."
+    },
+    {
+      "check_id": "CK-135",
+      "test_id": "lint-config-untyped-scripts",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "attempt-4 post-merge maintenance regression, structural. EXTENDED at dispatch 8 (review-WP-001-4.md remediation 3) to confirm the type-aware sentinel rule is off for EXACTLY js/mjs/cjs and still an error for ALL FOUR typed extensions (ts, tsx, mts, cts), not just ts. Expected RED before the repair landed; expected and observed GREEN now against the live (already-repaired) eslint.config.mjs -- both assertions pass (dynamic import of the resolved config array + ESLint#calculateConfigForFile across all 7 extensions, plus the non-root-relative nested-reach check). 2/2 pass."
+    },
+    {
+      "check_id": "CK-140",
+      "test_id": "lint-config-untyped-scripts",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "NEW at dispatch 8 (review-WP-001-4.md remediation 5): base-red / candidate-green evidence measured against the ORIGINAL merged config at commit 02cca56b13c9f22bf1c12e51ce9bd2d1a97bf193, read read-only via `git show <sha>:SeniorSocial-AI-Bts/eslint.config.mjs` into a scratch file outside the repository (os.tmpdir()) -- never checked out in the lane. The historical file's two bare-specifier imports are rewritten to absolute file:// URLs (resolved via import.meta.resolve against this lane's own install) so the scratch copy can execute without a nearby node_modules. Observed this dispatch: the historical config fails linting a nested-location .mjs script with '@typescript-eslint/await-thenable ... requires type information' (exit 2); the lane's CURRENT eslint.config.mjs, run against the identical nested target, exits 0. Lane HEAD confirmed unchanged (branch still lane/WP-001) throughout. 2/2 pass."
+    },
+    {
+      "check_id": "CK-138",
+      "test_id": "turbo-config-inputs",
+      "layer": "unit",
+      "status": "failing",
+      "notes": "attempt-5 maintenance regression, RESTATED at dispatch 8 (review-WP-001-4.md remediation 1) as a single property -- 'the lint task's cache key must depend on eslint.config.mjs' -- accepting EITHER a globalDependencies entry OR a lint-task-level inputs entry. The prior version additionally demanded a task-level inputs duplicate for typecheck/tsconfig.base.json even though O1 confirmed turbo.json's globalDependencies already covers tsconfig.base.json; that demand is dropped (a non-blocking, currently-green context assertion for tsconfig.base.json's existing coverage is kept, accepting the same either-mechanism rule). Expected and observed RED at freeze time: turbo.json's \"lint\" task names eslint.config.mjs in neither its own inputs nor globalDependencies. 1/1 restated assertion fails as expected; the sanity and context assertions in this same file pass."
+    },
+    {
+      "check_id": "CK-139",
+      "test_id": "turbo-config-inputs",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "NEW at dispatch 8 (review-WP-001-4.md remediation 1): the behavioural cache-invalidation probe dispatch 7 recorded as not encodable IS encodable via turbo's --cwd flag -- a minimal (~5 file) scratch workspace built directly under os.tmpdir() needs no node_modules of its own; the turbo BINARY still resolves from this lane's own install (node_modules/.bin/turbo.CMD). Measured this dispatch: baseline hash e7b2dbf7931de6f6 -> after editing the scratch root config (named in its turbo.json globalDependencies) 5298516adab5a367 -> after restoring the scratch file, back to e7b2dbf7931de6f6. Deliberately does NOT assert that some unrelated task's hash stays unchanged (false against a correct globalDependencies-based repair, by construction). A second assertion diffs this lane's own `git status --porcelain` before vs after the probe (snapshot-based, not a hardcoded expected list) and confirms nothing new appears. 2/2 pass."
+    },
+    {
+      "check_id": "CK-141",
+      "test_id": "check-id-uniqueness",
+      "layer": "unit",
+      "status": "passing",
+      "notes": "NEW at dispatch 8, item 6 (review-WP-001-4.md remediation 4, second half -- the CK-098/CK-099 renumber itself was already done at dispatch 7). Scans planning/plan-phase2/story-test-map.csv plus every tests/**/CATALOG*.json and asserts no check_id is attributed to more than one owning package. scripts/project-catalogs.ts is confirmed ABSENT (asserted directly, first sub-test) -- this is source-level uniqueness only; no projection ran and none is claimed. THIS SWEEP FOUND A NEW, PREVIOUSLY UNDETECTED COLLISION this dispatch: tests/security/WP-001/CATALOG.WP-001.json's SEC-065/SEC-066 collided with story-test-map.csv's own SEC-065 (WP-003) and SEC-066 (WP-009) -- same class of defect as CK-098/CK-099, in the SEC- namespace instead of CK-. Repaired in the same dispatch: renumbered to SEC-076/SEC-077 (next free ids past the confirmed high-water mark SEC-075) in tests/security/WP-001/sec-065-leak-scan-default-surface.test.ts and its catalog entry; see that file's header for full renumbering provenance. 3/3 pass after the repair."
+    }
+  ]
+}

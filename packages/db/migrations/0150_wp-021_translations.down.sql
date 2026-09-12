@@ -1,0 +1,16 @@
+DROP VIEW IF EXISTS current_published_translations;
+DROP FUNCTION IF EXISTS wp021_revoke_translation_reviewer(uuid,uuid,uuid,text);
+DROP FUNCTION IF EXISTS wp021_grant_translation_reviewer(uuid,uuid,text,uuid,text);
+DROP FUNCTION IF EXISTS wp021_publish_translation(uuid,uuid,char(64),bigint,uuid);
+DROP FUNCTION IF EXISTS wp021_approve_translation(uuid,uuid,char(64),bigint,uuid,text);
+DROP FUNCTION IF EXISTS wp021_create_translation_draft(uuid,uuid,char(64),bigint,text,translation_draft_provenance,uuid,uuid);
+DROP FUNCTION IF EXISTS wp021_upsert_translation_source(uuid,text,text,boolean,uuid);
+DROP TABLE IF EXISTS translation_events;
+DROP TABLE IF EXISTS translation_drafts;
+DROP TABLE IF EXISTS translation_reviewer_events;
+DROP TABLE IF EXISTS translation_qualified_reviewers;
+DROP TABLE IF EXISTS translation_sources;
+DROP TYPE IF EXISTS translation_draft_provenance;
+DROP TYPE IF EXISTS translation_event_kind;
+DROP TYPE IF EXISTS translation_reviewer_event_kind;
+DROP TYPE IF EXISTS translation_review_status;

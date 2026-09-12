@@ -1,0 +1,29 @@
+{
+  "package": "WP-003",
+  "files": [
+    {
+      "path": "packages/db/tests/unit/schema-contract.test.ts",
+      "layer": "unit",
+      "package": "WP-003",
+      "check_ids": ["CK-099"],
+      "story_ids": ["rfp:T-5"],
+      "what_breaks_if_deleted": "Database identity enums and reversible migration naming can drift from the adopted contract."
+    },
+    {
+      "path": "packages/db/tests/integration/database.test.ts",
+      "layer": "integration",
+      "package": "WP-003",
+      "check_ids": ["CK-099", "SEC-011", "SEC-012", "SEC-074"],
+      "story_ids": ["rfp:T-5", "rfp:T-7"],
+      "what_breaks_if_deleted": "Fresh reversible migration, repeatable two-org seed, NOT NULL tenant keys, runtime-role restrictions and live cross-org denial lose behavioral proof."
+    },
+    {
+      "path": "tests/security/WP-003/tenant-schema.test.ts",
+      "layer": "security",
+      "package": "WP-003",
+      "check_ids": ["SEC-011", "SEC-074"],
+      "story_ids": ["rfp:T-7", "rfp:S-1"],
+      "what_breaks_if_deleted": "The root security stage no longer fails when tenant keys, forced RLS or runtime-role restrictions disappear."
+    }
+  ]
+}

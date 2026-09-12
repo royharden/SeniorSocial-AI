@@ -1,0 +1,15 @@
+description: WP-008 gateway control evals; deterministic stub only, zero network and token spend.
+provider: stub
+cases:
+  - id: kill-switch-human-route
+    feature: concierge
+    expect: { outcome: killed, humanRoute: /assistance, providerCalls: 0, aiEvents: 1 }
+    what_bug_this_catches: A disabled AI surface enqueues work or strands the resident.
+  - id: exact-cache-visible
+    feature: concierge
+    expect: { secondCacheHit: true, aiEvents: 2, externalSpendUsd: 0 }
+    what_bug_this_catches: Cache hits bypass event logging or exact-match boundaries.
+  - id: serialized-egress-canary
+    feature: concierge
+    expect: { outcome: egress_blocked, transportCalls: 0, aiEvents: 1 }
+    what_bug_this_catches: A guard scans logs or objects instead of actual outbound bytes.

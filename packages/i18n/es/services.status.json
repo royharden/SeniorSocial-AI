@@ -1,0 +1,86 @@
+{
+  "services.directory.heading": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.intro": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.search_label": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.search_placeholder": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.search_action": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.no_results": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.error": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.eligibility": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.source_updated": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.directory.help_link": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.status.draft": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.status.awaiting_review": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.status.published": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  },
+  "services.status.invalidated": {
+    "status": "draft",
+    "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+    "critical": false,
+    "machine_generated": true
+  }
+}

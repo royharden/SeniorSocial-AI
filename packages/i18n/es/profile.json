@@ -1,0 +1,20 @@
+{
+  "display_question": "¿Cómo quiere que se vea la aplicación?",
+  "regular": "Regular",
+  "regular_detail": "tamaño normal, más información en cada página",
+  "easy": "Más grande y sencillo",
+  "easy_detail": "letras más grandes, una cosa a la vez y un botón para llamar a una persona",
+  "current_choice": "Opción actual",
+  "change_anytime": "Puede cambiar esto cuando quiera.",
+  "language": "Idioma",
+  "english": "English",
+  "spanish": "Español",
+  "settings_heading": "Sus ajustes",
+  "data_heading": "Sus datos",
+  "data_export_intro": "Elija las partes de su cuenta que desea guardar en un archivo.",
+  "data_export_link": "Exportar sus datos",
+  "confirm_heading": "Confirme su opción de pantalla",
+  "you_chose": "Usted eligió",
+  "standard_confirmation": "Regular — tamaño normal, más información en cada página",
+  "easy_confirmation": "Más grande y sencillo — letras más grandes, una cosa a la vez y un botón para llamar a una persona"
+}

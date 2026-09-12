@@ -1,0 +1,5 @@
+import {describe,expect,it} from 'vitest';
+import {ReportingForbidden,ReportingInvalid,createReportingService} from '../../../packages/reporting/src/index.ts';
+const admin={id:'11111111-1111-4111-8111-111111111111',orgId:'22222222-2222-4222-8222-222222222222',roles:['admin']};
+const repository={snapshot:()=>Promise.resolve({asOf:'2026-09-11T12:00:00.000Z',facts:[],coverage:[]}),ingestSource:()=>Promise.resolve('created' as const)};
+describe('WP-020 report service boundaries',()=>{it('rejects future windows instead of presenting future zeroes as complete',async()=>{const service=createReportingService(repository as never);await expect(service.report(admin,'channel-activity',{from:'2026-09-11T00:00:00Z',to:'2026-09-12T00:00:00Z',channels:[]})).rejects.toBeInstanceOf(ReportingInvalid);});it('requires the trusted tenant admin identity for source imports',async()=>{const service=createReportingService(repository as never);await expect(service.ingestSource({...admin,roles:[]},{sourceVersion:'v1',facts:[],coverage:[]})).rejects.toBeInstanceOf(ReportingForbidden);});});

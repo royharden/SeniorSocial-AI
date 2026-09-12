@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seniorsocial.internal/schemas/audit-event.schema.json",
+  "title": "AuditEvent",
+  "description": "One row in audit_events. Append-only at the database level: the application role holds INSERT and SELECT and does not hold UPDATE or DELETE. Satisfies F-19 (audit logs for administrative activity, consent changes, caregiver access, critical workflow activity and AI-assisted decisions) and S-10 (logging sufficient to investigate access, administrative changes, caregiver permissions, AI-assisted recommendations, data exports and support interventions). Change rule: integrator only, via a ruled docket.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "actor", "action", "target", "org_id", "at", "outcome"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Row id."
+    },
+    "actor": {
+      "type": "string",
+      "description": "Who performed the action: 'user:<uuid>' for a person, 'system:<job-name>' for a background job, 'ai:<feature>' when an AI feature produced a recommendation that was acted on. Never null - an unattributable action is a defect, not an anonymous one."
+    },
+    "on_behalf_of": {
+      "type": ["string", "null"],
+      "description": "The resident the actor was acting for, as 'user:<uuid>', when a caregiver or staff member acted under consent. Null when the actor acted for themselves. This field plus 'actor' is what makes the entry actor and the decision actor separately visible (SC-01).",
+      "default": null
+    },
+    "action": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$",
+      "description": "Closed vocabulary, '<domain>.<verb>' in past tense. See 'x-actions' below for the MVP set. A new action is added through a docket, so the vocabulary cannot drift.",
+      "examples": [
+        "consent.granted",
+        "consent.revoked",
+        "caregiver.acted",
+        "ride.transitioned",
+        "assistance.owned",
+        "moderation.decided",
+        "flag.changed",
+        "export.created",
+        "user.held_for_review",
+        "translation.approved",
+        "ai.recommended"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "description": "What was acted on, as '<type>:<id>' - for example 'ride_request:<uuid>', 'consent_scope:<uuid>', 'flag:ai.concierge'. Ids only; never the content of the record."
+    },
+    "org_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Organisation scope. Every audit query filters on it; there is no cross-org audit view."
+    },
+    "at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 with timezone offset, set by the database, not by the caller."
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["allowed", "denied", "error"],
+      "description": "A denied attempt is audited exactly as an allowed one is. An audit log that records only successes cannot answer the question it exists for."
+    },
+    "reason": {
+      "type": ["string", "null"],
+      "maxLength": 500,
+      "description": "One line of why, in plain language. Required when outcome is 'denied' or 'error', and for every flag change and moderation decision. MUST NOT contain resident content, message bodies, intake answers, prompt text or model output - it names the rule, not the data.",
+      "default": null
+    },
+    "fields": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]{0,63}$"
+      },
+      "description": "Canonical field names changed by the action, sorted and deduplicated. Names only: never values or resident content.",
+      "default": []
+    },
+    "prompt_version": {
+      "type": ["string", "null"],
+      "description": "Set when an AI feature produced or informed this action, e.g. 'concierge@v3'. Resolves through prompt_versions to the exact prompt text, which is what makes an AI-assisted decision explainable at a reasonable operational level (AI-7).",
+      "default": null
+    },
+    "ai_event_id": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Link to the ai_events row when an AI call was involved. Null otherwise.",
+      "default": null
+    },
+    "request_id": {
+      "type": ["string", "null"],
+      "description": "Correlates this audit event with the HTTP request and any AI event in the same request.",
+      "default": null
+    },
+    "ip_hash": {
+      "type": ["string", "null"],
+      "description": "SHA-256 of the source IP with a per-deployment salt. The raw address is never stored: data minimisation (S-4) with enough signal to investigate (S-10).",
+      "default": null
+    }
+  },
+  "x-forbidden-content": [
+    "No message bodies, forum post text, intake answers, concierge transcripts, model outputs, phone numbers, email addresses, street addresses or names in ANY field.",
+    "No secrets, tokens, API keys or session identifiers in ANY field.",
+    "The audit log records that something happened and who did it. It is not a copy of the data. The fields array may contain schema field names only, never their values. A multi-layer scan in the security pass (WP-033) asserts this against every emitted row."
+  ],
+  "x-actions": {
+    "auth": ["auth.signed_in", "auth.signed_out", "auth.code_requested", "auth.demo_code_used"],
+    "consent": ["consent.granted", "consent.revoked", "consent.read_back_confirmed"],
+    "caregiver": ["caregiver.invited", "caregiver.accepted", "caregiver.acted", "caregiver.denied"],
+    "rides": ["ride.created", "ride.transitioned", "ride.send_failed"],
+    "assistance": ["assistance.opened", "assistance.owned", "assistance.transitioned", "assistance.sla_breached"],
+    "moderation": ["moderation.flagged", "moderation.decided"],
+    "content": ["content.updated", "service.updated", "partner.updated"],
+    "intake": ["intake.saved", "intake.routed", "intake.closed"],
+    "translation": ["translation.approved", "translation.invalidated"],
+    "notification": ["notification.preferences_changed", "notification.queued", "notification.attempted", "notification.suppressed"],
+    "admin": ["user.role_changed", "user.held_for_review", "flag.changed"],
+    "data": ["export.created", "export.downloaded"],
+    "ai": ["ai.recommended", "ai.refused", "ai.killed"]
+  },
+  "x-emit-rule": "When the domain row and audit_events share PostgreSQL, append the audit event inside the same tenant transaction so either both commit or neither does. A genuinely asynchronous or external side effect records a constrained durable audit intent in its domain transaction and drains it idempotently; it is never held only in process memory. A write path that changes consent, caregiver access, a queue state, a flag, published content, an approval, or an export and does NOT durably record its canonical audit event or intent is a reviewer finding and a blocking defect.",
+  "examples": [
+    {
+      "id": "0f2a5c6e-1b44-4d33-9a10-7c5e2d8b1f90",
+      "actor": "user:8c1d4a2b-6f30-4b7a-9e21-0d5c3a8e7b44",
+      "on_behalf_of": "user:3e9b7c15-2a48-4f61-8d02-6b1a9f4c5d77",
+      "action": "ride.transitioned",
+      "target": "ride_request:aa71c3f0-9d52-4e88-b016-2f7a4c9e1b35",
+      "org_id": "11111111-1111-4111-8111-111111111111",
+      "at": "2026-09-10T18:42:07-04:00",
+      "outcome": "allowed",
+      "reason": "consent scope book_rides granted 2026-09-09",
+      "prompt_version": null,
+      "ai_event_id": null,
+      "request_id": "req_01J9Z8",
+      "ip_hash": null
+    },
+    {
+      "id": "7d3b8e21-4c09-4a55-8f72-1e6d0b3a9c48",
+      "actor": "user:5b2e9d71-8c34-4a06-9f15-3d7c1e8b0a62",
+      "on_behalf_of": null,
+      "action": "caregiver.denied",
+      "target": "consent_scope:c40d1e77-3b58-4c92-a1e6-8f0b2d5a7c39",
+      "org_id": "11111111-1111-4111-8111-111111111111",
+      "at": "2026-09-10T19:03:55-04:00",
+      "outcome": "denied",
+      "reason": "scope view_assistance not granted",
+      "prompt_version": null,
+      "ai_event_id": null,
+      "request_id": "req_01J9ZB",
+      "ip_hash": null
+    },
+    {
+      "id": "c9147a30-5e6b-4d18-b2f4-0a83c6d1e759",
+      "actor": "ai:moderation",
+      "on_behalf_of": null,
+      "action": "moderation.flagged",
+      "target": "forum_post:6e0a2b94-7d13-4f85-9c26-4b1f8a3d0e57",
+      "org_id": "11111111-1111-4111-8111-111111111111",
+      "at": "2026-09-11T02:15:00-04:00",
+      "outcome": "allowed",
+      "reason": "flagged for human review; content not hidden",
+      "prompt_version": "moderation@v2",
+      "ai_event_id": "b81f0c47-2d95-4e36-a70b-19c4e8d5f2a1",
+      "request_id": "job_moderation_sweep_2026-09-11",
+      "ip_hash": null
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+.page { display: grid; gap: 1rem; max-width: 48rem; }
+.form { display: grid; gap: 1rem; }
+.form fieldset { border: var(--ss-control-width) solid var(--ss-control-border); border-radius: var(--ss-radius); margin: 0; min-width: 0; padding: 1rem; }
+.choices { display: grid; gap: var(--ss-target-gap); margin-top: 0.75rem; }
+.choices label { align-items: center; display: flex; gap: 0.75rem; min-height: var(--ss-target); }
+.choices input { flex: 0 0 auto; height: var(--ss-target); margin: 0; width: var(--ss-target); }
+.summary { display: grid; gap: 0.75rem; margin-bottom: 1rem; }
+.summary div { display: grid; gap: 0.2rem; }
+.summary dt { font-weight: 700; }
+.summary dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 24rem) { .page { width: 100%; } .form fieldset { padding: 0.75rem; } }

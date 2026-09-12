@@ -1,0 +1,260 @@
+{
+  "notify.settings.title": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.intro": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.loading": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.unavailable": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.delivery_heading": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.no_outbound": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.shared_device": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.saved": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.save_failed": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.saving": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.settings.save": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.task_notice": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.urgent_assistance": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.event_reminder": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.message": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.forums_digest": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.purpose.recommendations": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.channel.email": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.channel.sms": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.channel.voice": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.title": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.intro": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.start": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.end": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.timezone": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.quiet_hours.clear": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.link": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.title": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.source_version": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.as_of": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.snapshot_warning": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.open_authorized": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.browser_action": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.source_unavailable": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.no_source": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.print.empty": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.body.minimal": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.pending": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.sending": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.send_failed": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.ambiguous": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.delivered": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  },
+  "notify.state.suppressed": {
+    "status": "draft",
+    "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+    "critical": false,
+    "machine_generated": true
+  }
+}

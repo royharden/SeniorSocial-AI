@@ -1,0 +1,1 @@
+{ "extends": "../../../packages/intake/tsconfig.json", "include": ["./*.ts"] }

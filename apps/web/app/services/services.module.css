@@ -1,0 +1,19 @@
+.search {
+  display: grid;
+  gap: 0.75rem;
+  margin-block-end: 1.5rem;
+}
+
+.input {
+  background: var(--ss-surface);
+  border: var(--ss-control-width) solid var(--ss-control-border);
+  border-radius: var(--ss-radius);
+  color: var(--ss-text);
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+
+.result {
+  margin-block: 1rem;
+}

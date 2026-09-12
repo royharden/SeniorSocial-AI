@@ -1,0 +1,191 @@
+{
+  "assistance.emergency.heading": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.emergency.disclaimer": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.emergency.call_911": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.saved_heading": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.pending_state": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.after_hours": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.normal_hours": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.form_heading": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.details_label": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.unassigned_notice": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.saving": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.send": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.request.error": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.status.pending_unowned": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.status.owned": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.status.in_progress": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.status.resolved": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.status.closed_unable": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.immediate_safety": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.food": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.housing": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.transportation": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.social_support": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage.general": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage_source.rules": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage_source.ai": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "assistance.triage_source.staff": {
+    "status": "draft",
+    "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  }
+}

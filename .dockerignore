@@ -1,0 +1,40 @@
+# Keep the build context small and keep private material out of every image
+# layer. An image layer is published history: a file copied in and deleted later
+# is still in the image.
+
+**/node_modules
+**/.next
+**/.turbo
+**/dist
+**/build
+**/coverage
+**/*.tsbuildinfo
+
+.git
+.gitignore
+**/.DS_Store
+
+# Never in an image, ever (AGENTS.md folder layout).
+.creds
+.thinking
+.chatexports
+planning
+agentops
+docs/decisions
+LESSONS.md
+AGENTS.md
+CLAUDE.md
+.claude
+.codex
+.cursor
+.grok
+
+# Env files: only .env.example is ever committed, and no .env belongs in a layer.
+.env
+.env.*
+!.env.example
+
+# Test output and local scratch.
+playwright-report
+test-results
+**/*.log

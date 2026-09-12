@@ -1,0 +1,55 @@
+/* CSS aliases generated from the immutable Porchlight token contract. */
+:root,
+[data-mode='standard'] {
+  --ss-canvas: #faf6ef;
+  --ss-surface: #ffffff;
+  --ss-surface-recessed: #f1eadd;
+  --ss-text: #1f2a37;
+  --ss-text-secondary: #445366;
+  --ss-link: #155e8f;
+  --ss-primary: #155e8f;
+  --ss-primary-hover: #1c74b0;
+  --ss-primary-active: #0b3a5b;
+  --ss-on-primary: #ffffff;
+  --ss-control-border: #6e7e90;
+  --ss-focus-inner: #ffb703;
+  --ss-focus-outer: #1f2a37;
+  --ss-accent: #b4530a;
+  --ss-danger: #a32d2d;
+  --ss-body-size: 1.125rem;
+  --ss-body-leading: 1.5;
+  --ss-measure: 70ch;
+  --ss-target: 2.75rem;
+  --ss-target-gap: 0.75rem;
+  --ss-radius: 0.75rem;
+  --ss-control-width: 2px;
+  --ss-page-gap: 1.5rem;
+  --ss-card-shadow: 0 0.25rem 0.75rem rgb(31 42 55 / 10%);
+}
+
+[data-mode='easy'] {
+  --ss-canvas: #ffffff;
+  --ss-surface: #fdfbf7;
+  --ss-surface-recessed: #faf6ef;
+  --ss-text: #111827;
+  --ss-text-secondary: #445366;
+  --ss-link: #0f4c75;
+  --ss-primary: #0f4c75;
+  --ss-primary-hover: #155e8f;
+  --ss-primary-active: #0b3a5b;
+  --ss-on-primary: #ffffff;
+  --ss-control-border: #6e7e90;
+  --ss-focus-inner: #ffb703;
+  --ss-focus-outer: #111827;
+  --ss-accent: #8a3f07;
+  --ss-danger: #7f2323;
+  --ss-body-size: 1.375rem;
+  --ss-body-leading: 1.55;
+  --ss-measure: 52ch;
+  --ss-target: 3rem;
+  --ss-target-gap: 1.25rem;
+  --ss-radius: 1rem;
+  --ss-control-width: 3px;
+  --ss-page-gap: 2rem;
+  --ss-card-shadow: none;
+}

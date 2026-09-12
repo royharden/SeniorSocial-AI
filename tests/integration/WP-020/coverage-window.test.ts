@@ -1,0 +1,3 @@
+import {readFileSync} from 'node:fs';import {describe,expect,it} from 'vitest';
+const migration=readFileSync(new URL('../../../packages/db/migrations/0140_wp-020_reporting.sql',import.meta.url),'utf8');const repository=readFileSync(new URL('../../../packages/reporting/src/postgres.ts',import.meta.url),'utf8');
+describe('WP-020 persisted coverage windows',()=>{it('stores bounded UTC-day coverage and reads only the current imported snapshot',()=>{expect(migration).toContain('coverage_from timestamptz NOT NULL');expect(migration).toContain('coverage_to-coverage_from<=interval \'366 days\'');expect(repository).toContain('coverage_from,coverage_to');expect(repository.match(/source_version=\(select source_version from report_source_imports/gu)).toHaveLength(2);});});

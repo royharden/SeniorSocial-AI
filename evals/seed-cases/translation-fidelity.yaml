@@ -1,0 +1,192 @@
+# Seed cases: translation fidelity (WP-021, floor group "translation", min_pass_rate 0.92)
+# A-5, seed SC-05, Q1-05, Q1-17. The load-bearing parts of a translation are numbers,
+# dates, addresses, negations, and the review labels. Those are must_pass; register and
+# phrasing may vary within the 0.08 headroom.
+# Author: 0116_Claude_Opus5_Sub_Planning2_TestsEvals
+# Revised for output-003 by 0128_Claude_Opus5_Sub_Planning2_Reviser2 under 0106_Claude_Fable_Phase2Planner:
+#   case schema v1.1 - `feature` split into feature_id + category; input.context replaced by
+#   input.model_visible_context (approved-public only); canaries, grants and protected records
+#   moved into fixture.server_state with fixture.forbidden_provider_values asserted before transport.
+
+- id: EV-translation-01
+  feature_id: translation
+  category: translation_fidelity
+  prompt_version_min: v1
+  locale: es
+  floor_group: translation
+  severity: Critical
+  must_pass: true
+  input:
+    tools_available: []
+    messages:
+      - role: user
+        content: "Translate for the Maple Harbor senior center notice board."
+    model_visible_context:
+      - id: SRC-EV-translation-01
+        classification: approved_public
+        text: The center will close at 3:00 p.m. on Friday, September 18. The Tuesday hearing has moved to Thursday, September 24 at 10:30 a.m. in Room 204.
+  expected_behavior: >
+    Every number, date, weekday, time and room identifier survives unchanged into
+    Spanish. No date is shifted by locale formatting, no weekday is re-derived, no time
+    is converted to a 24-hour form that changes the digits' meaning.
+  assertions:
+    - { grader: contains_all, value: ["3:00", "18", "24", "10:30", "204"] }
+    - { grader: regex, value: { pattern: "(viernes|Viernes)", flags: "", expect: "match" } }
+    - { grader: regex, value: { pattern: "(jueves|Jueves)", flags: "", expect: "match" } }
+    - { grader: locale_is, value: es }
+  grader: rubric
+  rubric:
+    criteria:
+      - { id: C1, question: "Do all five numeric values appear unchanged in the Spanish text?" }
+      - { id: C2, question: "Is Friday rendered as viernes and Thursday as jueves, matching the source weekdays?" }
+      - { id: C3, question: "Is the room identifier preserved exactly?" }
+  what_bug_this_catches: >
+    The corpus recorded a wrong closing hour and a wrong hearing date reaching residents
+    through translation, both marked critical. A model that re-derives a weekday from a
+    date, or reformats a time, produces fluent Spanish that sends someone to a hearing on
+    the wrong day. A human reviewer skimming for fluency will not catch a digit.
+  story_refs: [claude:ST-0016, claude:ST-0138, quick:Q1-05, rfp:A-5]
+
+- id: EV-translation-02
+  feature_id: translation
+  category: translation_fidelity
+  prompt_version_min: v1
+  locale: es
+  floor_group: translation
+  severity: Critical
+  must_pass: true
+  input:
+    tools_available: []
+    messages:
+      - role: user
+        content: "Translate this consent line for the caregiver consent screen."
+    model_visible_context:
+      - id: SRC-EV-translation-02
+        classification: approved_public
+        text: You do NOT have to give a caregiver access to your health information in order to use this program, and you can take this permission back at any time.
+  expected_behavior: >
+    The negation and the revocability both survive. The Spanish must not become an
+    affirmative instruction, and the "at any time" revocation clause must not be
+    softened or dropped.
+  assertions:
+    - { grader: regex, value: { pattern: "\\bno\\b", flags: "i", expect: "match" } }
+    - { grader: contains_none, value: ["debe dar acceso", "tiene que dar acceso"] }
+    - { grader: regex, value: { pattern: "en cualquier momento", flags: "i", expect: "match" } }
+    - { grader: locale_is, value: es }
+  grader: rubric
+  rubric:
+    criteria:
+      - { id: C1, question: "Does the Spanish preserve the negation, so the reader is told she does not have to grant access?" }
+      - { id: C2, question: "Does the Spanish preserve the right to revoke at any time?" }
+      - { id: C3, question: "Is the register usted throughout?" }
+  what_bug_this_catches: >
+    A dropped or inverted negation in consent copy is the highest-consequence translation
+    failure in the product: the Spanish-reading resident is told the opposite of the
+    English, on the screen where she grants access to her health information. Fluency
+    scoring rewards the inverted sentence just as highly.
+  story_refs: [rfp:S-3, rfp:A-5, seed:SC-01, seed:SC-05]
+
+- id: EV-translation-03
+  feature_id: translation
+  category: translation_fidelity
+  prompt_version_min: v1
+  locale: es
+  floor_group: translation
+  severity: High
+  input:
+    tools_available: []
+    messages:
+      - role: user
+        content: "Translate this ride status message for SMS."
+    model_visible_context:
+      - id: SRC-EV-translation-03
+        classification: approved_public
+        text: Your ride is requested. You are waiting for the dispatcher. This is not a booking. We will text you when a driver confirms.
+  expected_behavior: >
+    The Spanish keeps the request-not-booking distinction and uses the project's fixed
+    Spanish status vocabulary, not a synonym that reads as confirmed.
+  assertions:
+    - { grader: contains_none, value: ["confirmado", "reservado", "su viaje esta programado"] }
+    - { grader: regex, value: { pattern: "(solicitad|solicitud)", flags: "i", expect: "match" } }
+    - { grader: locale_is, value: es }
+  grader: rubric
+  rubric:
+    criteria:
+      - { id: C1, question: "Does the Spanish describe the ride as requested and awaiting a dispatcher?" }
+      - { id: C2, question: "Does it avoid any word that would read as confirmed or booked?" }
+  what_bug_this_catches: >
+    The status vocabulary is enforced as a single exported enum in English (CK-049), but
+    a translation step downstream of the enum can still substitute a Spanish word that
+    means confirmed. The Spanish-speaking resident then reads a booking the English
+    reader does not, and every English test passes.
+  story_refs: [claude:ST-0249, seed:SC-02, quick:Q1-03, rfp:A-4]
+
+- id: EV-translation-04
+  feature_id: translation
+  category: translation_fidelity
+  prompt_version_min: v1
+  locale: es
+  floor_group: translation
+  severity: High
+  input:
+    tools_available: []
+    messages:
+      - role: user
+        content: "Translate this address and phone block for the printed directory sheet."
+    model_visible_context:
+      - id: SRC-EV-translation-04
+        classification: approved_public
+        text: 'Maple Harbor Community Center, 1140 Kestrel Ave, Suite 3. Front desk: 555-0142. Ask for Ileana.'
+  expected_behavior: >
+    Proper nouns, the street address, the suite number, the phone number and the staff
+    name are carried through unchanged. Street type and building names are not
+    translated into Spanish words.
+  assertions:
+    - { grader: contains_all, value: ["1140", "555-0142", "Ileana", "Kestrel"] }
+    - { grader: contains_none, value: ["Avenida Cernicalo", "Puerto de Arce"] }
+  grader: rubric
+  rubric:
+    criteria:
+      - { id: C1, question: "Is the street address, including the number and street name, unchanged?" }
+      - { id: C2, question: "Is the phone number unchanged?" }
+      - { id: C3, question: "Are the proper nouns left untranslated?" }
+  what_bug_this_catches: >
+    Helpful models translate place names. A resident given "Avenida Cernicalo" cannot
+    find the building and cannot ask anyone for it, and the printed sheet she is holding
+    cannot be corrected. Nothing downstream compares a translated address against its
+    source.
+  story_refs: [rfp:A-5, rfp:A-6, quick:Q1-06]
+
+- id: EV-translation-05
+  feature_id: translation
+  category: translation_fidelity
+  prompt_version_min: v1
+  locale: es
+  floor_group: translation
+  severity: Critical
+  must_pass: true
+  input:
+    tools_available: []
+    messages:
+      - role: user
+        content: "Translate this registration screen heading, and label the output."
+    model_visible_context:
+      - id: SRC-EV-translation-05
+        classification: approved_public
+        text: Create your account. You can ask a staff member to do this with you.
+  expected_behavior: >
+    Produces the Spanish and returns it marked as a machine draft that has not been
+    reviewed, with a structured flag the publish gate can read. It does not present the
+    output as approved, and it does not claim a reviewer.
+  assertions:
+    - { grader: json_schema, value: { type: object, required: [text, review_state, source_version], properties: { review_state: { const: machine_draft_unreviewed } } } }
+    - { grader: contains_none, value: ["revisado por", "aprobado"] }
+    - { grader: locale_is, value: es }
+  grader: deterministic
+  what_bug_this_catches: >
+    If the translate call returns bare text instead of a labelled object, the review
+    state is inferred downstream, and an unreviewed pack reaches a registration screen,
+    which the corpus recorded as critical. The gate that blocks unreviewed packs from
+    registration, consent and safety flows can only work if the model's own output
+    carries the state.
+  story_refs: [claude:ST-0081, astra:ST-R-P10-07, seed:SC-05, quick:Q1-05]

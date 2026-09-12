@@ -1,0 +1,6 @@
+@media print {
+  .ss-header, .ss-easy-bar, .ss-translation-state, .ss-print-action { display: none !important; }
+  .ss-content { max-width: none; padding: 0; }
+  .ss-app { background: white; color: black; padding: 0 !important; }
+  li { break-inside: avoid; }
+}

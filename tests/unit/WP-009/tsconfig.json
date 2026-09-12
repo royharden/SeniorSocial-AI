@@ -1,0 +1,1 @@
+{ "extends": "../../../packages/notify/tsconfig.json", "include": ["./*.ts"] }

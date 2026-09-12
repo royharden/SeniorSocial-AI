@@ -1,0 +1,19 @@
+{
+  "name": "@seniorsocial/forums",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test:unit": "vitest run tests/unit/WP-015 tests/security/WP-015 tests/contract/WP-015 --root ../..",
+    "test:integration": "vitest run tests/integration/WP-015 --root ../.."
+  },
+  "devDependencies": {
+    "@types/node": "24.13.4",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

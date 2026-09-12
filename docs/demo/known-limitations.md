@@ -1,0 +1,19 @@
+# Known limitations for the local reviewer tour
+
+This page is part of the tour and must remain linked from both the storyboard and reviewer packet.
+
+**Runnable: true for the documented local synthetic review path.** The accepted evidence is bound to sealed application SHA `c379d2b69a162d8fab46409bdb5ed9af1373b3da` and integrated receipt commit `8863b94`. The exact-candidate credentialed gate passed 38/38 in 8.4 minutes with zero failures or skips. Prose and screenshots never substitute for the accepted recording and its retained receipts.
+
+- **Private-local recording only.** The accepted unspliced native capture is `WP-041-sealed-tour-c379d2b-r3-realtime2.webm`, SHA-256 `1A46195319956BE71F6B6CBE7589D7F7B7361753DE2147AC11429E4A2410BF26`, with 109.120 seconds of container duration across 106.164 seconds of wall time. It is not a public link, deployed artifact, credential, delivery notice, or accessibility certification.
+- **Diagnostics are excluded.** All R1 and R2 attempts are excluded. `WP-041-sealed-tour-c379d2b-r3.webm` is an action-frame-compressed diagnostic whose 50-second media timeline does not preserve its 429-second wall-time relationship. `WP-041-sealed-tour-c379d2b-r3-realtime-incomplete1.webm` is an incomplete native diagnostic stopped by a capture-harness network-idle timeout. Neither is evidence, and neither may be combined with the accepted take.
+- **Local and synthetic only.** The packet addresses the reserved `ss-n0` stack at localhost. It is not evidence of deployment, production readiness, public availability, service staffing, or delivery to the City.
+- **Accessibility evidence is bounded.** Easy Mode, Spanish variants, automated checks, and a scripted tour are not an independent accessibility audit, a published VPAT, an ASL training package, or a study with residents. A-8’s citywide training/audit work remains outside this local recording.
+- **Accounts are review fixtures.** Every identity, contact, location, and record is synthetic. Codes are single-use until reset; account-code expiry and session expiry are separate. A reset invalidates current sessions and restores fixture state.
+- **Outbound channels are disabled or simulated.** Real SMS and real voice sending are off; local email is captured by Mailpit. Web push is off. Nothing in the tour proves carrier delivery or voicemail behavior.
+- **AI claims are narrow.** Reset deterministically disables `ai.master` and `ai.concierge` for ss-n0. The local rehearsal showed the AI question control absent, one truthful synthetic directory result, the native assistance form, and zero AI events. It intentionally does not prove or imply a live provider call. CLI subscription bridges, RAG, event reranking, conversation starters, and summaries are off.
+- **Caregiver authority is narrow.** The tour covers explicit itemized resident grants and immediate revocation. Guardian or legal-representative activation is disabled pending a City-designated verification process.
+- **Requests are not fulfilment.** A ride request is not a booking. A priority-assistance request can be pending and unassigned; the interface makes no dispatch, monitoring, callback, or response-time promise.
+- **Staff/admin composition is Standard-only for this MVP evidence.** Easy Mode coverage in WP-030 applies to the resident side of cross-role journeys; it is not a claim that staff/admin screens have Easy Mode parity.
+- **Translation review is not claimed.** The admin translation-review widget displayed `Could not load this section` during the accepted take. That nonblocking observation is outside the scored set and is not evidence of translation-review completion.
+
+Sources: `agentops/build/board.csv` (WP-030/WP-041), `agentops/interfaces/feature-flags.md`, `docs/specs/01-full-app-plan.md`, `docs/specs/10-security.md`, `packages/db/seed/demo/data.ts`, and `packages/db/migrations/0180_wp-034_demo.sql`.

@@ -1,0 +1,16 @@
+{
+  "directory.heading": "Services directory",
+  "directory.intro": "Search verified local service information.",
+  "directory.search_label": "Search services",
+  "directory.search_placeholder": "Food, transportation, housing…",
+  "directory.search_action": "Search",
+  "directory.no_results": "No matching services were found.",
+  "directory.error": "Services could not be loaded.",
+  "directory.eligibility": "Eligibility: {summary}",
+  "directory.source_updated": "Source updated {date}",
+  "directory.help_link": "Get help finding a service",
+  "status.draft": "Draft",
+  "status.awaiting_review": "Awaiting review",
+  "status.published": "Published",
+  "status.invalidated": "Invalidated"
+}

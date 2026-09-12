@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "globalDependencies": ["tsconfig.base.json", "eslint.config.mjs", "pnpm-lock.yaml", ".env.example"],
+  "globalEnv": ["NODE_ENV", "AI_PROVIDER", "CI"],
+  "globalPassThroughEnv": ["DATABASE_URL", "DATABASE_SSL", "WEB_URL", "PORT_BASE", "COMPOSE_PROJECT_NAME", "AUTH_TEST_CLUSTER_URL", "AUTH_TEST_DATABASE_URL", "AUTH_TOKEN_PEPPER", "AUTH_SIMULATION_EXPOSE_CREDENTIALS", "AUTH_TRUST_PROXY_HEADERS", "SENIORSOCIAL_ORG_ID"],
+  "remoteCache": {
+    "enabled": true
+  },
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": ["*.tsbuildinfo"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "outputs": []
+    },
+    "generate:openapi": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

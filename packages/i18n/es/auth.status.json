@@ -1,0 +1,38 @@
+{
+  "auth.invalid_request": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  },
+  "auth.rate_limited": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  },
+  "auth.invalid_credential": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  },
+  "auth.invalid_demo_code": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  },
+  "auth.session_required": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  },
+  "auth.invalid_session": {
+    "status": "draft",
+    "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+    "critical": false,
+    "machine_generated": true
+  }
+}

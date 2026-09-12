@@ -1,0 +1,5560 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SeniorSocial API",
+    "version": "1.0.0-mvp",
+    "summary": "White-label city connection and services platform for residents 60+",
+    "description": "Every operational resource is scoped by org_id and every response is scoped to the caller's organisation. Cross-org access returns 404, never 403, so that the existence of another organisation's records is not disclosed. All people in every environment of this API are synthetic.\n",
+    "license": {
+      "name": "Proprietary - white label"
+    }
+  },
+  "x-contract-version": 6,
+  "x-owner": "WP-002 (integrator)",
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Versioned REST surface inside the single Next.js deployable"
+    }
+  ],
+  "tags": [
+    {
+      "name": "health",
+      "description": "Liveness and readiness. Unauthenticated."
+    },
+    {
+      "name": "auth",
+      "description": "Passwordless sign-in, demo-code sign-in, sessions. (WP-004)"
+    },
+    {
+      "name": "me",
+      "description": "The caller's own profile, preferences, mode and language. (WP-007, WP-009)"
+    },
+    {
+      "name": "services",
+      "description": "Services directory search and staff CRUD. (WP-010)"
+    },
+    {
+      "name": "concierge",
+      "description": "Grounded natural-language service discovery. (WP-011)"
+    },
+    {
+      "name": "events",
+      "description": "Events, RSVP, waitlist, recommendations, resident proposals. (WP-012)"
+    },
+    {
+      "name": "rides",
+      "description": "Ride requests, state transitions, staff dispatch queue. (WP-013)"
+    },
+    {
+      "name": "assistance",
+      "description": "Priority Assistance requests, triage, staff queue, SLA. (WP-014)"
+    },
+    {
+      "name": "forums",
+      "description": "Topics, posts, replies, report, block, moderation queue. (WP-015)"
+    },
+    {
+      "name": "messages",
+      "description": "One-to-one conversations. (WP-016)"
+    },
+    {
+      "name": "caregiver",
+      "description": "Invitations, item-by-item consent scopes, revocation. (WP-017)"
+    },
+    {
+      "name": "intake",
+      "description": "Legal intake and health navigation forms and routing. (WP-018)"
+    },
+    {
+      "name": "notifications",
+      "description": "Inbox, preferences, quiet hours, printable schedule. (WP-009)"
+    },
+    {
+      "name": "admin",
+      "description": "Users, content, FAQs, announcements, partners, queues. (WP-019)"
+    },
+    {
+      "name": "reports",
+      "description": "Reporting and scoped open-format export. (WP-020)"
+    },
+    {
+      "name": "translations",
+      "description": "Translation assist and version-linked review queue. (WP-021)"
+    },
+    {
+      "name": "ai-admin",
+      "description": "Feature flags, AI kill switches, AI event log. (WP-006, WP-008)"
+    },
+    {
+      "name": "audit",
+      "description": "Audit event log. (WP-006)"
+    }
+  ],
+  "security": [
+    {
+      "sessionCookie": []
+    }
+  ],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "operationId": "liveness",
+        "summary": "Liveness probe",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "alive",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "operationId": "readiness",
+        "summary": "Readiness probe - gates Railway Active",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "not ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/magic-link": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "requestMagicLink",
+        "summary": "Email a sign-in link",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MagicLinkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "accepted - response is identical whether or not the address is known"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/auth/sms-code": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "requestSmsCode",
+        "summary": "Send a 6-digit code by SMS or to the simulator",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "accepted"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "verifyCredential",
+        "summary": "Exchange a link token or SMS code for a session",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "session established",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/auth/demo-code": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "demoCodeSignIn",
+        "summary": "Reviewer sign-in with a time-limited demo code",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "session established",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "410": {
+            "description": "demo account expired",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "logout",
+        "summary": "End the session",
+        "responses": {
+          "204": {
+            "description": "ended"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "operationId": "getMe",
+        "summary": "The caller's identity, roles, org and active scopes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Me"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/me/profile": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "operationId": "getProfile",
+        "summary": "The caller's profile",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "me"
+        ],
+        "operationId": "updateProfile",
+        "summary": "Update the caller's profile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/me/preferences": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "operationId": "getPreferences",
+        "summary": "Mode, language, channels, quiet hours, no-outbound choice",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preferences"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "me"
+        ],
+        "operationId": "replacePreferences",
+        "summary": "Replace preferences - a required task notice may not be switched off by an unrelated change",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Preferences"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "replaced",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preferences"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/me/caregivers": {
+      "get": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "listMyCaregivers",
+        "summary": "Who may act for me and on exactly what",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaregiverLinkPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/services": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "operationId": "searchServices",
+        "summary": "Search the directory by plain-language query, category, language and accessibility",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "es"
+              ]
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicePage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/services/{serviceId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ServiceId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "operationId": "getService",
+        "summary": "One directory record",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/service-categories": {
+      "get": {
+        "tags": [
+          "services"
+        ],
+        "operationId": "listServiceCategories",
+        "summary": "City-approved categories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceCategoryPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/services": {
+      "post": {
+        "tags": [
+          "services",
+          "admin"
+        ],
+        "operationId": "createService",
+        "summary": "Staff create a directory record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/services/{serviceId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ServiceId"
+        }
+      ],
+      "patch": {
+        "tags": [
+          "services",
+          "admin"
+        ],
+        "operationId": "updateService",
+        "summary": "Staff edit a directory record - audited",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Service"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/admin/services/import": {
+      "post": {
+        "tags": [
+          "services",
+          "admin"
+        ],
+        "operationId": "importServicesCsv",
+        "summary": "Staff CSV import - never fabricates provider acceptance; rejected rows are reported",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CsvUpload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "import result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/concierge/conversations": {
+      "post": {
+        "tags": [
+          "concierge"
+        ],
+        "operationId": "startConciergeConversation",
+        "summary": "Open a grounded assistance conversation",
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConciergeConversation"
+                }
+              }
+            }
+          },
+          "503": {
+            "$ref": "#/components/responses/AiDisabled"
+          }
+        }
+      }
+    },
+    "/concierge/conversations/{conversationId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ConversationId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "concierge"
+        ],
+        "operationId": "getConciergeConversation",
+        "summary": "Transcript with the citations each answer used",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConciergeConversation"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/concierge/conversations/{conversationId}/messages": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ConversationId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "concierge"
+        ],
+        "operationId": "sendConciergeMessage",
+        "summary": "Ask a question - answers cite directory records or decline",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConciergeMessageInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "answered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConciergeAnswer"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "503": {
+            "$ref": "#/components/responses/AiDisabled"
+          }
+        }
+      }
+    },
+    "/concierge/conversations/{conversationId}/handoff": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ConversationId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "concierge",
+          "assistance"
+        ],
+        "operationId": "conciergeHandoff",
+        "summary": "Talk to a person - opens a real assistance request; available with AI off",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "assistance request opened",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "listEvents",
+        "summary": "Upcoming events as a list - Easy Mode never renders a calendar grid",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/EventId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "getEvent",
+        "summary": "One event",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/events/{eventId}/rsvp": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/EventId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "createRsvp",
+        "summary": "RSVP - race-safe at capacity; a full event returns 409 and offers the waitlist",
+        "responses": {
+          "201": {
+            "description": "attending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rsvp"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "at capacity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "cancelRsvp",
+        "summary": "Cancel an RSVP - promotes the first waitlisted person",
+        "responses": {
+          "204": {
+            "description": "cancelled"
+          }
+        }
+      }
+    },
+    "/events/{eventId}/waitlist": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/EventId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "joinWaitlist",
+        "summary": "Join the waitlist",
+        "responses": {
+          "201": {
+            "description": "waitlisted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rsvp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event-proposals": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "proposeEvent",
+        "summary": "A resident proposes an event - stays unpublished until staff publish it",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventProposalInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "proposed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventProposal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recommendations/events": {
+      "get": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "recommendEvents",
+        "summary": "Rules-based recommendations; AI re-ranking is flag-gated and off by default",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rides": {
+      "get": {
+        "tags": [
+          "rides"
+        ],
+        "operationId": "listMyRides",
+        "summary": "My ride requests with their truthful states",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RideRequestPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "rides"
+        ],
+        "operationId": "createRideRequest",
+        "summary": "Request a ride - a failed send leaves the request saved and unsent, never booked",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RideRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RideRequest"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/rides/{rideId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/RideId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "rides"
+        ],
+        "operationId": "getRideRequest",
+        "summary": "One ride request with its accessibility conditions preserved verbatim",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RideRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/rides/{rideId}/transitions": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/RideId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "rides"
+        ],
+        "operationId": "transitionRide",
+        "summary": "Move the state machine - records actor and time; an illegal transition is 409",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RideTransitionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "transitioned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RideRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "illegal transition",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staff/rides": {
+      "get": {
+        "tags": [
+          "rides",
+          "admin"
+        ],
+        "operationId": "listRideQueue",
+        "summary": "Dispatcher queue - rendered by the admin dashboard from this contract",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RideRequestPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/assistance-requests": {
+      "get": {
+        "tags": [
+          "assistance"
+        ],
+        "operationId": "listMyAssistanceRequests",
+        "summary": "My Priority Assistance requests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequestPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "assistance"
+        ],
+        "operationId": "createAssistanceRequest",
+        "summary": "Press the button - an unowned request shows explicit pending and promises no callback time",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistanceRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistance-requests/{requestId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/RequestId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "assistance"
+        ],
+        "operationId": "getAssistanceRequest",
+        "summary": "One request with its owner if it has one and its SLA clock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/assistance-requests/{requestId}/transitions": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/RequestId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "assistance"
+        ],
+        "operationId": "transitionAssistanceRequest",
+        "summary": "Assign an owner or change state - audited with actor and time",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistanceTransitionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "transitioned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequest"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "illegal transition",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staff/assistance-requests": {
+      "get": {
+        "tags": [
+          "assistance",
+          "admin"
+        ],
+        "operationId": "listAssistanceQueue",
+        "summary": "Staff queue ordered by SLA clock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistanceRequestPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/forums/topics": {
+      "get": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "listTopics",
+        "summary": "Topics",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForumTopicPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forums/topics/{topicId}/posts": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TopicId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "listPosts",
+        "summary": "Posts in a topic - a blocked user's posts are absent, not greyed",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForumPostPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "createPost",
+        "summary": "Post - an AI flag never hides content without a human decision",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForumPostInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForumPost"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/forums/posts/{postId}/replies": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/PostId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "createReply",
+        "summary": "Reply",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForumReplyInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForumReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forums/posts/{postId}/report": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/PostId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "reportPost",
+        "summary": "Report content to the human moderation queue",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "reported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blocks": {
+      "post": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "blockUser",
+        "summary": "Block a person everywhere in the product",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlockInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "blocked"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "forums"
+        ],
+        "operationId": "listBlocks",
+        "summary": "Who I have blocked",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staff/moderation-queue": {
+      "get": {
+        "tags": [
+          "forums",
+          "admin"
+        ],
+        "operationId": "listModerationQueue",
+        "summary": "Flags and reports awaiting a human decision",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModerationItemPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/staff/moderation-queue/{itemId}/decision": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ItemId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "forums",
+          "admin"
+        ],
+        "operationId": "decideModerationItem",
+        "summary": "A human decides - the decision and its reason are audited",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModerationDecisionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "decided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModerationItem"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/conversations": {
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "listConversations",
+        "summary": "My conversations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "createConversation",
+        "summary": "Start a one-to-one conversation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conversation"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/conversations/{conversationId}/messages": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ConversationId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "listMessages",
+        "summary": "Messages - visible only to participants; a non-participant gets 404",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessagePage"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "sendMessage",
+        "summary": "Send a message",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/conversations/{conversationId}/report": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ConversationId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "reportConversation",
+        "summary": "Report a conversation for staff review",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "reported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/caregiver/invitations": {
+      "post": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "inviteCaregiver",
+        "summary": "Invite someone to help - the invitation grants nothing until the resident consents item by item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaregiverInviteInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "invited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaregiverInvitation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caregiver/invitations/{token}/accept": {
+      "parameters": [
+        {
+          "name": "token",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "acceptCaregiverInvitation",
+        "summary": "Accept - possession of the token grants no standing on its own",
+        "responses": {
+          "200": {
+            "description": "accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaregiverLink"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "invitation expired",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caregiver/links": {
+      "get": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "listCaregiverLinks",
+        "summary": "Links I hold as a caregiver",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaregiverLinkPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caregiver/links/{linkId}/scopes": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/LinkId"
+        }
+      ],
+      "put": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "setConsentScopes",
+        "summary": "The resident sets scopes item by item with a recorded read-back",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentScopeSet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "set",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaregiverLink"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/caregiver/links/{linkId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/LinkId"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "caregiver"
+        ],
+        "operationId": "revokeCaregiverLink",
+        "summary": "Revoke - effective on the next request, audited, unrelated permitted work survives",
+        "responses": {
+          "204": {
+            "description": "revoked"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/intake/legal": {
+      "post": {
+        "tags": [
+          "intake"
+        ],
+        "operationId": "submitLegalIntake",
+        "summary": "Legal intake - disclaimers shown before submission; never an eligibility determination",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntakeSubmissionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created; draft when intent is save_draft, otherwise submitted and routed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmission"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/intake/health": {
+      "post": {
+        "tags": [
+          "intake"
+        ],
+        "operationId": "submitHealthIntake",
+        "summary": "Health navigation - general routing only, never diagnosis",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntakeSubmissionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created; draft when intent is save_draft, otherwise submitted and routed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmission"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/intake/{submissionId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/SubmissionId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "intake"
+        ],
+        "operationId": "getIntakeSubmission",
+        "summary": "One submission with the partner category it was routed to",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmission"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "intake"
+        ],
+        "operationId": "updateIntakeDraft",
+        "summary": "Replace saved draft answers or explicitly submit and route a draft",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntakeSubmissionPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "draft saved or atomically submitted and routed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmission"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "description": "submission is no longer an editable draft",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "operationId": "listNotifications",
+        "summary": "In-app inbox",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/{notificationId}/read": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/NotificationId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "notifications"
+        ],
+        "operationId": "markNotificationRead",
+        "summary": "Mark read",
+        "responses": {
+          "204": {
+            "description": "marked"
+          }
+        }
+      }
+    },
+    "/me/schedule/print": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "operationId": "getPrintableSchedule",
+        "summary": "Printable weekly schedule carrying a source and as-of date",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrintableSchedule"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listUsers",
+        "summary": "Users in my organisation",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/UserId"
+        }
+      ],
+      "patch": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "updateUser",
+        "summary": "Roles and account state - a disputed account is held for review, never auto-deleted or merged",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/content-pages": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listContentPages",
+        "summary": "City content pages",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPagePage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "createContentPage",
+        "summary": "Create a content page without vendor involvement",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentPageInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPage"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/faqs": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listFaqs",
+        "summary": "FAQs",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaqPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "createFaq",
+        "summary": "Create an FAQ",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaqInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Faq"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/announcements": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listAnnouncements",
+        "summary": "Announcements",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnouncementPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "createAnnouncement",
+        "summary": "Publish an announcement",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnnouncementInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/partners": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "listPartners",
+        "summary": "Partner organisations and their contacts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerPage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "operationId": "createPartner",
+        "summary": "Staff-moderated partner record - direct partner self-publication is deferred",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartnerInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Partner"
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/analytics": {
+      "get": {
+        "tags": [
+          "admin",
+          "reports"
+        ],
+        "operationId": "getAnalyticsTiles",
+        "summary": "Adoption, usage and demand tiles - no invented unique-person counts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyticsTiles"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/reports/{reportName}": {
+      "parameters": [
+        {
+          "name": "reportName",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "operationId": "getReport",
+        "summary": "A named report with its unit definitions and known gaps labelled",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report_"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/exports": {
+      "post": {
+        "tags": [
+          "reports"
+        ],
+        "operationId": "createExport",
+        "summary": "Request a scoped open-format export - the scope is stated in the result",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "description": "Required for AggregateExportRequest only. Scoped to organisation, authenticated actor and canonical validated request; same-content replay returns the same job and different-content reuse returns 409.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9._~-]{1,160}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ExportRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AggregateExportRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportJob"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "idempotency key reused with different aggregate content",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/Unprocessable"
+          }
+        }
+      }
+    },
+    "/admin/exports/{exportId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ExportId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "operationId": "getExport",
+        "summary": "Export status and download link with its declared scope and completeness",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportJob"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/admin/exports/{exportId}/download": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ExportId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "operationId": "downloadExport",
+        "summary": "Download the stored authorized export artifact without regenerating another format or snapshot",
+        "responses": {
+          "200": {
+            "description": "Stored artifact; aggregate JSON and CSV derive from identical ordered privacy-filtered rows and metadata",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              },
+              "Content-Disposition": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/zip": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "406": {
+            "description": "Accept header is incompatible with the stored artifact format"
+          },
+          "409": {
+            "description": "export is not ready",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "export artifact expired",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/translations": {
+      "get": {
+        "tags": [
+          "translations"
+        ],
+        "operationId": "listTranslations",
+        "summary": "Translation review queue - approval is linked to a source content version",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "awaiting_review",
+                "approved",
+                "invalidated"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationEntryPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/translations/{entryId}/approve": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/EntryId"
+        }
+      ],
+      "post": {
+        "tags": [
+          "translations"
+        ],
+        "operationId": "approveTranslation",
+        "summary": "A qualified human approves this version - changing the source invalidates it",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationApprovalInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "approved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationEntry"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "source version has moved",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/flags": {
+      "get": {
+        "tags": [
+          "ai-admin"
+        ],
+        "operationId": "listFlags",
+        "summary": "Every feature flag and AI kill switch with its current value",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlagPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/flags/{flagKey}": {
+      "parameters": [
+        {
+          "name": "flagKey",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "patch": {
+        "tags": [
+          "ai-admin"
+        ],
+        "operationId": "setFlag",
+        "summary": "Disable one AI feature without disabling the platform - audited",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "set",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Flag"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/ai-events": {
+      "get": {
+        "tags": [
+          "ai-admin"
+        ],
+        "operationId": "listAiEvents",
+        "summary": "Every AI call with its prompt version, tokens, latency, cache hit and cost",
+        "parameters": [
+          {
+            "name": "feature",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiEventPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/admin/audit-events": {
+      "get": {
+        "tags": [
+          "audit"
+        ],
+        "operationId": "listAuditEvents",
+        "summary": "Audit log for administrative activity, consent changes, caregiver access and AI-assisted decisions",
+        "parameters": [
+          {
+            "name": "action",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditEventPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "ss_session",
+        "description": "HttpOnly, Secure, SameSite=Lax session cookie issued by /auth/verify or /auth/demo-code. There is no bearer-token surface in the MVP; a future City IdP arrives as an additional OIDC scheme, never as a replacement.\n"
+      }
+    },
+    "parameters": {
+      "Cursor": {
+        "name": "cursor",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 25
+        }
+      },
+      "ServiceId": {
+        "name": "serviceId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "EventId": {
+        "name": "eventId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "RideId": {
+        "name": "rideId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "RequestId": {
+        "name": "requestId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "TopicId": {
+        "name": "topicId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "PostId": {
+        "name": "postId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "ItemId": {
+        "name": "itemId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "LinkId": {
+        "name": "linkId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "UserId": {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "ConversationId": {
+        "name": "conversationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "SubmissionId": {
+        "name": "submissionId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "NotificationId": {
+        "name": "notificationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "ExportId": {
+        "name": "exportId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "EntryId": {
+        "name": "entryId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "description": "Required retry key scoped to organisation, authenticated actor, operation, and target. Authorization is checked before replay. The server atomically claims concurrent requests and preserves the original successful status and body for same-key, same-content retries without repeating mutations; reuse with different canonical validated content returns 409. Retention must cover documented client retry windows and must not silently expire within them.",
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9._~-]{1,160}$"
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "no valid session",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "authenticated but not permitted - consent scope or role check failed server-side",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "not found in the caller's organisation - also returned for cross-org access",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "the request conflicts with current state, an expected version, or prior idempotency-key content",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Unprocessable": {
+        "description": "validation failed",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "rate limit exceeded",
+        "headers": {
+          "Retry-After": {
+            "schema": {
+              "type": "integer"
+            }
+          }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "AiDisabled": {
+        "description": "this AI feature is switched off - the human route is in the problem detail",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string"
+          },
+          "human_route": {
+            "type": "string",
+            "description": "What the person can do instead - present on AiDisabled"
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "description": "RFC 9457 problem detail. Never leaks another organisation's data."
+      },
+      "PageMeta": {
+        "type": "object",
+        "properties": {
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "total_known": {
+            "type": "boolean",
+            "description": "false when the count is an estimate - never present a guess as a count"
+          }
+        }
+      },
+      "Org": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "locale_default": {
+            "type": "string"
+          }
+        }
+      },
+      "Me": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roles": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "senior",
+                "caregiver",
+                "staff",
+                "admin",
+                "partner",
+                "support"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "easy"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          },
+          "acting_for": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "set when a caregiver is acting under consent"
+          },
+          "active_scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/Preferences"
+          },
+          "consent_version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "demo_mode": {
+            "type": "boolean"
+          },
+          "profile_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "user_id",
+          "org_id",
+          "roles",
+          "mode",
+          "locale"
+        ],
+        "additionalProperties": false
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "roles": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "senior",
+                "caregiver",
+                "staff",
+                "admin",
+                "partner",
+                "support"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "account_state": {
+            "type": "string",
+            "enum": [
+              "active",
+              "held_for_review",
+              "deactivated"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Current optimistic-concurrency version returned to admin clients"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "additionalProperties": false
+      },
+      "UserPatch": {
+        "type": "object",
+        "properties": {
+          "roles": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "senior",
+                "caregiver",
+                "staff",
+                "admin",
+                "partner",
+                "support"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "account_state": {
+            "type": "string"
+          },
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Must match the current User.version; stale writes return 409"
+          }
+        },
+        "required": [
+          "expected_version"
+        ],
+        "additionalProperties": false
+      },
+      "UserPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "preferred_name": {
+            "type": "string"
+          },
+          "contact_email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "contact_phone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "accessibility_conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "structured",
+            "optional": null,
+            "never required to save": null
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProfilePatch": {
+        "type": "object",
+        "description": "partial Profile"
+      },
+      "Preferences": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "easy"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          },
+          "channels": {
+            "type": "object",
+            "description": "per notice-purpose channel choice - a required task notice is independent of unrelated opt-ins"
+          },
+          "quiet_hours": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "string"
+              },
+              "timezone": {
+                "type": "string"
+              }
+            }
+          },
+          "no_outbound": {
+            "type": "boolean",
+            "description": "when true no outbound job is created at all"
+          },
+          "shared_device": {
+            "type": "boolean",
+            "description": "suppresses sender and preview detail on shared phones"
+          }
+        },
+        "required": [
+          "mode",
+          "locale",
+          "channels",
+          "quiet_hours",
+          "no_outbound"
+        ],
+        "additionalProperties": false
+      },
+      "MagicLinkRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "SmsCodeRequest": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone"
+        ]
+      },
+      "VerifyRequest": {
+        "type": "object",
+        "properties": {
+          "credential": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "magic_link",
+              "sms_code"
+            ]
+          }
+        },
+        "required": [
+          "credential"
+        ]
+      },
+      "DemoCodeRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "ServiceCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label_en": {
+            "type": "string"
+          },
+          "label_es": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceCategoryPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceCategory"
+            }
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "eligibility_note": {
+            "type": "string",
+            "description": "descriptive only - never an eligibility determination"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "accessibility": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ServiceInput": {
+        "type": "object",
+        "description": "writable subset of Service"
+      },
+      "ServicePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "CsvUpload": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "ImportResult": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer"
+          },
+          "updated": {
+            "type": "integer"
+          },
+          "rejected": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "row": {
+                  "type": "integer"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConciergeConversation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "turns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConciergeAnswer"
+            }
+          },
+          "ai_enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ConciergeMessageInput": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "ConciergeAnswer": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "directory record ids - an answer with no citation must say it does not know"
+          },
+          "disclaimer": {
+            "type": "string"
+          },
+          "refused": {
+            "type": "boolean",
+            "description": "true for diagnosis",
+            "legal advice": null,
+            "eligibility determination and dispatch requests": null
+          },
+          "human_route": {
+            "type": "string"
+          },
+          "prompt_version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "citations",
+          "disclaimer",
+          "prompt_version"
+        ]
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "time_zone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "IANA time zone used to preserve the scheduled wall-clock time"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "capacity": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "rsvp_count": {
+            "type": "integer"
+          },
+          "accessibility": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Rsvp": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "attending",
+              "waitlisted",
+              "cancelled"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventProposalInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "time_zone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "IANA time zone; omitted input uses the server-owned organisation zone"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "starts_at"
+        ],
+        "additionalProperties": false
+      },
+      "EventProposal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "published",
+              "declined"
+            ]
+          },
+          "time_zone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "IANA time zone preserved with the proposed instant"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RideRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "paratransit",
+              "taxi_voucher",
+              "rideshare",
+              "partner_van"
+            ]
+          },
+          "pickup_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pickup_location": {
+            "type": "string"
+          },
+          "return_needed": {
+            "type": "boolean"
+          },
+          "accessibility_conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "preserved verbatim through every handoff"
+          },
+          "accessibility_details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400
+                }
+              },
+              "required": [
+                "code",
+                "label"
+              ],
+              "additionalProperties": false
+            },
+            "description": "structured code plus the exact resident-entered label"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "requested",
+              "waiting_for_dispatcher",
+              "confirmed_by",
+              "completed",
+              "cancelled",
+              "unable_to_fulfill"
+            ]
+          },
+          "confirmed_by_actor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confirmed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "send_state": {
+            "type": "string",
+            "enum": [
+              "not_sent",
+              "sent",
+              "send_failed"
+            ],
+            "description": "a failed send leaves the request saved and unsent",
+            "never booked": null
+          }
+        },
+        "required": [
+          "id",
+          "state",
+          "org_id"
+        ]
+      },
+      "RideRequestInput": {
+        "type": "object",
+        "properties": {
+          "accessibility_conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "legacy verbatim labels"
+          },
+          "accessibility_details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400
+                }
+              },
+              "required": [
+                "code",
+                "label"
+              ],
+              "additionalProperties": false
+            },
+            "description": "preferred structured conditions with verbatim labels"
+          }
+        },
+        "description": "writable subset of RideRequest"
+      },
+      "RideTransitionInput": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "to"
+        ]
+      },
+      "RideRequestPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RideRequest"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "AssistanceRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "triage_category": {
+            "type": "string"
+          },
+          "triage_source": {
+            "type": "string",
+            "enum": [
+              "rules",
+              "ai",
+              "staff"
+            ],
+            "description": "which produced the category - never hidden"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending_unowned",
+              "owned",
+              "in_progress",
+              "resolved",
+              "closed_unable"
+            ]
+          },
+          "owner_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "sla_due_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "after_hours": {
+            "type": "boolean",
+            "description": "true means no callback time is promised"
+          }
+        },
+        "required": [
+          "id",
+          "state",
+          "org_id"
+        ]
+      },
+      "AssistanceRequestInput": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary"
+        ]
+      },
+      "AssistanceTransitionInput": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "owner_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "to"
+        ]
+      },
+      "AssistanceRequestPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssistanceRequest"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "ForumTopic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "post_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "ForumTopicPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ForumTopic"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "ForumPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "author_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "body": {
+            "type": "string"
+          },
+          "flag_state": {
+            "type": "string",
+            "enum": [
+              "none",
+              "flagged_awaiting_human",
+              "cleared_by_human",
+              "removed_by_human"
+            ]
+          }
+        }
+      },
+      "ForumPostInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "ForumPostPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ForumPost"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "ForumReply": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
+      "ForumReplyInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "ReportInput": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      },
+      "Report": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "open",
+              "decided"
+            ]
+          }
+        }
+      },
+      "BlockInput": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "user_id"
+        ]
+      },
+      "BlockPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "ModerationItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "ai_flag",
+              "user_report"
+            ]
+          },
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "post",
+              "reply",
+              "message"
+            ]
+          },
+          "decision": {
+            "enum": [
+              "keep",
+              "remove",
+              "warn",
+              null
+            ],
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "decided_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "always a human - an AI flag alone never hides content"
+          }
+        }
+      },
+      "ModerationDecisionInput": {
+        "type": "object",
+        "properties": {
+          "decision": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decision",
+          "reason"
+        ]
+      },
+      "ModerationItemPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModerationItem"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Conversation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "participant_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "ConversationInput": {
+        "type": "object",
+        "properties": {
+          "participant_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "participant_id"
+        ]
+      },
+      "ConversationPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Conversation"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "body": {
+            "type": "string"
+          },
+          "sent_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MessageInput": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "body"
+        ]
+      },
+      "MessagePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "CaregiverInviteInput": {
+        "type": "object",
+        "properties": {
+          "email_or_phone": {
+            "type": "string"
+          },
+          "relationship_note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email_or_phone"
+        ],
+        "additionalProperties": false
+      },
+      "CaregiverInvitation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsentScope": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "view_schedule",
+              "book_rides",
+              "receive_alerts",
+              "view_assistance",
+              "manage_events",
+              "view_profile"
+            ]
+          },
+          "granted": {
+            "type": "boolean"
+          },
+          "granted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "key",
+          "granted"
+        ],
+        "additionalProperties": false
+      },
+      "ConsentScopeSet": {
+        "type": "object",
+        "properties": {
+          "scopes": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsentScope"
+            },
+            "uniqueItems": true
+          },
+          "read_back_confirmed": {
+            "type": "boolean",
+            "description": "the resident heard the list read back and confirmed it - required to grant"
+          }
+        },
+        "required": [
+          "scopes",
+          "read_back_confirmed"
+        ],
+        "additionalProperties": false
+      },
+      "CaregiverLink": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resident_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "caregiver_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "scopes": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsentScope"
+            },
+            "uniqueItems": true
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "active",
+              "revoked"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CaregiverLinkPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CaregiverLink"
+            }
+          }
+        }
+      },
+      "IntakeSubmissionInput": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "object",
+            "description": "optional fields stay optional - a partly filled form still saves"
+          },
+          "disclaimer_acknowledged": {
+            "type": "boolean"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "save_draft",
+              "submit"
+            ],
+            "description": "omitted preserves legacy submit behavior; save_draft never routes"
+          }
+        },
+        "required": [
+          "answers",
+          "disclaimer_acknowledged"
+        ],
+        "additionalProperties": false
+      },
+      "IntakeSubmissionPatch": {
+        "type": "object",
+        "properties": {
+          "answers": {
+            "type": "object",
+            "description": "when present, replaces the complete saved answers object"
+          },
+          "disclaimer_acknowledged": {
+            "type": "boolean"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "save_draft",
+              "submit"
+            ],
+            "description": "submit requires disclaimer_acknowledged true in the same request; omitted saves only"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmission": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "legal",
+              "health"
+            ]
+          },
+          "routed_to_partner_category": {
+            "type": "string"
+          },
+          "answers": {
+            "type": "object"
+          },
+          "disclaimer_acknowledged": {
+            "type": "boolean"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "submitted",
+              "routed",
+              "closed"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "task notices are independent of marketing and AI opt-ins"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "read_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "NotificationPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "PrintableSchedule": {
+        "type": "object",
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "source_version": {
+            "type": "string",
+            "description": "printed on the page - a superseded print is never claimed to be recalled"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "as_of",
+          "source_version",
+          "items"
+        ]
+      },
+      "ContentPage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "critical": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ContentPageInput": {
+        "type": "object",
+        "description": "writable subset of ContentPage"
+      },
+      "ContentPagePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentPage"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Faq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "FaqInput": {
+        "type": "object",
+        "description": "writable subset of Faq"
+      },
+      "FaqPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Faq"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Announcement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "publish_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AnnouncementInput": {
+        "type": "object",
+        "description": "writable subset of Announcement"
+      },
+      "AnnouncementPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Announcement"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Partner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contact": {
+            "type": "string"
+          }
+        }
+      },
+      "PartnerInput": {
+        "type": "object",
+        "description": "writable subset of Partner"
+      },
+      "PartnerPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Partner"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "AnalyticsTiles": {
+        "type": "object",
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data cutoff represented by every tile in this response"
+          },
+          "source_version": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Reproducible aggregate snapshot or revision identifier"
+          },
+          "tiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                },
+                "unit_definition": {
+                  "type": "string"
+                },
+                "known_gap": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "as_of",
+          "source_version"
+        ]
+      },
+      "Report_": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "unit_definitions": {
+            "type": "object"
+          },
+          "known_gaps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "source_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "included_channels": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "uniqueItems": true
+          },
+          "completeness": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "partial",
+              "unknown"
+            ]
+          },
+          "known_omissions": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "uniqueItems": true
+          },
+          "overlap_uncertainty": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "uniqueItems": true
+          },
+          "filters": {
+            "$ref": "#/components/schemas/AggregateExportFilters"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "tenant_aggregate"
+            ]
+          },
+          "evidence": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "uniqueItems": true
+          },
+          "suppression_threshold": {
+            "type": "integer",
+            "minimum": 2
+          }
+        },
+        "description": "named report - trailing underscore avoids a collision with the forum Report schema"
+      },
+      "ExportRequest": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "minItems": 1,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "profile",
+                "requests",
+                "consents",
+                "audit",
+                "proposals"
+              ]
+            },
+            "uniqueItems": true,
+            "description": "explicit - an export always states what it did and did not include"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "csv"
+            ]
+          }
+        },
+        "required": [
+          "scope",
+          "format"
+        ],
+        "additionalProperties": false
+      },
+      "AggregateExportFilters": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "channels": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Aggregate filters use a UTC [from,to) interval. Runtime rejects unknown channels and invalid or reversed ranges with 422."
+      },
+      "AggregateExportRequest": {
+        "type": "object",
+        "properties": {
+          "report_name": {
+            "type": "string",
+            "enum": [
+              "channel-activity"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "csv"
+            ]
+          },
+          "filters": {
+            "$ref": "#/components/schemas/AggregateExportFilters"
+          }
+        },
+        "required": [
+          "report_name",
+          "format",
+          "filters"
+        ],
+        "additionalProperties": false,
+        "description": "Aggregate report export request. Authorization determines visibility; this request never implies publication."
+      },
+      "ExportJob": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "ready",
+              "failed"
+            ]
+          },
+          "scope": {
+            "minItems": 1,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "profile",
+                "requests",
+                "consents",
+                "audit",
+                "proposals"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "completeness_note": {
+            "type": "string"
+          },
+          "download_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expires_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "report_name": {
+            "type": "string",
+            "enum": [
+              "channel-activity"
+            ]
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "csv"
+            ]
+          },
+          "filters": {
+            "$ref": "#/components/schemas/AggregateExportFilters"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "source_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "included_channels": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            },
+            "uniqueItems": true
+          },
+          "completeness": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "partial",
+              "unknown"
+            ]
+          },
+          "known_omissions": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "uniqueItems": true
+          },
+          "overlap_uncertainty": {
+            "maxItems": 32,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "uniqueItems": true
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "content_digest": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+          }
+        },
+        "additionalProperties": false,
+        "description": "Individual jobs carry scope. Ready aggregate jobs instead carry report_name, format, normalized filters, snapshot provenance, completeness, row_count and exact-artifact content_digest."
+      },
+      "TranslationEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "key": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "es"
+            ]
+          },
+          "source_version": {
+            "type": "string",
+            "description": "approval is bound to this - a source change invalidates it"
+          },
+          "critical": {
+            "type": "boolean",
+            "description": "critical copy may not publish from a machine draft"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "awaiting_review",
+              "approved",
+              "invalidated"
+            ]
+          },
+          "machine_generated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "locale",
+          "status",
+          "source_version"
+        ]
+      },
+      "TranslationApprovalInput": {
+        "type": "object",
+        "properties": {
+          "source_version": {
+            "type": "string"
+          },
+          "reviewer_note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_version",
+          "reviewer_note"
+        ]
+      },
+      "TranslationEntryPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationEntry"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "Flag": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "see feature-flags.md - the vocabulary is closed"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "global",
+              "org"
+            ]
+          },
+          "updated_by": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "key",
+          "enabled"
+        ]
+      },
+      "FlagPatch": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "enabled"
+        ]
+      },
+      "FlagPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Flag"
+            }
+          }
+        }
+      },
+      "AiEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "feature": {
+            "type": "string"
+          },
+          "prompt_version": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "tokens_in": {
+            "type": "integer"
+          },
+          "tokens_out": {
+            "type": "integer"
+          },
+          "tokens_cached": {
+            "type": "integer"
+          },
+          "latency_ms": {
+            "type": "integer"
+          },
+          "cache_hit": {
+            "type": "boolean"
+          },
+          "user_role": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "refused",
+              "error",
+              "killed"
+            ]
+          },
+          "cost_usd": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": "one row per ai.* call - the shape is fixed in gateway-interface.ts"
+      },
+      "AiEventPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AiEvent"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "AuditEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "actor": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "on_behalf_of": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "action": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "allowed",
+              "denied",
+              "error"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "prompt_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "description": "shape is normative in audit-event.schema.json - this stub mirrors it"
+      },
+      "AuditEventPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEvent"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        }
+      },
+      "HealthStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "degraded",
+              "down"
+            ]
+          },
+          "checks": {
+            "type": "object",
+            "description": "db",
+            "worker": null,
+            "migrations - readiness fails if any is down so Railway cannot report a false Active": null
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  }
+}

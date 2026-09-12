@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "workPackage": "WP-031",
+  "status": "template_not_run",
+  "binding": {
+    "sealedCandidateSha": "c379d2b69a162d8fab46409bdb5ed9af1373b3da",
+    "localBaseUrl": "http://127.0.0.1:3100",
+    "candidateState": "post_repair_sealed",
+    "boundBy": "0184_Codex_GPT56-SOL_Integrator",
+    "boundAtUtc": "2026-09-12T03:43:26Z",
+    "priorAutomatedBaselinesAreNotThisCandidate": [
+      "c264e989601c1bc8823f2c505624caf6ea50eeb8",
+      "23f8cfdc597d9ccbf41d0b8512c6b3e58194281c"
+    ]
+  },
+  "sourceOfTruth": {
+    "routeMatrix": "tests/a11y/WP-031/route-matrix.ts",
+    "statusSpecs": [
+      "tests/a11y/WP-031/live-regions.spec.ts",
+      "tests/a11y/WP-031/events.spec.ts",
+      "tests/a11y/WP-031/caregiver.spec.ts",
+      "tests/a11y/WP-031/rides.spec.ts",
+      "tests/a11y/WP-031/notifications-print.spec.ts",
+      "tests/a11y/WP-031/notification-print-association.spec.ts",
+      "tests/a11y/WP-031/help.spec.ts",
+      "tests/a11y/WP-031/public-pages.spec.ts"
+    ],
+    "humanRequirement": "docs/specs/06-ui-ux-system.md#92-screen-reader-smoke-script",
+    "protocol": "docs/ui/human-screen-reader-protocol.md",
+    "evidenceTemplate": "docs/ui/human-screen-reader-evidence-template.md"
+  },
+  "resultVocabulary": ["not_run", "pass", "fail", "blocker"],
+  "resultRules": {
+    "not_run": "No human observation was made.",
+    "pass": "Every required expectation was independently heard or reached without assistance.",
+    "fail": "The tester completed the step but one or more expectations were not met.",
+    "blocker": "The step could not be completed or interpreted, including any sighted assistance, infrastructure failure, missing test data, crash, or AT/browser failure.",
+    "sightedAssistance": "blocker"
+  },
+  "platforms": [
+    {
+      "id": "nvda-chrome-windows",
+      "assistiveTechnology": "NVDA",
+      "browser": "Google Chrome",
+      "operatingSystem": "Windows",
+      "setup": [
+        "Start Chrome with no other extensions changing page content.",
+        "Start NVDA and record its exact version from NVDA > Help > About.",
+        "Use NVDA+Space to select Browse mode; use NVDA+F7 to confirm the Elements List opens.",
+        "Open the bound localBaseUrl and use Ctrl+L, type the exact route URL, then press Enter for direct navigation."
+      ],
+      "keys": {
+        "top": "Ctrl+Home",
+        "nextFocus": "Tab",
+        "activate": "Enter or Space as announced for the control",
+        "nextHeading": "H",
+        "nextLandmark": "D",
+        "elementsList": "NVDA+F7",
+        "formsModeToggle": "NVDA+Space"
+      }
+    },
+    {
+      "id": "voiceover-safari-macos",
+      "assistiveTechnology": "VoiceOver",
+      "browser": "Safari",
+      "operatingSystem": "macOS",
+      "setup": [
+        "In Safari Settings > Advanced, enable Press Tab to highlight each item on a webpage.",
+        "Start VoiceOver with Command+F5 and record the exact macOS, Safari, and VoiceOver versions.",
+        "Use Control+Option+U to confirm the rotor opens; Escape closes it.",
+        "Open the bound localBaseUrl and use Command+L, type the exact route URL, then press Return for direct navigation."
+      ],
+      "keys": {
+        "voiceOverModifier": "Control+Option",
+        "top": "Control+Option+Home (or Control+Option+Fn+Left Arrow on keyboards where Home requires Fn)",
+        "nextFocus": "Tab",
+        "activate": "Control+Option+Space",
+        "nextHeading": "Control+Option+Command+H",
+        "rotor": "Control+Option+U; Left/Right to Headings, Landmarks, or Links; Up/Down to an item; Return to move",
+        "readContinuously": "Control+Option+A",
+        "stopSpeech": "Control"
+      }
+    }
+  ],
+  "locales": ["en", "es"],
+  "modes": ["standard", "easy"],
+  "coverageRuns": [
+    {"id":"RUN-NVDA-EN-STANDARD","platformId":"nvda-chrome-windows","locale":"en","mode":"standard","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-NVDA-EN-EASY","platformId":"nvda-chrome-windows","locale":"en","mode":"easy","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-NVDA-ES-STANDARD","platformId":"nvda-chrome-windows","locale":"es","mode":"standard","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-NVDA-ES-EASY","platformId":"nvda-chrome-windows","locale":"es","mode":"easy","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-VO-EN-STANDARD","platformId":"voiceover-safari-macos","locale":"en","mode":"standard","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-VO-EN-EASY","platformId":"voiceover-safari-macos","locale":"en","mode":"easy","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-VO-ES-STANDARD","platformId":"voiceover-safari-macos","locale":"es","mode":"standard","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]},
+    {"id":"RUN-VO-ES-EASY","platformId":"voiceover-safari-macos","locale":"es","mode":"easy","result":"not_run","tester":null,"startedAtUtc":null,"completedAtUtc":null,"evidenceRecord":null,"defectIds":[]}
+  ],
+  "routes": [
+    {"id":"ROUTE-LANDING","path":"/","name":"public landing","actionIds":["ACTION-STATIC-LANDING"]},
+    {"id":"ROUTE-HOME","path":"/home","name":"home","actionIds":["ACTION-HOME-SERVICES","ACTION-HOME-EVENTS"]},
+    {"id":"ROUTE-SETTINGS","path":"/settings","name":"settings","actionIds":["ACTION-MODE-EASY","ACTION-MODE-STANDARD","ACTION-LANGUAGE-ES","ACTION-LANGUAGE-EN"]},
+    {"id":"ROUTE-NOTIFICATIONS","path":"/settings/notifications","name":"notification settings","actionIds":["ACTION-NOTIFY-LOAD","ACTION-NOTIFY-SAVE"]},
+    {"id":"ROUTE-HELP","path":"/help","name":"priority assistance","actionIds":["ACTION-HELP-SUBMIT"]},
+    {"id":"ROUTE-EVENTS","path":"/events","name":"events","actionIds":["ACTION-EVENTS-LOAD","ACTION-EVENT-RSVP","ACTION-EVENT-WAITLIST","ACTION-EVENT-CANCEL","ACTION-EVENT-SUGGEST"]},
+    {"id":"ROUTE-CAREGIVER","path":"/caregiver","name":"caregiver permissions","actionIds":["ACTION-CAREGIVER-INVITE","ACTION-CAREGIVER-SAVE","ACTION-CAREGIVER-REVOKE"]},
+    {"id":"ROUTE-RIDES","path":"/rides","name":"ride request","actionIds":["ACTION-RIDE-INVALID","ACTION-RIDE-SUBMIT"]},
+    {"id":"ROUTE-DISPLAY-CONFIRM","path":"/preferences/confirm?mode=easy","name":"display confirmation","actionIds":["ACTION-DISPLAY-CONFIRM"]},
+    {"id":"ROUTE-PRINT","path":"/print","name":"printable schedule","actionIds":["ACTION-PRINT-LOAD","ACTION-PRINT-AUTHORIZED"]},
+    {"id":"ROUTE-SERVICES","path":"/services","name":"service directory","actionIds":["ACTION-SERVICE-SEARCH"]},
+    {"id":"ROUTE-CONCIERGE","path":"/concierge","name":"service concierge","actionIds":["ACTION-CONCIERGE-START","ACTION-CONCIERGE-SEARCH","ACTION-CONCIERGE-HANDOFF"]}
+  ],
+  "actions": [
+    {"id":"ACTION-STATIC-LANDING","routeId":"ROUTE-LANDING","control":{"role":"link","name":{"en":"Browse services","es":"Browse services"}},"operation":"Activate the service link and verify that focus/page context reaches the Services directory main heading.","expected":{"state":"URL /services; one main landmark; one h1; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"The new page title or Services directory heading is announced once."}},
+    {"id":"ACTION-HOME-SERVICES","routeId":"ROUTE-HOME","control":{"role":"link","name":{"en":"Browse services","es":"Browse services"}},"operation":"Activate from the Find a service tile.","expected":{"state":"URL /services and focus is not stranded before main; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"Services directory page context; in ES, the current English fallback and its translation-review notice are exposed."}},
+    {"id":"ACTION-HOME-EVENTS","routeId":"ROUTE-HOME","control":{"role":"link","name":{"en":"See events","es":"See events"}},"operation":"Activate from the Plan your week tile.","expected":{"state":"URL /events; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"Events page context and its loading/result status."}},
+    {"id":"ACTION-MODE-EASY","routeId":"ROUTE-SETTINGS","control":{"role":"button","name":{"en":"Bigger and simpler larger words, one thing at a time, a button to call a person","es":"Bigger and simpler larger words, one thing at a time, a button to call a person"}},"operation":"Activate the Easy choice.","expected":{"state":"button pressed; confirmation page says the Easy choice; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"The changed page and selected display choice are announced."}},
+    {"id":"ACTION-MODE-STANDARD","routeId":"ROUTE-SETTINGS","control":{"role":"button","name":{"en":"Regular normal size, more on each page","es":"Regular normal size, more on each page"}},"operation":"Activate the Standard choice.","expected":{"state":"button pressed; confirmation page says the Regular choice; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"The changed page and selected display choice are announced."}},
+    {"id":"ACTION-LANGUAGE-ES","routeId":"ROUTE-SETTINGS","control":{"role":"button","name":{"en":"Español","es":"Español"}},"operation":"Activate Español.","expected":{"state":"html lang becomes es; Español is pressed","announcement":"Spanish page context; Spanish voice pronunciation. Any held-English content also exposes its English-only review notice."}},
+    {"id":"ACTION-LANGUAGE-EN","routeId":"ROUTE-SETTINGS","control":{"role":"button","name":{"en":"English","es":"English"}},"operation":"Activate English.","expected":{"state":"html lang becomes en; English is pressed","announcement":"English page context and voice pronunciation."}},
+    {"id":"ACTION-NOTIFY-LOAD","routeId":"ROUTE-NOTIFICATIONS","control":{"role":"status","name":{"en":"Loading notification settings…","es":"Loading notification settings…"}},"operation":"Open the route and wait without moving focus.","expected":{"state":"one polite status transitions to loaded controls or unavailable; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"Loading is announced once, followed by either controls or the exact unavailable status."}},
+    {"id":"ACTION-NOTIFY-SAVE","routeId":"ROUTE-NOTIFICATIONS","control":{"role":"button","name":{"en":"Save notification settings","es":"Save notification settings"}},"operation":"Toggle I share this phone or device (the current English fallback in both locales), then activate Save.","expected":{"state":"save control is busy/disabled during save","announcement":"Saving… then Notification settings saved.; the ES candidate currently exposes those English fallbacks with its translation-review notice."}},
+    {"id":"ACTION-HELP-SUBMIT","routeId":"ROUTE-HELP","control":{"role":"button","name":{"en":"Send assistance request","es":"Send assistance request"}},"operation":"Enter HUMAN SCREEN READER TEST - DO NOT ACTION in the summary and activate Submit only in the designated synthetic environment.","expected":{"state":"pre-existing live region changes; success remains pending and unassigned, or an alert explains failure","announcement":"Sending request… then the full saved/pending/no-guarantee message, or The assistance request could not be saved."}},
+    {"id":"ACTION-EVENTS-LOAD","routeId":"ROUTE-EVENTS","control":{"role":"status","name":{"en":"Loading events…","es":"Loading events…"}},"operation":"Open the route and wait without moving focus.","expected":{"state":"one polite status changes from loading to the list, AI-off notice, empty, unavailable, or failure; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"The resulting state is announced once."}},
+    {"id":"ACTION-EVENT-RSVP","routeId":"ROUTE-EVENTS","control":{"role":"button","name":{"en":"Attend this event","es":"Attend this event"}},"operation":"Activate on the designated synthetic event.","expected":{"state":"status becomes attending or failure","announcement":"Attend this event… then You are marked as attending., or the exact failure; the ES candidate currently exposes English fallbacks with its translation-review notice."}},
+    {"id":"ACTION-EVENT-WAITLIST","routeId":"ROUTE-EVENTS","control":{"role":"button","name":{"en":"Join the waitlist","es":"Join the waitlist"}},"operation":"Activate on the designated full synthetic event.","expected":{"state":"status becomes waitlisted or failure","announcement":"On the waitlist, or the exact failure; the ES candidate currently exposes English fallbacks with its translation-review notice."}},
+    {"id":"ACTION-EVENT-CANCEL","routeId":"ROUTE-EVENTS","control":{"role":"button","name":{"en":"Cancel attendance","es":"Cancel attendance"}},"operation":"Activate on the designated synthetic attending event.","expected":{"state":"status becomes cancelled or failure","announcement":"Your attendance was cancelled., or the exact failure; the ES candidate currently exposes English fallbacks with its translation-review notice."}},
+    {"id":"ACTION-EVENT-SUGGEST","routeId":"ROUTE-EVENTS","control":{"role":"button","name":{"en":"Send suggestion","es":"Send suggestion"}},"operation":"Enter the provided synthetic title, future date/time, time zone, and note; activate Send suggestion.","expected":{"state":"proposal is pending staff review or failure","announcement":"Send suggestion… then Suggestion sent for staff review. It is not published yet., or the exact failure; the ES candidate currently exposes English fallbacks with its translation-review notice."}},
+    {"id":"ACTION-CAREGIVER-INVITE","routeId":"ROUTE-CAREGIVER","control":{"role":"button","name":{"en":"Send invitation","es":"Send invitation"}},"operation":"Enter the assigned synthetic recipient and activate Send invitation.","expected":{"state":"focus remains usable and status changes","announcement":"Invitation created. No access is active until the resident confirms it., or the exact failure."}},
+    {"id":"ACTION-CAREGIVER-SAVE","routeId":"ROUTE-CAREGIVER","control":{"role":"button","name":{"en":"Save these exact permissions","es":"Save these exact permissions"}},"operation":"Select View schedule, select the resident confirmation checkbox, hear the read-back, then activate Save.","expected":{"state":"selected permission remains checked","announcement":"The selected permissions were saved., or the exact failure. Spanish run must also announce available in English only for held protected copy."}},
+    {"id":"ACTION-CAREGIVER-REVOKE","routeId":"ROUTE-CAREGIVER","control":{"role":"button","name":{"en":"Revoke all caregiver access","es":"Revoke all caregiver access"}},"operation":"Using the assigned synthetic active link, activate Revoke.","expected":{"state":"revoked","announcement":"All caregiver access was revoked., or the exact failure."}},
+    {"id":"ACTION-RIDE-INVALID","routeId":"ROUTE-RIDES","control":{"role":"button","name":{"en":"Send ride request","es":"Send ride request"}},"operation":"Leave Pickup date and time empty and activate Send ride request.","expected":{"state":"focus moves to Pickup date and time; its error is programmatically described","announcement":"Enter a valid pickup date and time. exactly once. If browser-native validation prevents the app status or the expected six-step position/read-back is absent, record fail rather than inventing steps."}},
+    {"id":"ACTION-RIDE-SUBMIT","routeId":"ROUTE-RIDES","control":{"role":"button","name":{"en":"Send ride request","es":"Send ride request"}},"operation":"Complete the provided synthetic values, hear the complete read-back without interleaved controls, and activate Send.","expected":{"state":"form aria-busy during save; saved result never says confirmed","announcement":"Saving ride request… then The request was sent, but the ride is not confirmed.; or saved-unsent/failure. The journey must announce step position such as Step 3 of 6 with its question; absence is a fail."}},
+    {"id":"ACTION-DISPLAY-CONFIRM","routeId":"ROUTE-DISPLAY-CONFIRM","control":{"role":"heading","name":{"en":"Confirm your display choice","es":"Confirm your display choice"}},"operation":"Read the page from its h1 through the choice summary.","expected":{"state":"Easy choice is displayed without changing locale; the ES candidate currently exposes the English fallback with its translation-review notice","announcement":"You chose Bigger and simpler — larger words, one thing at a time, a button to call a person; the ES candidate currently exposes the English fallback with its translation-review notice."}},
+    {"id":"ACTION-PRINT-LOAD","routeId":"ROUTE-PRINT","control":{"role":"status","name":{"en":"No printable source is available. Please sign in and check again later.","es":"No printable source is available. Please sign in and check again later."}},"operation":"Open the route and wait without moving focus.","expected":{"state":"an unavailable response populates the pre-existing polite status; a successful snapshot currently renders source version/as-of provenance outside that live region","announcement":"Unavailable is announced once. If a successful snapshot and its provenance are not announced as a load result, record fail; do not claim the current automated test proves that announcement. The ES candidate exposes English fallback copy with its translation-review notice."}},
+    {"id":"ACTION-PRINT-AUTHORIZED","routeId":"ROUTE-PRINT","control":{"role":"link","name":{"en":"Open a freshly authorized print view","es":"Open a freshly authorized print view"}},"operation":"Activate only when the seeded authorized link is present.","expected":{"state":"fresh print view opens and retains source version/as-of date","announcement":"New page context plus provenance; absence of seeded link is a blocker."}},
+    {"id":"ACTION-SERVICE-SEARCH","routeId":"ROUTE-SERVICES","control":{"role":"searchbox","name":{"en":"Search services","es":"Search services"}},"operation":"Enter the assigned seeded query, Tab to Search (the current English fallback in both locales), activate, and do not type further until the result announces.","expected":{"state":"URL contains q; results are headings or a no-results/error state; the ES candidate currently exposes English fallback copy with its translation-review notice","announcement":"One result-count/result-state announcement, not one per keystroke. Each listing exposes name, eligibility meaning, phone link when present, and source-updated date without color-only meaning."}},
+    {"id":"ACTION-CONCIERGE-START","routeId":"ROUTE-CONCIERGE","control":{"role":"button","name":{"en":"Get help finding a service","es":"Get help finding a service"}},"operation":"Activate once.","expected":{"state":"pre-existing status/alert changes and AI-on search or AI-off browse/handoff remains reachable","announcement":"Search verified local service information. or an exact start error."}},
+    {"id":"ACTION-CONCIERGE-SEARCH","routeId":"ROUTE-CONCIERGE","control":{"role":"button","name":{"en":"Search","es":"Search"}},"operation":"On the AI-enabled seeded state, enter the provided synthetic question and activate Search.","expected":{"state":"answer region already exists before response and contains citations/disclaimer","announcement":"The answer, citation identifiers, and disclaimer are announced once."}},
+    {"id":"ACTION-CONCIERGE-HANDOFF","routeId":"ROUTE-CONCIERGE","control":{"role":"button","name":{"en":"Send assistance request","es":"Send assistance request"}},"operation":"On the AI-off seeded state, select Yes, use this choice and activate Send assistance request.","expected":{"state":"request identifier and pending state are exposed; no callback is promised","announcement":"The request identifier and pending state. Spanish held-English copy announces available in English only."}}
+  ],
+  "journeys": [
+    {
+      "id": "JOURNEY-ALL-ROUTES",
+      "name": "Every shipped route: page, skip link, headings, landmarks, actions",
+      "steps": [
+        {"id":"STEP-ROUTES-01","operation":"For each routes[] entry, navigate directly, move to the top, then press the platform nextFocus key once.","expectations":["Product and page context are announced, not a logo or filename.","Skip to main content / Saltar al contenido principal is the first focus target and has role link.","Activation moves focus to the unique main landmark."]},
+        {"id":"STEP-ROUTES-02","operation":"Use the platform heading command through the page, then its landmark command/rotor.","expectations":["Exactly one h1 is announced and heading levels do not skip.","Exactly one banner, navigation, main, and contentinfo landmark is announced; a missing or duplicate required landmark is a fail."]},
+        {"id":"STEP-ROUTES-03","operation":"Tab through every visible action without using a mouse.","expectations":["Every action in the route actionIds is reached in DOM order with its visible label as its accessible name.","Role and pressed/checked/expanded/disabled/busy state are announced when applicable.","Nothing is announced only as graphic and focus is never lost or trapped."]}
+      ]
+    },
+    {
+      "id": "JOURNEY-HOME-SERVICE-SEARCH",
+      "name": "Home to service search and listing meaning",
+      "steps": [
+        {"id":"STEP-SERVICE-01","actionId":"ACTION-HOME-SERVICES","expectations":["Find a service tile heading is heard before Browse services; the ES candidate also exposes its translation-review notice.","Page change announces Services directory and focus can reach main; the ES candidate also exposes its translation-review notice."]},
+        {"id":"STEP-SERVICE-02","actionId":"ACTION-SERVICE-SEARCH","expectations":["Search results announce once after activation, not per keystroke.","Listing chips/statuses are spoken as words and meanings, never color alone."]}
+      ]
+    },
+    {
+      "id": "JOURNEY-RIDE-ERROR-READBACK",
+      "name": "Ride required error, step position, read-back, and submission status",
+      "steps": [
+        {"id":"STEP-RIDE-01","actionId":"ACTION-RIDE-INVALID","expectations":["Required error is announced, focus moves to the field, and the corrective message is reachable through its description."]},
+        {"id":"STEP-RIDE-02","actionId":"ACTION-RIDE-SUBMIT","expectations":["Each product step announces its position and question; if the integrated single-page form has no such steps, record fail.","Read-back is continuous with no interactive controls interleaved.","Saving and final non-confirmation status are announced once each."]}
+      ]
+    },
+    {
+      "id": "JOURNEY-MODE-LANGUAGE",
+      "name": "Switch Easy/Standard and English/Spanish",
+      "steps": [
+        {"id":"STEP-PREF-01","actionId":"ACTION-MODE-EASY","expectations":["Pressed state and confirmation are announced.","Easy bar exposes two links named Help me / Ayúdeme and Call a person / Llamar a una persona."]},
+        {"id":"STEP-PREF-02","actionId":"ACTION-LANGUAGE-ES","expectations":["html language and VoiceOver/NVDA pronunciation change to Spanish.","English held for review remains explicitly English and is associated with its review affordance."]},
+        {"id":"STEP-PREF-03","actionId":"ACTION-MODE-STANDARD","expectations":["Pressed state and confirmation are announced; Easy-only bar is absent."]},
+        {"id":"STEP-PREF-04","actionId":"ACTION-LANGUAGE-EN","expectations":["html language and pronunciation return to English."]}
+      ]
+    },
+    {
+      "id": "JOURNEY-STATUS-ACTIONS",
+      "name": "Every integrated status-changing action",
+      "actionIds": [
+        "ACTION-NOTIFY-LOAD","ACTION-NOTIFY-SAVE","ACTION-HELP-SUBMIT","ACTION-EVENTS-LOAD","ACTION-EVENT-RSVP","ACTION-EVENT-WAITLIST","ACTION-EVENT-CANCEL","ACTION-EVENT-SUGGEST","ACTION-CAREGIVER-INVITE","ACTION-CAREGIVER-SAVE","ACTION-CAREGIVER-REVOKE","ACTION-RIDE-INVALID","ACTION-RIDE-SUBMIT","ACTION-PRINT-LOAD","ACTION-PRINT-AUTHORIZED","ACTION-SERVICE-SEARCH","ACTION-CONCIERGE-START","ACTION-CONCIERGE-SEARCH","ACTION-CONCIERGE-HANDOFF"
+      ],
+      "steps": [
+        {"id":"STEP-STATUS-01","operation":"Execute each actionId in order using only the keyboard and the assigned synthetic fixtures.","expectations":["The named role, accessible name, control state, and live announcement match the action expectation.","Each result is heard once and remains discoverable after speech finishes.","No result relies on sight, color, screenshot interpretation, or another person's help."]}
+      ]
+    }
+  ],
+  "evidenceRequirements": {
+    "run": ["runId","sealedCandidateSha","localBaseUrl","candidateState","boundBy","boundAtUtc","tester","startedAtUtc","completedAtUtc","operatingSystemVersion","browserVersion","assistiveTechnologyVersion","locale","mode","result"],
+    "step": ["journeyId","stepId","route","actionId","result","exactKeystrokes","verbatimTranscript","observedName","observedRole","observedStates","observedLiveAnnouncement","timestampUtc","evidenceFiles","defectId"],
+    "defect": ["defectId","summary","severity","successCriterion","journeyId","stepId","route","reproductionKeystrokes","expected","actualTranscript","result","evidenceFiles","disposition","ownerAndTarget","rerunLinkage"],
+    "severityVocabulary": ["critical","high","medium","low"],
+    "media": "Screenshots may show focus/state; recordings may preserve speech and timing. Media never replaces the verbatim transcript or keyboard record.",
+    "privacy": "Use only designated synthetic records. Do not capture credentials, real names, phone numbers, email addresses, or health/assistance narratives."
+  },
+  "humanExecutionClaim": "not_run"
+}

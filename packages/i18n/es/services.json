@@ -1,0 +1,16 @@
+{
+  "directory.heading": "Directorio de servicios",
+  "directory.intro": "Busque información verificada sobre servicios locales.",
+  "directory.search_label": "Buscar servicios",
+  "directory.search_placeholder": "Alimentos, transporte, vivienda…",
+  "directory.search_action": "Buscar",
+  "directory.no_results": "No se encontraron servicios que coincidan.",
+  "directory.error": "No se pudieron cargar los servicios.",
+  "directory.eligibility": "Requisitos: {summary}",
+  "directory.source_updated": "Fuente actualizada el {date}",
+  "directory.help_link": "Obtener ayuda para encontrar un servicio",
+  "status.draft": "Borrador",
+  "status.awaiting_review": "En espera de revisión",
+  "status.published": "Publicado",
+  "status.invalidated": "Invalidado"
+}

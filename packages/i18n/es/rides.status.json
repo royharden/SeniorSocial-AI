@@ -1,0 +1,291 @@
+{
+  "rides.page.title": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.page.disclaimer": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.none": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.saving": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.pickup_invalid": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.send_failed": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.sent_unconfirmed": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.saved_unsent": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.save_failed": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.request.send": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.purpose.label": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.purpose.medical": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.purpose.grocery": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.purpose.community": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.purpose.other": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.mode.label": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.mode.paratransit": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.mode.taxi_voucher": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.mode.rideshare": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.mode.partner_van": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.pickup.time": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.pickup.place": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.pickup.home": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.pickup.other": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.destination.label": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.destination.medical": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.destination.grocery": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.destination.community": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.destination.other": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.legend": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.wheelchair": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.walker": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.needs_an_arm": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.service_animal": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.oxygen": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.accessibility.door_to_door": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.return.label": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.status.draft": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.requested": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.waiting_for_dispatcher": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.confirmed_by": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.completed": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.cancelled": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.status.unable_to_fulfill": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "rides.send_status.not_sent": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.send_status.sent": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  },
+  "rides.send_status.send_failed": {
+    "status": "draft",
+    "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+    "critical": false,
+    "machine_generated": true
+  }
+}

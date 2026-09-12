@@ -1,0 +1,19 @@
+{
+  "name": "@seniorsocial/individual-exports",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test:unit": "vitest run --root ../.. tests/unit/WP-020-individual tests/security/WP-020-individual tests/contract/WP-020-individual",
+    "test:integration": "vitest run --root ../.. tests/integration/WP-020-individual"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.4",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "profile.display_question": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.regular": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.regular_detail": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.easy": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.easy_detail": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.current_choice": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.change_anytime": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.language": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.english": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.spanish": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.settings_heading": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.data_heading": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.data_export_intro": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.data_export_link": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.confirm_heading": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.you_chose": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.standard_confirmation": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  },
+  "profile.easy_confirmation": {
+    "status": "draft",
+    "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+    "critical": false,
+    "machine_generated": true
+  }
+}

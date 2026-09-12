@@ -1,0 +1,20 @@
+{
+  "display_question": "How would you like the app to look?",
+  "regular": "Regular",
+  "regular_detail": "normal size, more on each page",
+  "easy": "Bigger and simpler",
+  "easy_detail": "larger words, one thing at a time, a button to call a person",
+  "current_choice": "Current choice",
+  "change_anytime": "You can change this whenever you like.",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Español",
+  "settings_heading": "Your settings",
+  "data_heading": "Your data",
+  "data_export_intro": "Choose which parts of your account you want to save in a file.",
+  "data_export_link": "Export your data",
+  "confirm_heading": "Confirm your display choice",
+  "you_chose": "You chose",
+  "standard_confirmation": "Regular — normal size, more on each page",
+  "easy_confirmation": "Bigger and simpler — larger words, one thing at a time, a button to call a person"
+}

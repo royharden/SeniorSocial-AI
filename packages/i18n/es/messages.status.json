@@ -1,0 +1,160 @@
+{
+  "messages.page.title": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.privacy.participant_only": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.auth.sign_in_required": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.start": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.participant_label": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.create": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.label": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.empty": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.state.loading": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.error.unavailable": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.composer.body_label": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.composer.send": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.state.sent": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.refresh": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.report.heading": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.report.reason_label": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.report.note_label": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.report.saved": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.block.action": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.block.saved": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.block.help": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "messages.navigation.notification_preferences": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.navigation.back_to_conversations": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.conversation.open": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  },
+  "messages.error.retry": {
+    "status": "awaiting_review",
+    "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+    "critical": false,
+    "machine_generated": true
+  }
+}

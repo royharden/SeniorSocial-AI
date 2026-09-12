@@ -1,0 +1,13 @@
+ALTER TABLE ai_events DROP CONSTRAINT IF EXISTS ai_events_reservation_fk;
+DROP FUNCTION IF EXISTS consume_ai_rate_limit(uuid,uuid,text,integer,integer,integer);
+DROP FUNCTION IF EXISTS transition_ai_cost(uuid,uuid,ai_cost_reservation_state,numeric);
+DROP FUNCTION IF EXISTS reserve_ai_cost(uuid,text,text,numeric,integer);
+DROP TABLE IF EXISTS ai_cache;
+DROP TABLE IF EXISTS ai_rate_limit_observations;
+DROP TABLE IF EXISTS ai_cost_attempts;
+DROP TABLE IF EXISTS ai_cost_reservations;
+DROP TABLE IF EXISTS ai_cost_caps;
+DROP TABLE IF EXISTS ai_org_cost_caps;
+DROP TABLE IF EXISTS prompt_versions;
+DROP TYPE IF EXISTS ai_attempt_kind;
+DROP TYPE IF EXISTS ai_cost_reservation_state;

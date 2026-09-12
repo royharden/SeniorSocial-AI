@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "register": "usted",
+  "current_source_namespaces": {
+    "admin": {
+      "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+      "source_sha256": "e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb"
+    },
+    "assistance": {
+      "source_version": "sha256:dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048",
+      "source_sha256": "dace13bc4579cf88b0c580fa6c76d577566c3edf8ee538ffb5bea8204f18e048"
+    },
+    "auth": {
+      "source_version": "sha256:89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7",
+      "source_sha256": "89d11e691b3da31a96fd54cee4ece447e08644809804c5e2294cf516cb12a6b7"
+    },
+    "common": {
+      "source_version": "sha256:20fddb046c93920e0b143a18e8fc51f5a84c5791058a02fefc463116c3541bd3",
+      "source_sha256": "20fddb046c93920e0b143a18e8fc51f5a84c5791058a02fefc463116c3541bd3"
+    },
+    "caregiver": {
+      "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+      "source_sha256": "ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28"
+    },
+    "events": {
+      "source_version": "sha256:1e78d690576d73eea78d531d273de03f86f4571ceb0ff3779a11e51d4288a79b",
+      "source_sha256": "1e78d690576d73eea78d531d273de03f86f4571ceb0ff3779a11e51d4288a79b"
+    },
+    "groups": {
+      "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+      "source_sha256": "616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90"
+    },
+    "intake": {
+      "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+      "source_sha256": "ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22"
+    },
+    "messages": {
+      "source_version": "sha256:a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1",
+      "source_sha256": "a46105fa5e7c6e7ef848f4c29e6a4b9c9cfd3c7b03689be76c41b7ba575a4ba1"
+    },
+    "notify": {
+      "source_version": "sha256:f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a",
+      "source_sha256": "f3d84837656ed0d3f1034017af407f67d264f3d57aed36b1a2b6d22317bf421a"
+    },
+    "profile": {
+      "source_version": "sha256:9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0",
+      "source_sha256": "9265ace79b8357615ee4912cc8cd820850ce8844cf07c724f849fd506e337cc0"
+    },
+    "reports": {
+      "source_version": "sha256:7bc8b85b4f7705e4210e6689049a6c2c2da4afd9e2c02607405c5ff1e73a9c6e",
+      "source_sha256": "7bc8b85b4f7705e4210e6689049a6c2c2da4afd9e2c02607405c5ff1e73a9c6e"
+    },
+    "rides": {
+      "source_version": "sha256:f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2",
+      "source_sha256": "f789fd0087aee7b2b1f283d4e2a6bd21b4a896d53b3606eb8d8dce7fd720aec2"
+    },
+    "services": {
+      "source_version": "sha256:e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435",
+      "source_sha256": "e0e55eeb85020c0268d79028ba3340ea033c98d20aac717ca751e018becc2435"
+    },
+    "shell": {
+      "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+      "source_sha256": "e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9"
+    },
+    "translate": {
+      "source_version": "sha256:9926d78cd4b5824590c3787f930e279fee91dcc3be2321e52ebf08a89086f189",
+      "source_sha256": "9926d78cd4b5824590c3787f930e279fee91dcc3be2321e52ebf08a89086f189"
+    }
+  },
+  "review_status_contract": {
+    "draft": {
+      "meaning": "provisional copy without qualified human review",
+      "review_evidence": "forbidden",
+      "may_ship_as_critical": false
+    },
+    "awaiting_review": {
+      "meaning": "provisional copy queued for qualified human review",
+      "review_evidence": "forbidden",
+      "may_ship_as_critical": false
+    },
+    "approved": {
+      "meaning": "approved by a named person whose qualification and review time are recorded",
+      "requires": [
+        "reviewed_by",
+        "reviewer_qualification",
+        "reviewed_at"
+      ]
+    },
+    "invalidated": {
+      "meaning": "previous copy invalidated by a source or review change and prohibited from use",
+      "review_evidence": "optional_complete_set",
+      "may_ship_as_critical": false
+    }
+  },
+  "current_auth_catalogs": {
+    "english": [
+      "auth"
+    ],
+    "spanish": [
+      "auth"
+    ],
+    "reason": "Spanish auth Problem titles mirror the canonical English auth catalog; route locale selection remains integration-owned."
+  },
+  "approved_source_identical_values": [
+    {
+      "key": "profile.regular",
+      "reason": "Regular is the standard Spanish cognate for this display option."
+    },
+    {
+      "key": "profile.english",
+      "reason": "Language choices use each language's autonym."
+    },
+    {
+      "key": "profile.spanish",
+      "reason": "Language choices use each language's autonym."
+    },
+    {
+      "key": "events.proposal.timezone_example",
+      "reason": "America/New_York is a machine-readable IANA time-zone identifier and must remain byte-identical."
+    },
+    {
+      "key": "intake.common.no",
+      "reason": "No is the same unambiguous negative response in English and Spanish."
+    }
+  ],
+  "critical_classification": {
+    "admin": [
+      "action.account_hold",
+      "action.account_release",
+      "state.held_for_review",
+      "queue.moderation",
+      "state.awaiting_review",
+      "state.keep",
+      "state.remove",
+      "state.warn",
+      "item.immediate_safety"
+    ],
+    "assistance": "all_keys",
+    "rides": [
+      "status.*"
+    ],
+    "caregiver": [
+      "consent.*",
+      "read_back.*"
+    ],
+    "intake": [
+      "disclaimer.*"
+    ],
+    "messages": [
+      "privacy.participant_only",
+      "report.heading",
+      "report.reason_label",
+      "report.note_label",
+      "report.saved",
+      "block.action",
+      "block.saved",
+      "block.help"
+    ],
+    "groups": [
+      "safety_notice",
+      "awaiting_review",
+      "report_action",
+      "report_sent",
+      "report_error",
+      "block_action",
+      "block_success",
+      "block_error"
+    ]
+  },
+  "critical_fallback": {
+    "render_state": "held_english_fallback",
+    "affordance": "available in English only",
+    "approval_authority": "WP-021 qualified authorized reviewer evidence"
+  },
+  "consumer_readiness": {
+    "status": "catalogs_complete_consumers_adopted",
+    "finding_test": "tests/contract/WP-032/product-consumer-readiness.test.ts"
+  }
+}

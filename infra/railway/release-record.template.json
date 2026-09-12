@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "status": "PENDING",
+  "environment": "staging",
+  "sealed_candidate_sha": "SEALED_CANDIDATE_SHA",
+  "deployed_base_url": "DEPLOYED_BASE_URL",
+  "image_digest": "IMAGE_DIGEST",
+  "image_reference": null,
+  "image_uploaded_at_utc": null,
+  "deployed_at_utc": null,
+  "deployer_callsign": null,
+  "services": {
+    "web": { "status": "PENDING", "image_reference": null, "health_path": "/api/v1/health", "health_passed_at_utc": null, "health_evidence_sha256": null },
+    "worker": { "status": "PENDING", "image_reference": null, "health_path": "/healthz", "health_passed_at_utc": null, "health_evidence_sha256": null }
+  },
+  "leak_scan": {
+    "status": "PENDING",
+    "completed_at_utc": null,
+    "candidate_sha": "SEALED_CANDIDATE_SHA",
+    "evidence_sha256": null
+  },
+  "database": {
+    "postgres_major": 16,
+    "pgvector_extension_version": null,
+    "migration_version": null,
+    "seed_sha256": null,
+    "pitr": {
+      "status": "PENDING",
+      "enabled_at_utc": null,
+      "restore_range_observed_at_utc": null,
+      "restore_range_start_utc": null,
+      "restore_range_end_utc": null,
+      "evidence_sha256": null
+    },
+    "first_dump": {
+      "status": "PENDING",
+      "created_at_utc": null,
+      "byte_length": null,
+      "sha256": null,
+      "repository_path": null,
+      "restore_target": "isolated-scratch",
+      "restore_rehearsed_at_utc": null,
+      "restore_evidence_sha256": null
+    },
+    "migrate_seed": {
+      "status": "PENDING",
+      "migration_status": "PENDING",
+      "migration_completed_at_utc": null,
+      "seed_status": "PENDING",
+      "seed_completed_at_utc": null,
+      "evidence_sha256": null
+    }
+  },
+  "gates": {
+    "health": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "smoke": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "e2e": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "a11y": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "eval": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "r24_overlay": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null },
+    "local_release_diff": { "status": "PENDING", "failures": 0, "skips": 0, "completed_at_utc": null, "evidence_sha256": null }
+  },
+  "attempt": { "unexplained_failures": 0, "retries": 0 },
+  "staging_promotion": null,
+  "rollback": {
+    "status": "PENDING",
+    "image_digest": null,
+    "known_good_release_record_sha256": null,
+    "started_at_utc": null,
+    "rollback_health_passed_at_utc": null,
+    "restored_candidate_digest": "IMAGE_DIGEST",
+    "candidate_restored_at_utc": null,
+    "candidate_health_passed_at_utc": null,
+    "rehearsed": false,
+    "evidence_sha256": null
+  },
+  "external_actions_authorized": false
+}

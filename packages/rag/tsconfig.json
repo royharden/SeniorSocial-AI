@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "allowImportingTsExtensions": true, "types": ["node"], "incremental": false },
+  "include": [
+    "src/**/*.ts",
+    "../../tests/unit/WP-023/**/*.ts",
+    "../../tests/contract/WP-023/**/*.ts",
+    "../../tests/security/WP-023/**/*.ts",
+    "../../tests/integration/WP-023/**/*.ts",
+    "../../evals/WP-023/**/*.ts"
+  ]
+}

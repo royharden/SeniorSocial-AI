@@ -1,0 +1,16 @@
+description: SeniorSocial deterministic zero-spend stub evals
+
+prompts:
+  - id: seniorsocial-locked-case
+    raw: "{{provider_input_json}}"
+
+providers:
+  - id: file://graders/stub-provider.mjs
+    label: seniorsocial-existing-stub
+
+tests: file://graders/case-adapter.mjs
+
+sharing: false
+
+commandLineOptions:
+  failOnError: true

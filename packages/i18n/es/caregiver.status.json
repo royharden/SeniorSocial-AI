@@ -1,0 +1,194 @@
+{
+  "caregiver.page.title": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.page.intro": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.heading": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.contact_label": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.relationship_note": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.send": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.created": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.invitation.failed": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.consent.heading": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.instruction": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.link_id": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.permissions_saved": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.permissions_failed": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.resident_confirmation": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.save": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.revoke": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.revoked": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.revoke_failed": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.consent.boundaries": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.legend": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.view_schedule": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.book_rides": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.receive_alerts": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.view_assistance": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.view_profile": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.read_back.manage_events": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "caregiver.status.pending": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.status.active": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  },
+  "caregiver.status.revoked": {
+    "status": "draft",
+    "source_version": "sha256:ccdff971d5954d4757155f8162a3ffe48181f77e1214ac8ea9bd655606adcf28",
+    "critical": false,
+    "machine_generated": true
+  }
+}

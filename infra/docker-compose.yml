@@ -1,0 +1,247 @@
+# SeniorSocial local stack (WP-001; compose-plan.md s1).
+#
+# ONE file, reused unmodified by every lane and by the reserved demo stack.
+# Per-lane values (project name, ports, volume names) arrive as environment
+# variables from scripts/lane-launch.mjs — never by editing this file. Editing it
+# per lane is how two lanes end up sharing a database.
+#
+# No `version:` key: Compose v5.1.3 does not need one and warns if it is present.
+#
+# SEC-052: every image is pinned BY DIGEST as well as by tag. Digests resolved
+# 2026-09-10 with `docker buildx imagetools inspect`. Re-resolve deliberately,
+# never by dropping the digest to make a pull succeed.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16@sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ss}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ss_dev_only}
+      POSTGRES_DB: ${POSTGRES_DB:-seniorsocial}
+      SENIORSOCIAL_RUNTIME_DB_PASSWORD: ${SENIORSOCIAL_RUNTIME_DB_PASSWORD:-ss_runtime_dev_only}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    # SEC-059: TLS on the database connection. Postgres will not serve TLS
+    # without a certificate, and a self-signed pair generated at image-build time
+    # would be a certificate nobody verifies. Local dev therefore runs without it
+    # and the APPLICATION is what enforces the rule: packages/db requires
+    # `sslmode=require` whenever DATABASE_SSL=require, which .env.example sets to
+    # `disable` locally and which the deploy environment sets to `require`.
+    # Recorded as `configured`, never as `demo`.
+    command:
+      - postgres
+      - -c
+      - maintenance_work_mem=256MB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  web:
+    build:
+      context: ../
+      dockerfile: infra/docker/Dockerfile
+      target: dev
+    image: ss-base:dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://seniorsocial_runtime:${SENIORSOCIAL_RUNTIME_DB_PASSWORD:-ss_runtime_dev_only}@db:5432/${POSTGRES_DB:-seniorsocial}
+      DATABASE_SSL: ${DATABASE_SSL:-disable}
+      FIELD_ENCRYPTION_KEY: ${FIELD_ENCRYPTION_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
+      ASSISTANCE_ENCRYPTION_KEY: ${ASSISTANCE_ENCRYPTION_KEY:-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+      AUTH_TOKEN_PEPPER: ${AUTH_TOKEN_PEPPER:-local-development-auth-pepper}
+      AUTH_SIMULATION_EXPOSE_CREDENTIALS: "true"
+      SENIORSOCIAL_ORG_ID: ${SENIORSOCIAL_ORG_ID:-11111111-1111-4111-8111-111111111111}
+      AI_PROVIDER: ${AI_PROVIDER:-stub}
+      # SEC-064: real SMS is disabled BY CONFIGURATION, not by an empty
+      # credential. `simulator` is the value the code branches on. There is no
+      # voice key: voice is cut at rank 1 for this run (ADR-009).
+      SMS_PROVIDER: simulator
+      EMAIL_PROVIDER: mailpit
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      APP_NAME: ${APP_NAME:-SeniorSocial}
+      CITY_NAME: ${CITY_NAME:-}
+      WATCHPACK_POLLING: "true"
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+    volumes:
+      - ../:/app
+      # Every workspace package needs its own named volume, not just the root.
+      # pnpm's isolated layout gives each package a node_modules of symlinks into
+      # the root .pnpm store, and the host bind mount would shadow all of them with
+      # Windows-created links that do not resolve inside a Linux container.
+      - web-node-modules:/app/node_modules
+      - web-app-node-modules:/app/apps/web/node_modules
+      - auth-node-modules:/app/packages/auth/node_modules
+      - audit-node-modules:/app/packages/audit/node_modules
+      - config-node-modules:/app/packages/config/node_modules
+      - contracts-node-modules:/app/packages/contracts/node_modules
+      - db-node-modules:/app/packages/db/node_modules
+      - flags-node-modules:/app/packages/flags/node_modules
+      - i18n-node-modules:/app/packages/i18n/node_modules
+      - intake-node-modules:/app/packages/intake/node_modules
+      - policy-node-modules:/app/packages/policy/node_modules
+      - tokens-node-modules:/app/packages/tokens/node_modules
+      - ui-node-modules:/app/packages/ui/node_modules
+      - pnpm-store:/pnpm/store
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:3000/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+
+  worker:
+    build:
+      context: ../
+      dockerfile: infra/docker/Dockerfile
+      target: dev
+    image: ss-base:dev
+    restart: unless-stopped
+    # Dependencies are frozen into the image and copied into the named volumes.
+    # Invoking pnpm here would reconcile every bind-mounted workspace package at
+    # runtime, which is both outside the reviewed install boundary and fails in
+    # a headless cold start when the workspace package count changes.
+    command: ["node", "node_modules/tsx/dist/cli.mjs", "packages/worker/src/main.ts"]
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://seniorsocial_runtime:${SENIORSOCIAL_RUNTIME_DB_PASSWORD:-ss_runtime_dev_only}@db:5432/${POSTGRES_DB:-seniorsocial}
+      WORKER_DATABASE_URL: postgres://seniorsocial_runtime:${SENIORSOCIAL_RUNTIME_DB_PASSWORD:-ss_runtime_dev_only}@db:5432/${POSTGRES_DB:-seniorsocial}
+      DATABASE_SSL: ${DATABASE_SSL:-disable}
+      SENIORSOCIAL_ORG_ID: ${SENIORSOCIAL_ORG_ID:-11111111-1111-4111-8111-111111111111}
+      ASSISTANCE_ENCRYPTION_KEY: ${ASSISTANCE_ENCRYPTION_KEY:-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+      AI_PROVIDER: ${AI_PROVIDER:-stub}
+      SMS_PROVIDER: simulator
+      EMAIL_PROVIDER: mailpit
+      SENIORSOCIAL_LOCAL_COMPOSE: "true"
+      MAILPIT_URL: http://mailpit:8025/
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      WORKER_HEALTH_PORT: "9100"
+    volumes:
+      - ../:/app
+      # Every workspace package needs its own named volume, not just the root.
+      # pnpm's isolated layout gives each package a node_modules of symlinks into
+      # the root .pnpm store, and the host bind mount would shadow all of them with
+      # Windows-created links that do not resolve inside a Linux container.
+      - web-node-modules:/app/node_modules
+      - web-app-node-modules:/app/apps/web/node_modules
+      - worker-node-modules:/app/packages/worker/node_modules
+      - assistance-node-modules:/app/packages/assistance/node_modules
+      - messaging-node-modules:/app/packages/messaging/node_modules
+      - notify-node-modules:/app/packages/notify/node_modules
+      - auth-node-modules:/app/packages/auth/node_modules
+      - audit-node-modules:/app/packages/audit/node_modules
+      - config-node-modules:/app/packages/config/node_modules
+      - contracts-node-modules:/app/packages/contracts/node_modules
+      - db-node-modules:/app/packages/db/node_modules
+      - flags-node-modules:/app/packages/flags/node_modules
+      - i18n-node-modules:/app/packages/i18n/node_modules
+      - intake-node-modules:/app/packages/intake/node_modules
+      - policy-node-modules:/app/packages/policy/node_modules
+      - tokens-node-modules:/app/packages/tokens/node_modules
+      - ui-node-modules:/app/packages/ui/node_modules
+      - pnpm-store:/pnpm/store
+    depends_on:
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9100/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+
+  mailpit:
+    image: axllent/mailpit:v1.28@sha256:c6cf0b06eb516a0b80a8a5251f945c131e6beb8396112964404f62856487f5bd
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_SMTP_PORT:-1025}:1025"
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8025/api/v1/info"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 5s
+
+  adminer:
+    image: adminer:5.4.1@sha256:a3167350c4eb9ae4473b8ea0f49c8e5ae74c87b240ee2f6086521dba2a6bf243
+    profiles: ["observability"]
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  playwright:
+    # Tag MUST equal @playwright/test in package.json exactly. Never :latest —
+    # the image carries the browser binaries, so :latest is a silent Chromium
+    # upgrade, and an image/SDK mismatch makes Playwright fail to find a browser.
+    image: mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27
+    profiles: ["e2e"]
+    shm_size: 1gb          # Docker's default /dev/shm is 64MB; Chromium crashes below ~1GB
+    working_dir: /app
+    environment:
+      WEB_URL: http://web:3000
+      CI: "true"
+    volumes:
+      - ../:/app
+      # Every workspace package needs its own named volume, not just the root.
+      # pnpm's isolated layout gives each package a node_modules of symlinks into
+      # the root .pnpm store, and the host bind mount would shadow all of them with
+      # Windows-created links that do not resolve inside a Linux container.
+      - web-node-modules:/app/node_modules
+      - web-app-node-modules:/app/apps/web/node_modules
+      - auth-node-modules:/app/packages/auth/node_modules
+      - audit-node-modules:/app/packages/audit/node_modules
+      - config-node-modules:/app/packages/config/node_modules
+      - contracts-node-modules:/app/packages/contracts/node_modules
+      - db-node-modules:/app/packages/db/node_modules
+      - flags-node-modules:/app/packages/flags/node_modules
+      - i18n-node-modules:/app/packages/i18n/node_modules
+      - policy-node-modules:/app/packages/policy/node_modules
+      - tokens-node-modules:/app/packages/tokens/node_modules
+      - ui-node-modules:/app/packages/ui/node_modules
+      - pnpm-store:/pnpm/store
+    depends_on:
+      web:
+        condition: service_healthy
+
+volumes:
+  db-data:
+  web-node-modules:
+  web-app-node-modules:
+  worker-node-modules:
+  assistance-node-modules:
+  messaging-node-modules:
+  notify-node-modules:
+  auth-node-modules:
+  audit-node-modules:
+  config-node-modules:
+  contracts-node-modules:
+  db-node-modules:
+  flags-node-modules:
+  i18n-node-modules:
+  intake-node-modules:
+  policy-node-modules:
+  tokens-node-modules:
+  ui-node-modules:
+  pnpm-store:
+    external: true         # shared across every lane; `docker volume create pnpm-store` once

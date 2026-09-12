@@ -1,0 +1,419 @@
+{
+  "admin.page.title": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.page.intro": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.status.loading": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.status.empty": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.status.load_failed": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.status.saved": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.section.queues": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.section.users": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.section.content": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.section.analytics": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.action.account_hold": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.action.account_release": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.action.create": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.records.label": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.records.saved_fallback": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.queue.assistance": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.queue.rides": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.queue.moderation": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.queue.translation": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.active": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.held_for_review": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.state.pending_unowned": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.owned": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.in_progress": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.resolved": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.closed_unable": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.waiting_for_dispatcher": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.confirmed_by": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.completed": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.cancelled": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.unable_to_fulfill": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.awaiting_review": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.state.keep": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.state.remove": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.state.warn": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.state.draft": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.approved": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.state.invalidated": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.analytics.users": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.analytics.managed_content": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.analytics.partners": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.analytics.review_holds": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.food": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.housing": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.transportation": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.social_support": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.general": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.immediate_safety": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "admin.item.post": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.reply": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.item.message": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.manager.content_pages": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.manager.faqs": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.manager.announcements": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.manager.partners": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.slug": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.question": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.answer": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.title": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.publish_at": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.name": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.field.contact": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.senior": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.caregiver": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.staff": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.partner": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.support": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  },
+  "admin.role.admin": {
+    "status": "draft",
+    "source_version": "sha256:e76810a910c252d0a91310cf8c6984e0325b041de7a9df2f47393107e98b75bb",
+    "critical": false,
+    "machine_generated": true
+  }
+}

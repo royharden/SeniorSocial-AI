@@ -1,0 +1,7 @@
+# Synthetic leak-scan terms fixture for SEC-054 (WP-001 test set).
+# Invented words only — never a real customer or project name.
+# Per the dispatch: "Use a synthetic terms fixture under tests/fixtures/WP-001/
+# with invented words; never a real customer term."
+zzyzxglarnok
+quombolisterfax
+nightjarplumbus9

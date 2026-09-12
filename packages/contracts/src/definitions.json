@@ -1,0 +1,2298 @@
+{
+  "Problem": {
+    "description": "RFC 9457 problem detail. Never leaks another organisation's data.",
+    "type": "object",
+    "required": [
+      "type",
+      "title",
+      "status"
+    ],
+    "properties": {
+      "type": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "status": {
+        "type": "integer"
+      },
+      "detail": {
+        "type": "string"
+      },
+      "instance": {
+        "type": "string"
+      },
+      "human_route": {
+        "type": "string",
+        "description": "What the person can do instead - present on AiDisabled"
+      }
+    }
+  },
+  "PageMeta": {
+    "type": "object",
+    "properties": {
+      "next_cursor": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "total_known": {
+        "type": "boolean",
+        "description": "false when the count is an estimate - never present a guess as a count"
+      }
+    }
+  },
+  "Org": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "locale_default": {
+        "type": "string"
+      }
+    }
+  },
+  "Me": {
+    "type": "object",
+    "required": [
+      "user_id",
+      "org_id",
+      "roles",
+      "mode",
+      "locale"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "roles": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "senior",
+            "caregiver",
+            "staff",
+            "admin",
+            "partner",
+            "support"
+          ]
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "easy"
+        ]
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      },
+      "acting_for": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "set when a caregiver is acting under consent"
+      },
+      "active_scopes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "display_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "preferences": {
+        "$ref": "#/components/schemas/Preferences"
+      },
+      "consent_version": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "demo_mode": {
+        "type": "boolean"
+      },
+      "profile_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "additionalProperties": false
+  },
+  "Session": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "additionalProperties": false
+  },
+  "User": {
+    "type": "object",
+    "required": [
+      "version"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "display_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "roles": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "senior",
+            "caregiver",
+            "staff",
+            "admin",
+            "partner",
+            "support"
+          ]
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "account_state": {
+        "type": "string",
+        "enum": [
+          "active",
+          "held_for_review",
+          "deactivated"
+        ]
+      },
+      "version": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Current optimistic-concurrency version returned to admin clients"
+      }
+    },
+    "additionalProperties": false
+  },
+  "UserPatch": {
+    "type": "object",
+    "required": [
+      "expected_version"
+    ],
+    "properties": {
+      "roles": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "senior",
+            "caregiver",
+            "staff",
+            "admin",
+            "partner",
+            "support"
+          ]
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "account_state": {
+        "type": "string"
+      },
+      "expected_version": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Must match the current User.version; stale writes return 409"
+      }
+    },
+    "additionalProperties": false
+  },
+  "UserPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/User"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Profile": {
+    "type": "object",
+    "properties": {
+      "display_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120
+      },
+      "preferred_name": {
+        "type": "string"
+      },
+      "contact_email": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "contact_phone": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "accessibility_conditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "structured",
+        "optional": null,
+        "never required to save": null
+      }
+    },
+    "additionalProperties": false
+  },
+  "ProfilePatch": {
+    "type": "object",
+    "description": "partial Profile"
+  },
+  "Preferences": {
+    "type": "object",
+    "required": [
+      "mode",
+      "locale",
+      "channels",
+      "quiet_hours",
+      "no_outbound"
+    ],
+    "properties": {
+      "mode": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "easy"
+        ]
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      },
+      "channels": {
+        "type": "object",
+        "description": "per notice-purpose channel choice - a required task notice is independent of unrelated opt-ins"
+      },
+      "quiet_hours": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string"
+          },
+          "end": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          }
+        }
+      },
+      "no_outbound": {
+        "type": "boolean",
+        "description": "when true no outbound job is created at all"
+      },
+      "shared_device": {
+        "type": "boolean",
+        "description": "suppresses sender and preview detail on shared phones"
+      }
+    },
+    "additionalProperties": false
+  },
+  "MagicLinkRequest": {
+    "type": "object",
+    "required": [
+      "email"
+    ],
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": "email"
+      }
+    }
+  },
+  "SmsCodeRequest": {
+    "type": "object",
+    "required": [
+      "phone"
+    ],
+    "properties": {
+      "phone": {
+        "type": "string"
+      }
+    }
+  },
+  "VerifyRequest": {
+    "type": "object",
+    "required": [
+      "credential"
+    ],
+    "properties": {
+      "credential": {
+        "type": "string"
+      },
+      "method": {
+        "type": "string",
+        "enum": [
+          "magic_link",
+          "sms_code"
+        ]
+      }
+    }
+  },
+  "DemoCodeRequest": {
+    "type": "object",
+    "required": [
+      "code"
+    ],
+    "properties": {
+      "code": {
+        "type": "string"
+      }
+    }
+  },
+  "ServiceCategory": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "label_en": {
+        "type": "string"
+      },
+      "label_es": {
+        "type": "string"
+      }
+    }
+  },
+  "ServiceCategoryPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ServiceCategory"
+        }
+      }
+    }
+  },
+  "Service": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "category_id": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "eligibility_note": {
+        "type": "string",
+        "description": "descriptive only - never an eligibility determination"
+      },
+      "phone": {
+        "type": "string"
+      },
+      "languages": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "accessibility": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "source_updated_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "ServiceInput": {
+    "type": "object",
+    "description": "writable subset of Service"
+  },
+  "ServicePage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Service"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "CsvUpload": {
+    "type": "object",
+    "properties": {
+      "file": {
+        "type": "string",
+        "format": "binary"
+      }
+    }
+  },
+  "ImportResult": {
+    "type": "object",
+    "properties": {
+      "created": {
+        "type": "integer"
+      },
+      "updated": {
+        "type": "integer"
+      },
+      "rejected": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "row": {
+              "type": "integer"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "ConciergeConversation": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "turns": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConciergeAnswer"
+        }
+      },
+      "ai_enabled": {
+        "type": "boolean"
+      }
+    }
+  },
+  "ConciergeMessageInput": {
+    "type": "object",
+    "required": [
+      "text"
+    ],
+    "properties": {
+      "text": {
+        "type": "string"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      }
+    }
+  },
+  "ConciergeAnswer": {
+    "type": "object",
+    "required": [
+      "text",
+      "citations",
+      "disclaimer",
+      "prompt_version"
+    ],
+    "properties": {
+      "text": {
+        "type": "string"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": "directory record ids - an answer with no citation must say it does not know"
+      },
+      "disclaimer": {
+        "type": "string"
+      },
+      "refused": {
+        "type": "boolean",
+        "description": "true for diagnosis",
+        "legal advice": null,
+        "eligibility determination and dispatch requests": null
+      },
+      "human_route": {
+        "type": "string"
+      },
+      "prompt_version": {
+        "type": "string"
+      }
+    }
+  },
+  "Event": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "starts_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "time_zone": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "IANA time zone used to preserve the scheduled wall-clock time"
+      },
+      "location": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 400
+      },
+      "capacity": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "rsvp_count": {
+        "type": "integer"
+      },
+      "accessibility": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "EventPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Event"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Rsvp": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "event_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "attending",
+          "waitlisted",
+          "cancelled"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "EventProposalInput": {
+    "type": "object",
+    "required": [
+      "title",
+      "starts_at"
+    ],
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "starts_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "time_zone": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "IANA time zone; omitted input uses the server-owned organisation zone"
+      },
+      "note": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "EventProposal": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "proposed",
+          "published",
+          "declined"
+        ]
+      },
+      "time_zone": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "IANA time zone preserved with the proposed instant"
+      }
+    },
+    "additionalProperties": false
+  },
+  "RideRequest": {
+    "type": "object",
+    "required": [
+      "id",
+      "state",
+      "org_id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "purpose": {
+        "type": "string"
+      },
+      "mode": {
+        "type": "string",
+        "enum": [
+          "paratransit",
+          "taxi_voucher",
+          "rideshare",
+          "partner_van"
+        ]
+      },
+      "pickup_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "pickup_location": {
+        "type": "string"
+      },
+      "return_needed": {
+        "type": "boolean"
+      },
+      "accessibility_conditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "preserved verbatim through every handoff"
+      },
+      "accessibility_details": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "code",
+            "label"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 400
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "structured code plus the exact resident-entered label"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "requested",
+          "waiting_for_dispatcher",
+          "confirmed_by",
+          "completed",
+          "cancelled",
+          "unable_to_fulfill"
+        ]
+      },
+      "confirmed_by_actor": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "confirmed_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "send_state": {
+        "type": "string",
+        "enum": [
+          "not_sent",
+          "sent",
+          "send_failed"
+        ],
+        "description": "a failed send leaves the request saved and unsent",
+        "never booked": null
+      }
+    }
+  },
+  "RideRequestInput": {
+    "type": "object",
+    "properties": {
+      "accessibility_conditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "legacy verbatim labels"
+      },
+      "accessibility_details": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "code",
+            "label"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 400
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "preferred structured conditions with verbatim labels"
+      }
+    },
+    "description": "writable subset of RideRequest"
+  },
+  "RideTransitionInput": {
+    "type": "object",
+    "required": [
+      "to"
+    ],
+    "properties": {
+      "to": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      }
+    }
+  },
+  "RideRequestPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RideRequest"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "AssistanceRequest": {
+    "type": "object",
+    "required": [
+      "id",
+      "state",
+      "org_id"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "summary": {
+        "type": "string"
+      },
+      "triage_category": {
+        "type": "string"
+      },
+      "triage_source": {
+        "type": "string",
+        "enum": [
+          "rules",
+          "ai",
+          "staff"
+        ],
+        "description": "which produced the category - never hidden"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "pending_unowned",
+          "owned",
+          "in_progress",
+          "resolved",
+          "closed_unable"
+        ]
+      },
+      "owner_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "sla_due_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "after_hours": {
+        "type": "boolean",
+        "description": "true means no callback time is promised"
+      }
+    }
+  },
+  "AssistanceRequestInput": {
+    "type": "object",
+    "required": [
+      "summary"
+    ],
+    "properties": {
+      "summary": {
+        "type": "string"
+      },
+      "locale": {
+        "type": "string"
+      }
+    }
+  },
+  "AssistanceTransitionInput": {
+    "type": "object",
+    "required": [
+      "to"
+    ],
+    "properties": {
+      "to": {
+        "type": "string"
+      },
+      "owner_id": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      }
+    }
+  },
+  "AssistanceRequestPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AssistanceRequest"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "ForumTopic": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string"
+      },
+      "post_count": {
+        "type": "integer"
+      }
+    }
+  },
+  "ForumTopicPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ForumTopic"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "ForumPost": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "author_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "body": {
+        "type": "string"
+      },
+      "flag_state": {
+        "type": "string",
+        "enum": [
+          "none",
+          "flagged_awaiting_human",
+          "cleared_by_human",
+          "removed_by_human"
+        ]
+      }
+    }
+  },
+  "ForumPostInput": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "string"
+      }
+    }
+  },
+  "ForumPostPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ForumPost"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "ForumReply": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "body": {
+        "type": "string"
+      }
+    }
+  },
+  "ForumReplyInput": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "string"
+      }
+    }
+  },
+  "ReportInput": {
+    "type": "object",
+    "required": [
+      "reason"
+    ],
+    "properties": {
+      "reason": {
+        "type": "string"
+      },
+      "note": {
+        "type": "string"
+      }
+    }
+  },
+  "Report": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "open",
+          "decided"
+        ]
+      }
+    }
+  },
+  "BlockInput": {
+    "type": "object",
+    "required": [
+      "user_id"
+    ],
+    "properties": {
+      "user_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "BlockPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "ModerationItem": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "source": {
+        "type": "string",
+        "enum": [
+          "ai_flag",
+          "user_report"
+        ]
+      },
+      "target_type": {
+        "type": "string",
+        "enum": [
+          "post",
+          "reply",
+          "message"
+        ]
+      },
+      "decision": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "keep",
+          "remove",
+          "warn",
+          null
+        ]
+      },
+      "decided_by": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "always a human - an AI flag alone never hides content"
+      }
+    }
+  },
+  "ModerationDecisionInput": {
+    "type": "object",
+    "required": [
+      "decision",
+      "reason"
+    ],
+    "properties": {
+      "decision": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      }
+    }
+  },
+  "ModerationItemPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ModerationItem"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Conversation": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "participant_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    }
+  },
+  "ConversationInput": {
+    "type": "object",
+    "required": [
+      "participant_id"
+    ],
+    "properties": {
+      "participant_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "ConversationPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Conversation"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Message": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "body": {
+        "type": "string"
+      },
+      "sent_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "MessageInput": {
+    "type": "object",
+    "required": [
+      "body"
+    ],
+    "properties": {
+      "body": {
+        "type": "string"
+      }
+    }
+  },
+  "MessagePage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Message"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "CaregiverInviteInput": {
+    "type": "object",
+    "required": [
+      "email_or_phone"
+    ],
+    "properties": {
+      "email_or_phone": {
+        "type": "string"
+      },
+      "relationship_note": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "CaregiverInvitation": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "additionalProperties": false
+  },
+  "ConsentScope": {
+    "type": "object",
+    "required": [
+      "key",
+      "granted"
+    ],
+    "properties": {
+      "key": {
+        "type": "string",
+        "enum": [
+          "view_schedule",
+          "book_rides",
+          "receive_alerts",
+          "view_assistance",
+          "manage_events",
+          "view_profile"
+        ]
+      },
+      "granted": {
+        "type": "boolean"
+      },
+      "granted_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    },
+    "additionalProperties": false
+  },
+  "ConsentScopeSet": {
+    "type": "object",
+    "required": [
+      "scopes",
+      "read_back_confirmed"
+    ],
+    "properties": {
+      "scopes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConsentScope"
+        },
+        "minItems": 1,
+        "maxItems": 20,
+        "uniqueItems": true
+      },
+      "read_back_confirmed": {
+        "type": "boolean",
+        "description": "the resident heard the list read back and confirmed it - required to grant"
+      }
+    },
+    "additionalProperties": false
+  },
+  "CaregiverLink": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "resident_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "caregiver_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "scopes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ConsentScope"
+        },
+        "minItems": 1,
+        "maxItems": 20,
+        "uniqueItems": true
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "active",
+          "revoked"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "CaregiverLinkPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CaregiverLink"
+        }
+      }
+    }
+  },
+  "IntakeSubmissionInput": {
+    "type": "object",
+    "required": [
+      "answers",
+      "disclaimer_acknowledged"
+    ],
+    "properties": {
+      "answers": {
+        "type": "object",
+        "description": "optional fields stay optional - a partly filled form still saves"
+      },
+      "disclaimer_acknowledged": {
+        "type": "boolean"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      },
+      "intent": {
+        "type": "string",
+        "enum": [
+          "save_draft",
+          "submit"
+        ],
+        "description": "omitted preserves legacy submit behavior; save_draft never routes"
+      }
+    },
+    "additionalProperties": false
+  },
+  "IntakeSubmissionPatch": {
+    "type": "object",
+    "properties": {
+      "answers": {
+        "type": "object",
+        "description": "when present, replaces the complete saved answers object"
+      },
+      "disclaimer_acknowledged": {
+        "type": "boolean"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      },
+      "intent": {
+        "type": "string",
+        "enum": [
+          "save_draft",
+          "submit"
+        ],
+        "description": "submit requires disclaimer_acknowledged true in the same request; omitted saves only"
+      }
+    },
+    "additionalProperties": false
+  },
+  "IntakeSubmission": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "legal",
+          "health"
+        ]
+      },
+      "routed_to_partner_category": {
+        "type": "string"
+      },
+      "answers": {
+        "type": "object"
+      },
+      "disclaimer_acknowledged": {
+        "type": "boolean"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es"
+        ]
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "submitted",
+          "routed",
+          "closed"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "Notification": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "purpose": {
+        "type": "string",
+        "description": "task notices are independent of marketing and AI opt-ins"
+      },
+      "title": {
+        "type": "string"
+      },
+      "body": {
+        "type": "string"
+      },
+      "read_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      }
+    }
+  },
+  "NotificationPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Notification"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "PrintableSchedule": {
+    "type": "object",
+    "required": [
+      "as_of",
+      "source_version",
+      "items"
+    ],
+    "properties": {
+      "as_of": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "source_version": {
+        "type": "string",
+        "description": "printed on the page - a superseded print is never claimed to be recalled"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "ContentPage": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "slug": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "critical": {
+        "type": "boolean"
+      }
+    }
+  },
+  "ContentPageInput": {
+    "type": "object",
+    "description": "writable subset of ContentPage"
+  },
+  "ContentPagePage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ContentPage"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Faq": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "question": {
+        "type": "string"
+      },
+      "answer": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      }
+    }
+  },
+  "FaqInput": {
+    "type": "object",
+    "description": "writable subset of Faq"
+  },
+  "FaqPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Faq"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Announcement": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "title": {
+        "type": "string"
+      },
+      "publish_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "AnnouncementInput": {
+    "type": "object",
+    "description": "writable subset of Announcement"
+  },
+  "AnnouncementPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Announcement"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Partner": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "contact": {
+        "type": "string"
+      }
+    }
+  },
+  "PartnerInput": {
+    "type": "object",
+    "description": "writable subset of Partner"
+  },
+  "PartnerPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Partner"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "AnalyticsTiles": {
+    "type": "object",
+    "required": [
+      "as_of",
+      "source_version"
+    ],
+    "properties": {
+      "as_of": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Data cutoff represented by every tile in this response"
+      },
+      "source_version": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Reproducible aggregate snapshot or revision identifier"
+      },
+      "tiles": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "unit_definition": {
+              "type": "string"
+            },
+            "known_gap": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Report_": {
+    "type": "object",
+    "description": "named report - trailing underscore avoids a collision with the forum Report schema",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "generated_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "unit_definitions": {
+        "type": "object"
+      },
+      "known_gaps": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "rows": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "as_of": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "source_version": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "included_channels": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "maxItems": 8,
+        "uniqueItems": true
+      },
+      "completeness": {
+        "type": "string",
+        "enum": ["complete", "partial", "unknown"]
+      },
+      "known_omissions": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "maxItems": 32,
+        "uniqueItems": true
+      },
+      "overlap_uncertainty": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "maxItems": 32,
+        "uniqueItems": true
+      },
+      "filters": { "$ref": "#/components/schemas/AggregateExportFilters" },
+      "scope": { "type": "string", "enum": ["tenant_aggregate"] },
+      "evidence": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "maxItems": 32,
+        "uniqueItems": true
+      },
+      "suppression_threshold": { "type": "integer", "minimum": 2 }
+    }
+  },
+  "ExportRequest": {
+    "type": "object",
+    "required": [
+      "scope",
+      "format"
+    ],
+    "properties": {
+      "scope": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "profile",
+            "requests",
+            "consents",
+            "audit",
+            "proposals"
+          ]
+        },
+        "description": "explicit - an export always states what it did and did not include",
+        "minItems": 1,
+        "maxItems": 5,
+        "uniqueItems": true
+      },
+      "format": {
+        "type": "string",
+        "enum": [
+          "json",
+          "csv"
+        ]
+      }
+    },
+    "additionalProperties": false
+  },
+  "AggregateExportFilters": {
+    "type": "object",
+    "description": "Aggregate filters use a UTC [from,to) interval. Runtime rejects unknown channels and invalid or reversed ranges with 422.",
+    "properties": {
+      "from": { "type": "string", "format": "date-time" },
+      "to": { "type": "string", "format": "date-time" },
+      "channels": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "maxItems": 8,
+        "uniqueItems": true
+      }
+    },
+    "additionalProperties": false
+  },
+  "AggregateExportRequest": {
+    "type": "object",
+    "description": "Aggregate report export request. Authorization determines visibility; this request never implies publication.",
+    "required": ["report_name", "format", "filters"],
+    "properties": {
+      "report_name": { "type": "string", "enum": ["channel-activity"] },
+      "format": { "type": "string", "enum": ["json", "csv"] },
+      "filters": { "$ref": "#/components/schemas/AggregateExportFilters" }
+    },
+    "additionalProperties": false
+  },
+  "ExportJob": {
+    "type": "object",
+    "description": "Individual jobs carry scope. Ready aggregate jobs instead carry report_name, format, normalized filters, snapshot provenance, completeness, row_count and exact-artifact content_digest.",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "queued",
+          "running",
+          "ready",
+          "failed"
+        ]
+      },
+      "scope": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "profile",
+            "requests",
+            "consents",
+            "audit",
+            "proposals"
+          ]
+        },
+        "minItems": 1,
+        "maxItems": 5,
+        "uniqueItems": true
+      },
+      "completeness_note": {
+        "type": "string"
+      },
+      "download_url": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "expires_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "report_name": { "type": "string", "enum": ["channel-activity"] },
+      "format": { "type": "string", "enum": ["json", "csv"] },
+      "filters": { "$ref": "#/components/schemas/AggregateExportFilters" },
+      "as_of": { "type": "string", "format": "date-time" },
+      "source_version": { "type": "string", "minLength": 1, "maxLength": 128 },
+      "included_channels": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "maxItems": 8,
+        "uniqueItems": true
+      },
+      "completeness": { "type": "string", "enum": ["complete", "partial", "unknown"] },
+      "known_omissions": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "maxItems": 32,
+        "uniqueItems": true
+      },
+      "overlap_uncertainty": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 240 },
+        "maxItems": 32,
+        "uniqueItems": true
+      },
+      "row_count": { "type": "integer", "minimum": 0 },
+      "content_digest": { "type": "string", "minLength": 64, "maxLength": 64 }
+    },
+    "additionalProperties": false
+  },
+  "TranslationEntry": {
+    "type": "object",
+    "required": [
+      "id",
+      "key",
+      "locale",
+      "status",
+      "source_version"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "key": {
+        "type": "string"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es"
+        ]
+      },
+      "source_version": {
+        "type": "string",
+        "description": "approval is bound to this - a source change invalidates it"
+      },
+      "critical": {
+        "type": "boolean",
+        "description": "critical copy may not publish from a machine draft"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "awaiting_review",
+          "approved",
+          "invalidated"
+        ]
+      },
+      "machine_generated": {
+        "type": "boolean"
+      }
+    }
+  },
+  "TranslationApprovalInput": {
+    "type": "object",
+    "required": [
+      "source_version",
+      "reviewer_note"
+    ],
+    "properties": {
+      "source_version": {
+        "type": "string"
+      },
+      "reviewer_note": {
+        "type": "string"
+      }
+    }
+  },
+  "TranslationEntryPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TranslationEntry"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "Flag": {
+    "type": "object",
+    "required": [
+      "key",
+      "enabled"
+    ],
+    "properties": {
+      "key": {
+        "type": "string",
+        "description": "see feature-flags.md - the vocabulary is closed"
+      },
+      "enabled": {
+        "type": "boolean"
+      },
+      "scope": {
+        "type": "string",
+        "enum": [
+          "global",
+          "org"
+        ]
+      },
+      "updated_by": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "FlagPatch": {
+    "type": "object",
+    "required": [
+      "enabled"
+    ],
+    "properties": {
+      "enabled": {
+        "type": "boolean"
+      },
+      "reason": {
+        "type": "string"
+      }
+    }
+  },
+  "FlagPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Flag"
+        }
+      }
+    }
+  },
+  "AiEvent": {
+    "type": "object",
+    "description": "one row per ai.* call - the shape is fixed in gateway-interface.ts",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "feature": {
+        "type": "string"
+      },
+      "prompt_version": {
+        "type": "string"
+      },
+      "provider": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "tokens_in": {
+        "type": "integer"
+      },
+      "tokens_out": {
+        "type": "integer"
+      },
+      "tokens_cached": {
+        "type": "integer"
+      },
+      "latency_ms": {
+        "type": "integer"
+      },
+      "cache_hit": {
+        "type": "boolean"
+      },
+      "user_role": {
+        "type": "string"
+      },
+      "outcome": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "refused",
+          "error",
+          "killed"
+        ]
+      },
+      "cost_usd": {
+        "type": "number"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    }
+  },
+  "AiEventPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AiEvent"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "AuditEvent": {
+    "type": "object",
+    "description": "shape is normative in audit-event.schema.json - this stub mirrors it",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "actor": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "on_behalf_of": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "action": {
+        "type": "string"
+      },
+      "target": {
+        "type": "string"
+      },
+      "org_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "outcome": {
+        "type": "string",
+        "enum": [
+          "allowed",
+          "denied",
+          "error"
+        ]
+      },
+      "reason": {
+        "type": "string"
+      },
+      "prompt_version": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  },
+  "AuditEventPage": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AuditEvent"
+        }
+      },
+      "meta": {
+        "$ref": "#/components/schemas/PageMeta"
+      }
+    }
+  },
+  "HealthStatus": {
+    "type": "object",
+    "required": [
+      "status"
+    ],
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "degraded",
+          "down"
+        ]
+      },
+      "checks": {
+        "type": "object",
+        "description": "db",
+        "worker": null,
+        "migrations - readiness fails if any is down so Railway cannot report a false Active": null
+      }
+    }
+  }
+}

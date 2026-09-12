@@ -1,0 +1,34 @@
+version: 1
+feature: translation_assist
+deterministic: true
+cases:
+  - id: critical-copy-is-never-self-approved
+    source: "Call 911 now if there is immediate danger."
+    critical: true
+    gateway:
+      outcome: ok
+      text: "Llame al 911 ahora si hay peligro inmediato."
+    expected:
+      provenance: machine
+      machine_generated: true
+      status: draft
+      publishable: false
+  - id: ai-off-preserves-manual-route
+    source: "The office opens Monday."
+    critical: false
+    gateway: unavailable
+    manual_text: "La oficina abre el lunes."
+    expected:
+      provenance: manual
+      machine_generated: false
+      status: draft
+  - id: factual-fidelity-oracle
+    source: "Do not visit 125 Oak Street before September 18, 2026. Call 212-555-0198."
+    critical: true
+    good: "No visite 125 Oak Street antes del 18 de septiembre de 2026. Llame al 212-555-0198."
+    bad_variants:
+      - "No visite 125 Oak Street antes del 18 de septiembre de 2026. Llame al 212-555-0199."
+      - "No visite 125 Oak Street antes del 18 de 2026. Llame al 212-555-0198."
+      - "No visite 125 Pine Street antes del 18 de septiembre de 2026. Llame al 212-555-0198."
+      - "Visite 125 Oak Street antes del 18 de septiembre de 2026. Llame al 212-555-0198."
+    oracle_requires: [numbers, full_date, address, negation]

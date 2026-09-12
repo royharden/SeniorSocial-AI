@@ -1,0 +1,12 @@
+DROP TRIGGER IF EXISTS orgs_seed_feature_flags ON orgs;
+DROP FUNCTION IF EXISTS set_feature_flag(uuid, uuid, flag_scope, text, boolean, text, text);
+DROP FUNCTION IF EXISTS seed_flags_for_new_org();
+DROP FUNCTION IF EXISTS seed_org_flags(uuid);
+DROP FUNCTION IF EXISTS configured_flag_defaults();
+DROP TABLE IF EXISTS flag_changes;
+DROP TABLE IF EXISTS feature_flags;
+DROP TABLE IF EXISTS audit_events;
+DROP TABLE IF EXISTS ai_events;
+DROP TABLE IF EXISTS feature_flag_environment;
+DROP FUNCTION IF EXISTS reject_immutable_event_change();
+DROP TYPE IF EXISTS flag_scope;

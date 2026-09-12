@@ -1,0 +1,22 @@
+{
+  "name": "@seniorsocial/notify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test:unit": "vitest run tests/unit/WP-009 tests/security/WP-009 tests/contract/WP-009 --root ../..",
+    "test:integration": "vitest run tests/integration/WP-009 --root ../.."
+  },
+  "dependencies": {
+    "@seniorsocial/audit": "workspace:*",
+    "@seniorsocial/flags": "workspace:*",
+    "@seniorsocial/contracts": "workspace:*",
+    "@seniorsocial/db": "workspace:*",
+    "postgres": "3.4.9"
+  },
+  "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "vitest": "5.0.0" }
+}

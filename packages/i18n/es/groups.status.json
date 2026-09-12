@@ -1,0 +1,178 @@
+{
+  "groups.title": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.safety_notice": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.loading_topics": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.sign_in": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.unavailable": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.choose_topic": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.no_topics": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.topic_unavailable": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.post_visible": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.posting_rate_limited": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.post_error": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.report_sent": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.report_error": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.reply_posted": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.reply_error": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.block_success": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.block_error": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.topics_label": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.awaiting_review": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.report_action": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.block_action": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "groups.reply_label": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.post_reply": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.write_post": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.message_label": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.post_to_group": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.call_person": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  },
+  "groups.worry_suffix": {
+    "status": "draft",
+    "source_version": "sha256:616d27e5d8db7518702c9f6f83f9d81e68af451cd7a3dd53acaebade2e9d9b90",
+    "critical": false,
+    "machine_generated": true
+  }
+}

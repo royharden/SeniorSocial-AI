@@ -1,0 +1,1 @@
+{ "extends": "../../../packages/rides/tsconfig.json", "include": ["./*.ts"] }

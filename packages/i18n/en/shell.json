@@ -1,0 +1,20 @@
+{
+  "home": "Home",
+  "settings": "Settings",
+  "main_navigation": "Main navigation",
+  "consistent_help": "Consistent help",
+  "help_me": "Help me",
+  "call_person": "Call a person",
+  "skip_main": "Skip to main content",
+  "home_heading": "Find community help in one place",
+  "home_intro": "Choose what you want to do. You can change the display and language at any time.",
+  "service_heading": "Find a service",
+  "service_body": "Look for food, housing, health, transportation, and other local support.",
+  "service_link": "Browse services",
+  "events_heading": "Plan your week",
+  "events_body": "See activities and events available in your community.",
+  "events_link": "See events",
+  "help_heading": "Talk with a person",
+  "help_body": "Choose a service below. This page does not promise that a queue is staffed.",
+  "return_home": "Return home"
+}

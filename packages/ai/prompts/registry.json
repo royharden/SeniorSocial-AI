@@ -1,0 +1,10 @@
+{
+  "concierge": { "version": "v1", "file": "concierge/v1.md" },
+  "moderation": { "version": "v1", "file": "moderation/v1.md" },
+  "translation_assist": { "version": "v1", "file": "translation_assist/v1.md" },
+  "triage": { "version": "v1", "file": "triage/v1.md" },
+  "intake_routing": { "version": "v1", "file": "intake_routing/v1.md" },
+  "event_rerank": { "version": "v1", "file": "event_rerank/v1.md" },
+  "conversation_starters": { "version": "v1", "file": "conversation_starters/v1.md" },
+  "summaries": { "version": "v1", "file": "summaries/v1.md" }
+}

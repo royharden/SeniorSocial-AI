@@ -1,0 +1,25 @@
+{
+  "scope": "/:path*",
+  "always": {
+    "Content-Security-Policy": {
+      "source": "apps/web/proxy.ts",
+      "requirements": [
+        "default-src 'self'",
+        "frame-ancestors 'none'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'"
+      ]
+    },
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  },
+  "conditional": {
+    "Strict-Transport-Security": {
+      "environment": "ENABLE_HSTS=true",
+      "value": "max-age=63072000; includeSubDomains; preload",
+      "reason": "Only emit HSTS when TLS termination is guaranteed; never pin an HTTP development origin."
+    }
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "intake.landing.title": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.intro": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.legal_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.legal_description": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.legal_start": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.health_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.health_description": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.landing.health_start": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.form.legal_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.form.health_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.form.legal_intro": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.form.health_intro": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.field.topic": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.field.date": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.field.contact": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.field.details": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.field.details_hint": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.answers": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.optional": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.prefer_not": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.yes": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.no": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.unknown": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.save": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.submit": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.saving": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.save_failed": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.submitted": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.saved_number": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.housing": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.benefits": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.consumer": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.family": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.other": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.primary_care": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.medication": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.mobility": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.mental_health": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.other": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.contact.phone": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.contact.email": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.contact.text": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.contact.none": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.state.draft": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.state.routed": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.state.closed": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.disclaimer.legal": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.health": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.legal_ack": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.health_ack": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.urgent_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.urgent_body": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.call_911": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.call_988": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.talk_person": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.important_heading": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.disclaimer.save_without_ack": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": true,
+    "machine_generated": true,
+    "render_state": "held_english_fallback"
+  },
+  "intake.common.submitting": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.load_failed": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.common.ack_required": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.legal.documents": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.find_care": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.appointments": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.insurance": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.home_support": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  },
+  "intake.topic.health.prescriptions": {
+    "status": "draft",
+    "source_version": "sha256:ebeddad113b6f6662ae58c1fc9953f652a3d2424ebbde816e6bb65e0d1b45f22",
+    "critical": false,
+    "machine_generated": true
+  }
+}

@@ -1,0 +1,12 @@
+DROP TRIGGER IF EXISTS assistance_transitions_immutable ON assistance_transitions;
+DROP TRIGGER IF EXISTS assistance_requests_identity_immutable ON assistance_requests;
+DROP TRIGGER IF EXISTS assistance_transition_guard ON assistance_transitions;
+DROP TRIGGER IF EXISTS sla_breach_guard ON sla_clocks;
+DROP TRIGGER IF EXISTS assistance_sla_due_guard ON sla_clocks;
+DROP FUNCTION IF EXISTS constrain_sla_breach();
+DROP FUNCTION IF EXISTS enforce_assistance_sla_due();
+DROP FUNCTION IF EXISTS reject_assistance_history_change();
+DROP FUNCTION IF EXISTS enforce_assistance_transition();
+DROP TABLE IF EXISTS sla_clocks;
+DROP TABLE IF EXISTS assistance_transitions;
+DROP TABLE IF EXISTS assistance_requests;

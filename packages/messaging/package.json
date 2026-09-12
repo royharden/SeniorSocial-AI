@@ -1,0 +1,14 @@
+{
+  "name": "@seniorsocial/messaging",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "typecheck": "tsc --noEmit", "build": "tsc --noEmit", "lint": "eslint . --max-warnings 0",
+    "test:unit": "vitest run tests/unit/WP-016 tests/security/WP-016 tests/contract/WP-016 --root ../..",
+    "test:integration": "vitest run tests/integration/WP-016 --root ../.. --testTimeout 20000"
+  },
+  "dependencies": { "@seniorsocial/db": "workspace:*", "@seniorsocial/notify": "workspace:*" },
+  "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "vitest": "5.0.0" }
+}

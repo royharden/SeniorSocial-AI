@@ -1,0 +1,25 @@
+{
+  "name": "@seniorsocial/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:openapi": "tsx scripts/generate-openapi.ts",
+    "typecheck": "tsc --noEmit --incremental false",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./gateway-interface": "./gateway-interface.ts",
+    "./audit-event.schema.json": "./audit-event.schema.json"
+  },
+  "dependencies": {
+    "zod": "4.5.4",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "5.0.0",
+    "@types/node": "24.13.4"
+  }
+}

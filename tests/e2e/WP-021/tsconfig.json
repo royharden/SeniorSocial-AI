@@ -1,0 +1,1 @@
+{ "extends": "../../../tsconfig.base.json", "compilerOptions": { "types": ["node", "@playwright/test"], "allowImportingTsExtensions": true }, "include": ["*.ts"] }

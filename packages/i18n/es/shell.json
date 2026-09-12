@@ -1,0 +1,20 @@
+{
+  "home": "Inicio",
+  "settings": "Configuración",
+  "main_navigation": "Navegación principal",
+  "consistent_help": "Ayuda constante",
+  "help_me": "Ayúdeme",
+  "call_person": "Llamar a una persona",
+  "skip_main": "Saltar al contenido principal",
+  "home_heading": "Encuentre ayuda comunitaria en un solo lugar",
+  "home_intro": "Elija lo que quiere hacer. Puede cambiar la pantalla y el idioma en cualquier momento.",
+  "service_heading": "Encuentre un servicio",
+  "service_body": "Busque alimentos, vivienda, salud, transporte y otro apoyo local.",
+  "service_link": "Ver servicios",
+  "events_heading": "Planifique su semana",
+  "events_body": "Vea actividades y eventos disponibles en su comunidad.",
+  "events_link": "Ver eventos",
+  "help_heading": "Hable con una persona",
+  "help_body": "Elija un servicio a continuación. Esta página no garantiza que haya personal disponible.",
+  "return_home": "Volver al inicio"
+}

@@ -1,0 +1,1 @@
+{ "extends":"../../../tsconfig.base.json", "compilerOptions":{ "allowImportingTsExtensions":true,"types":["node","vitest/globals"],"rootDir":"../../.." }, "include":["*.ts","../../../packages/forums/src/**/*.ts"] }

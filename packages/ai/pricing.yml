@@ -1,0 +1,4 @@
+{
+  "stub:test-stub": { "inputPerMillionUsd": 0, "outputPerMillionUsd": 0, "cachedPerMillionUsd": 0 },
+  "anthropic-api:claude-haiku-4-5": { "inputPerMillionUsd": 1, "outputPerMillionUsd": 5, "cachedPerMillionUsd": 0.1 }
+}

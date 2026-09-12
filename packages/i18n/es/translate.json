@@ -1,0 +1,34 @@
+{
+  "title": "Revisión de la traducción al español",
+  "intro": "Revise las versiones de origen, el historial de borradores y la evidencia de publicación.",
+  "ai_off": "La redacción automática está desactivada. Aun así, puede ingresar un borrador manual en español.",
+  "source_version": "Versión de origen",
+  "provenance": "Procedencia del borrador",
+  "manual": "Borrador manual",
+  "machine": "Borrador con asistencia automática",
+  "reviewer": "Revisado por",
+  "qualification": "Cualificación de la persona revisora",
+  "reviewed_at": "Fecha de revisión",
+  "status": "Estado de revisión",
+  "publishable": "Se puede publicar",
+  "critical_hold": "El texto crítico generado automáticamente queda retenido hasta que lo apruebe una persona revisora cualificada y autorizada.",
+  "source_changed": "El texto original en inglés cambió. Revise la nueva versión antes de publicar el texto en español.",
+  "no_promises": "Este proceso no promete que haya intérpretes o ayuda en vivo disponibles."
+  ,"source_key": "Clave del texto original"
+  ,"source_text": "Texto original en inglés"
+  ,"critical": "Contenido crítico"
+  ,"create_source": "Crear o actualizar el texto original"
+  ,"select_source": "Seleccione un texto original"
+  ,"spanish_text": "Texto del borrador en español"
+  ,"review_note": "Nota de revisión"
+  ,"approve": "Aprobar"
+  ,"publish": "Publicar"
+  ,"yes": "Sí"
+  ,"no": "No se puede"
+  ,"load_failed": "No se pudieron cargar los datos de traducción."
+  ,"action_complete": "Se completó la acción de traducción."
+  ,"status_draft": "Borrador"
+  ,"status_awaiting_review": "En espera de revisión"
+  ,"status_approved": "Aprobado"
+  ,"status_invalidated": "Invalidado"
+}

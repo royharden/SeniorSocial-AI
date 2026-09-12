@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "rootDir": ".."
+  },
+  "include": ["*.ts", "../evals/harness/**/*.ts"]
+}

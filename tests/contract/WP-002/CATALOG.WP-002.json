@@ -1,0 +1,100 @@
+{
+  "package": "WP-002",
+  "files": [
+    {
+      "path": "tests/unit/WP-002/status.test.ts",
+      "layer": "unit",
+      "package": "WP-002",
+      "check_ids": [
+        "CK-049"
+      ],
+      "story_ids": [
+        "claude:ST-0040"
+      ],
+      "what_breaks_if_deleted": "Adopted request vocabulary can drift from runtime validation; UI/SMS consumption remains untested."
+    },
+    {
+      "path": "tests/contract/WP-002/surface.test.ts",
+      "layer": "contract",
+      "package": "WP-002",
+      "check_ids": [
+        "CK-098",
+        "WP002-TOKENS"
+      ],
+      "story_ids": [
+        "rfp:T-4"
+      ],
+      "what_breaks_if_deleted": "Generated parity, per-operation preservation, normative copies and initial token value/type preservation lose their independent assertions."
+    },
+    {
+      "path": "tests/security/WP-002/validation.test.ts",
+      "layer": "security",
+      "package": "WP-002",
+      "check_ids": [
+        "SEC-058"
+      ],
+      "story_ids": [
+        "rfp:T-4"
+      ],
+      "what_breaks_if_deleted": "Primary v2 malformed inputs, Me identity, ConsentScope compatibility, collection bounds and closed-envelope regressions lose independent assertions."
+    },
+    {
+      "path": "tests/contract/WP-002/gate-wiring.test.ts",
+      "layer": "contract",
+      "package": "WP-002",
+      "check_ids": [
+        "WP002-GATE-WIRING",
+        "WP002-TYPED-SCRIPTS"
+      ],
+      "story_ids": [
+        "rfp:T-4"
+      ],
+      "what_breaks_if_deleted": "Missing generator CLI, contaminated stdout, source echo, root drift fail-open, skipped Turbo participation and no-op package checks escape independent command-level regressions. Typed package scripts could be omitted from strict lint/typecheck while src still passes. Scratch dependencies must exclude parent pnpm workspace metadata; clean controls assert the actual scratch package/script ran, and unmatched filters fail closed. Canonical temporary paths and package-name filtering prevent Windows short/long-path selection failures; child-process task identity is observed before negatives. Nested root pnpm lifecycle/package labels must not masquerade as child identity; observer still requires actual task executable and canonical package cwd."
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "CK-049",
+      "test_id": "tests/unit/WP-002/status.test.ts",
+      "layer": "unit",
+      "status": "passing"
+    },
+    {
+      "check_id": "CK-098",
+      "test_id": "tests/contract/WP-002/surface.test.ts",
+      "layer": "contract",
+      "status": "passing"
+    },
+    {
+      "check_id": "SEC-058",
+      "test_id": "tests/security/WP-002/validation.test.ts",
+      "layer": "security",
+      "status": "passing"
+    },
+    {
+      "check_id": "WP002-TOKENS",
+      "test_id": "tests/contract/WP-002/surface.test.ts",
+      "layer": "contract",
+      "status": "passing"
+    },
+    {
+      "check_id": "WP002-GATE-WIRING",
+      "test_id": "tests/contract/WP-002/gate-wiring.test.ts",
+      "layer": "contract",
+      "status": "passing"
+    },
+    {
+      "check_id": "WP002-TYPED-SCRIPTS",
+      "test_id": "tests/contract/WP-002/gate-wiring.test.ts",
+      "layer": "contract",
+      "status": "passing"
+    }
+  ],
+  "limitations": [
+    "CK-098 is contract structural coverage, not running API replay.",
+    "Coverage is limited to the listed executable checks and retained source pins.",
+    "HTTP malformed-input rejection and verbose-error sanitization remain not-run; v2 defines no error schema.",
+    "UI/SMS reuse, cross-org and server-side role authorization remain unverified.",
+    "ADR-006 v2 single primary schema mapping adopted; prior peer-only expectations superseded."
+  ]
+}

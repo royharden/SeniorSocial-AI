@@ -1,0 +1,81 @@
+# pnpm workspace definition (WP-001).
+#
+# SEC-051: "No postinstall script runs outside the approved allowlist." pnpm
+# blocks dependency lifecycle scripts by default and runs them only where this
+# file says so. That default is the control; the registers below are the
+# exception register, and every entry is a decision somebody has to defend in
+# review. Widening one is never a fix for a failing install.
+
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# WP-022 uses Promptfoo's file-backed stub provider only. These two optional
+# integrations pull high-severity vulnerable archives/native image tooling and
+# are deliberately absent; removing all optional dependencies would be broader
+# than the reviewed control.
+overrides:
+  'promptfoo@0.123.0>@huggingface/transformers': '-'
+  'promptfoo@0.123.0>@openai/codex-security': '-'
+
+# --- build-script disposition (pnpm 11.9.0) -------------------------------
+#
+# `allowBuilds` is the register pnpm 11 actually enforces. Under
+# `strict-dep-builds` (on by default in pnpm 11) an install ABORTS with
+# ERR_PNPM_IGNORED_BUILDS as soon as any dependency has an install script with
+# no true/false entry here, and pnpm writes a placeholder line into this file
+# so the decision cannot be ignored. That auto-write is why this block is
+# committed already: a gauntlet that dirties a tracked file is a red gauntlet.
+#
+# Measured on this lockfile: exactly ONE dependency declares an install-time
+# lifecycle script. Twenty others declare `prepare`/`prepublish`, which pnpm
+# never runs for a registry tarball, so they need no entry and get none.
+#
+# esbuild@0.28.2 -> false (postinstall DENIED). Its `postinstall: node
+#   install.js` validates and, on a cache miss, DOWNLOADS a native binary at
+#   install time — precisely the supply-chain step SEC-051 exists to close.
+#   Denying it costs nothing: esbuild resolves its binary from the
+#   @esbuild/win32-x64 optional platform package that the lockfile already
+#   pins, so `require('esbuild')` and `transformSync` work with the script
+#   skipped (verified). esbuild is a transitive DEV dependency only
+#   (vitest -> vite -> esbuild) and ships in nothing.
+#
+# Adding `X: true` here lets X run arbitrary code on every install. Do it only
+# with the reason written down and a reviewer who agreed to it.
+allowBuilds:
+  '@playwright/browser-chromium': false
+  '@swc/core': false
+  esbuild: false
+  onnxruntime-node: false
+  protobufjs: false
+  sharp: false
+
+# The same decision, recorded in pnpm's documented "reviewed and safe to skip"
+# register. Both entries are required and neither is redundant:
+#   - `ignoredBuiltDependencies` is the register SEC-051 and its test read, and
+#     it is the portable, self-describing statement of the disposition.
+#   - `allowBuilds` is the one pnpm 11.9.0 actually enforces: listing esbuild
+#     ONLY here was measured to still abort with ERR_PNPM_IGNORED_BUILDS.
+# Keep them in agreement. A package named in one and not the other is a defect.
+ignoredBuiltDependencies:
+  - '@playwright/browser-chromium'
+  - '@swc/core'
+  - esbuild
+  - onnxruntime-node
+  - protobufjs
+  - sharp
+
+minimumReleaseAgeExclude:
+  - '@types/node@24.13.4'
+  - '@types/react-dom@19.3.0'
+  - '@types/react@19.3.0'
+  - react-dom@19.3.0
+  - react@19.3.0
+  - scheduler@0.28.0
+
+# Empty on purpose. The scaffold installs with zero build scripts approved.
+# Add an entry only with the reason it needs native compilation, and expect the
+# reviewer to ask why the dependency is worth it. NOTE for SEC-051 coverage:
+# this list being empty is no longer sufficient on its own — assert that
+# `allowBuilds` contains no `true` value as well.
+onlyBuiltDependencies: []

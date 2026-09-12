@@ -1,0 +1,110 @@
+{
+  "shell.home": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.settings": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.main_navigation": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.consistent_help": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.help_me": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.call_person": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.skip_main": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.home_heading": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.home_intro": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.service_heading": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.service_body": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.service_link": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.events_heading": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.events_body": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.events_link": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.help_heading": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.help_body": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  },
+  "shell.return_home": {
+    "status": "draft",
+    "source_version": "sha256:e6e6c27997780d7514698fdd6b235f8b421948b9a95c05ff1e44addac5e9bda9",
+    "critical": false,
+    "machine_generated": true
+  }
+}

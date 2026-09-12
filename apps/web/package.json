@@ -1,0 +1,36 @@
+{
+  "name": "@seniorsocial/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port ${PORT:-3000}",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint app"
+  },
+  "dependencies": {
+    "@seniorsocial/ai": "workspace:*",
+    "@seniorsocial/assistance": "workspace:*",
+    "@seniorsocial/audit": "workspace:*",
+    "@seniorsocial/auth": "workspace:*",
+    "@seniorsocial/caregiver": "workspace:*",
+    "@seniorsocial/config": "workspace:*",
+    "@seniorsocial/db": "workspace:*",
+    "@seniorsocial/events": "workspace:*",
+    "@seniorsocial/flags": "workspace:*",
+    "@seniorsocial/i18n": "workspace:*",
+    "@seniorsocial/intake": "workspace:*",
+    "@seniorsocial/rides": "workspace:*",
+    "@seniorsocial/services": "workspace:*",
+    "@seniorsocial/tokens": "workspace:*",
+    "@seniorsocial/ui": "workspace:*",
+    "next": "16.3.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

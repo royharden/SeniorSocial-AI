@@ -1,0 +1,1414 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "Porchlight design tokens for SeniorSocial. W3C Design Tokens Community Group draft format. Token values define colour, typography, spacing, motion and target size. Contrast calculations use the WCAG 2.x relative-luminance formula.",
+  "color": {
+    "$type": "color",
+    "palette": {
+      "$description": "Raw ramps. Never referenced by a component. Components reference color.semantic.* only.",
+      "linen": {
+        "50": {
+          "$value": "#FDFBF7",
+          "$description": "Easy Mode alternate surface. Warm near-white."
+        },
+        "100": {
+          "$value": "#FAF6EF",
+          "$description": "Standard Mode page ground. The porch light on a painted wall."
+        },
+        "200": {
+          "$value": "#F1EADD",
+          "$description": "Standard Mode recessed surface: chips, table stripes, the print band."
+        },
+        "300": {
+          "$value": "#E4D9C6",
+          "$description": "Hairline rules only. 1.296:1 on linen.100 — decorative, never the sole boundary of a control."
+        }
+      },
+      "ink": {
+        "400": {
+          "$value": "#7A8899",
+          "$description": "Subtle border and disabled glyph. 3.356:1 on linen.100. BANNED as text at any size in this product."
+        },
+        "500": {
+          "$value": "#5B6B7F",
+          "$description": "Muted text floor. 5.058:1 on linen.100."
+        },
+        "600": {
+          "$value": "#445366",
+          "$description": "Secondary text. 7.287:1 on linen.100."
+        },
+        "700": {
+          "$value": "#6E7E90",
+          "$description": "Control border. 3.860:1 on linen.100, 4.158:1 on white. Out of luminance order on purpose: named for its role, not its darkness."
+        },
+        "800": {
+          "$value": "#1F2A37",
+          "$description": "Standard Mode body ink. 13.494:1 on linen.100."
+        },
+        "900": {
+          "$value": "#111827",
+          "$description": "Easy Mode body ink. 17.740:1 on white."
+        }
+      },
+      "harbor": {
+        "100": {
+          "$value": "#E3EFF7",
+          "$description": "Informational chip ground."
+        },
+        "600": {
+          "$value": "#1C74B0",
+          "$description": "Hover fill for the Standard primary button. 5.031:1 on white."
+        },
+        "700": {
+          "$value": "#155E8F",
+          "$description": "Standard Mode primary. White on it = 6.932:1."
+        },
+        "800": {
+          "$value": "#0F4C75",
+          "$description": "Easy Mode primary. White on it = 9.087:1."
+        },
+        "900": {
+          "$value": "#0B3A5B",
+          "$description": "Pressed state and high-contrast primary. White on it = 11.861:1."
+        }
+      },
+      "amber": {
+        "100": {
+          "$value": "#FBEEDF",
+          "$description": "Attention chip ground."
+        },
+        "700": {
+          "$value": "#B4530A",
+          "$description": "Porch Amber. Standard Mode accent. 4.661:1 on linen.100 — passes AA text, fails the 7:1 Easy Mode bar."
+        },
+        "800": {
+          "$value": "#8A3F07",
+          "$description": "Easy Mode accent. 7.514:1 on white."
+        }
+      },
+      "meadow": {
+        "100": {
+          "$value": "#E4F0E6",
+          "$description": "Success chip ground."
+        },
+        "700": {
+          "$value": "#2E6B3A",
+          "$description": "Standard Mode success. 5.943:1 on linen.100."
+        },
+        "800": {
+          "$value": "#24552E",
+          "$description": "Easy Mode success. 8.700:1 on white."
+        }
+      },
+      "brick": {
+        "100": {
+          "$value": "#F8E6E6",
+          "$description": "Danger chip ground."
+        },
+        "700": {
+          "$value": "#A32D2D",
+          "$description": "Standard Mode danger. 6.562:1 on linen.100."
+        },
+        "800": {
+          "$value": "#7F2323",
+          "$description": "Easy Mode danger. 9.690:1 on white."
+        }
+      },
+      "lantern": {
+        "500": {
+          "$value": "#FFB703",
+          "$description": "Focus lantern. 1.621:1 on linen.100 — CANNOT carry the focus indicator alone. Used only as the inner band of the two-band ring, where it reads against dark fills (3.970:1 on harbor.700, 5.204:1 on harbor.800, 4.049:1 on brick.700, 8.325:1 on ink.800)."
+        }
+      },
+      "white": {
+        "$value": "#FFFFFF"
+      },
+      "black": {
+        "$value": "#000000"
+      }
+    },
+    "semantic": {
+      "$description": "Three themes. standard and easy are both shipped in the MVP; highContrast is the forced-colors / user-selected maximum-contrast theme required by RFP A-2.",
+      "standard": {
+        "bg": {
+          "canvas": {
+            "$value": "{color.palette.linen.100}"
+          },
+          "surface": {
+            "$value": "{color.palette.white}"
+          },
+          "surfaceRecessed": {
+            "$value": "{color.palette.linen.200}"
+          },
+          "inverse": {
+            "$value": "{color.palette.ink.800}"
+          }
+        },
+        "text": {
+          "primary": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "secondary": {
+            "$value": "{color.palette.ink.600}"
+          },
+          "muted": {
+            "$value": "{color.palette.ink.500}"
+          },
+          "onPrimary": {
+            "$value": "{color.palette.white}"
+          },
+          "onInverse": {
+            "$value": "{color.palette.linen.100}"
+          },
+          "link": {
+            "$value": "{color.palette.harbor.700}"
+          },
+          "disabled": {
+            "$value": "{color.palette.ink.400}",
+            "$description": "Contrast-exempt under WCAG 1.4.3. Never the only signal that a control is unavailable: pair with the word 'not available' and a reason."
+          }
+        },
+        "action": {
+          "primaryBg": {
+            "$value": "{color.palette.harbor.700}"
+          },
+          "primaryBgHover": {
+            "$value": "{color.palette.harbor.600}"
+          },
+          "primaryBgActive": {
+            "$value": "{color.palette.harbor.900}"
+          },
+          "primaryText": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryBg": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryText": {
+            "$value": "{color.palette.harbor.700}"
+          },
+          "secondaryBorder": {
+            "$value": "{color.palette.harbor.700}"
+          },
+          "dangerBg": {
+            "$value": "{color.palette.brick.700}"
+          },
+          "dangerText": {
+            "$value": "{color.palette.white}"
+          },
+          "disabledBg": {
+            "$value": "{color.palette.linen.200}"
+          },
+          "disabledText": {
+            "$value": "{color.palette.ink.400}"
+          }
+        },
+        "border": {
+          "hairline": {
+            "$value": "{color.palette.linen.300}",
+            "$description": "1.296:1. Decorative rules only. A build lint fails if this token appears on an input, checkbox, radio, select, or clickable card."
+          },
+          "control": {
+            "$value": "{color.palette.ink.700}",
+            "$description": "3.860:1 on canvas. Every control whose boundary is the affordance."
+          },
+          "controlFocusInner": {
+            "$value": "{color.palette.lantern.500}"
+          },
+          "controlFocusOuter": {
+            "$value": "{color.palette.ink.800}"
+          }
+        },
+        "status": {
+          "infoBg": {
+            "$value": "{color.palette.harbor.100}"
+          },
+          "infoText": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "waitingBg": {
+            "$value": "{color.palette.amber.100}"
+          },
+          "waitingText": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "confirmedBg": {
+            "$value": "{color.palette.meadow.100}"
+          },
+          "confirmedText": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "problemBg": {
+            "$value": "{color.palette.brick.100}"
+          },
+          "problemText": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "accent": {
+            "$value": "{color.palette.amber.700}"
+          },
+          "success": {
+            "$value": "{color.palette.meadow.700}"
+          },
+          "danger": {
+            "$value": "{color.palette.brick.700}"
+          }
+        },
+        "crisis": {
+          "bg": {
+            "$value": "{color.palette.brick.100}"
+          },
+          "text": {
+            "$value": "{color.palette.ink.800}"
+          },
+          "border": {
+            "$value": "{color.palette.brick.700}"
+          }
+        }
+      },
+      "easy": {
+        "$description": "Same hues, higher floor. Every foreground/background pair in this theme meets or exceeds 7:1, which is why the canvas is white rather than Linen: amber.800 on linen.100 is 6.975:1, 0.025 short of the bar, and on white it is 7.514:1.",
+        "bg": {
+          "canvas": {
+            "$value": "{color.palette.white}"
+          },
+          "surface": {
+            "$value": "{color.palette.linen.50}"
+          },
+          "surfaceRecessed": {
+            "$value": "{color.palette.linen.100}"
+          },
+          "inverse": {
+            "$value": "{color.palette.ink.900}"
+          }
+        },
+        "text": {
+          "primary": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "secondary": {
+            "$value": "{color.palette.ink.600}"
+          },
+          "muted": {
+            "$value": "{color.palette.ink.600}",
+            "$description": "Easy Mode has no third text weight. muted is an alias of secondary so that no Easy Mode text drops below 7.851:1 on white."
+          },
+          "onPrimary": {
+            "$value": "{color.palette.white}"
+          },
+          "onInverse": {
+            "$value": "{color.palette.white}"
+          },
+          "link": {
+            "$value": "{color.palette.harbor.800}"
+          },
+          "disabled": {
+            "$value": "{color.palette.ink.500}"
+          }
+        },
+        "action": {
+          "primaryBg": {
+            "$value": "{color.palette.harbor.800}"
+          },
+          "primaryBgHover": {
+            "$value": "{color.palette.harbor.700}"
+          },
+          "primaryBgActive": {
+            "$value": "{color.palette.harbor.900}"
+          },
+          "primaryText": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryBg": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryText": {
+            "$value": "{color.palette.harbor.800}"
+          },
+          "secondaryBorder": {
+            "$value": "{color.palette.harbor.800}"
+          },
+          "dangerBg": {
+            "$value": "{color.palette.brick.800}"
+          },
+          "dangerText": {
+            "$value": "{color.palette.white}"
+          },
+          "disabledBg": {
+            "$value": "{color.palette.linen.200}"
+          },
+          "disabledText": {
+            "$value": "{color.palette.ink.500}"
+          }
+        },
+        "border": {
+          "hairline": {
+            "$value": "{color.palette.ink.700}",
+            "$description": "Easy Mode has no hairline. The token resolves to the control border so that a decorative rule authored for Standard Mode does not vanish for a low-vision user."
+          },
+          "control": {
+            "$value": "{color.palette.ink.700}"
+          },
+          "controlFocusInner": {
+            "$value": "{color.palette.lantern.500}"
+          },
+          "controlFocusOuter": {
+            "$value": "{color.palette.ink.900}"
+          }
+        },
+        "status": {
+          "infoBg": {
+            "$value": "{color.palette.harbor.100}"
+          },
+          "infoText": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "waitingBg": {
+            "$value": "{color.palette.amber.100}"
+          },
+          "waitingText": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "confirmedBg": {
+            "$value": "{color.palette.meadow.100}"
+          },
+          "confirmedText": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "problemBg": {
+            "$value": "{color.palette.brick.100}"
+          },
+          "problemText": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "accent": {
+            "$value": "{color.palette.amber.800}"
+          },
+          "success": {
+            "$value": "{color.palette.meadow.800}"
+          },
+          "danger": {
+            "$value": "{color.palette.brick.800}"
+          }
+        },
+        "crisis": {
+          "bg": {
+            "$value": "{color.palette.brick.100}"
+          },
+          "text": {
+            "$value": "{color.palette.ink.900}"
+          },
+          "border": {
+            "$value": "{color.palette.brick.800}"
+          }
+        }
+      },
+      "highContrast": {
+        "$description": "Selected by the person, or forced by the OS. Under forced-colors the browser overrides most of this; the theme exists so that the person can reach maximum contrast without leaving the product, and so that the forced-colors fallback is authored rather than accidental.",
+        "bg": {
+          "canvas": {
+            "$value": "{color.palette.white}"
+          },
+          "surface": {
+            "$value": "{color.palette.white}"
+          },
+          "surfaceRecessed": {
+            "$value": "{color.palette.white}"
+          },
+          "inverse": {
+            "$value": "{color.palette.black}"
+          }
+        },
+        "text": {
+          "primary": {
+            "$value": "{color.palette.black}"
+          },
+          "secondary": {
+            "$value": "{color.palette.black}"
+          },
+          "muted": {
+            "$value": "{color.palette.black}"
+          },
+          "onPrimary": {
+            "$value": "{color.palette.white}"
+          },
+          "onInverse": {
+            "$value": "{color.palette.white}"
+          },
+          "link": {
+            "$value": "{color.palette.harbor.900}"
+          },
+          "disabled": {
+            "$value": "{color.palette.ink.600}"
+          }
+        },
+        "action": {
+          "primaryBg": {
+            "$value": "{color.palette.black}"
+          },
+          "primaryBgHover": {
+            "$value": "{color.palette.harbor.900}"
+          },
+          "primaryBgActive": {
+            "$value": "{color.palette.harbor.900}"
+          },
+          "primaryText": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryBg": {
+            "$value": "{color.palette.white}"
+          },
+          "secondaryText": {
+            "$value": "{color.palette.black}"
+          },
+          "secondaryBorder": {
+            "$value": "{color.palette.black}"
+          },
+          "dangerBg": {
+            "$value": "{color.palette.brick.800}"
+          },
+          "dangerText": {
+            "$value": "{color.palette.white}"
+          },
+          "disabledBg": {
+            "$value": "{color.palette.white}"
+          },
+          "disabledText": {
+            "$value": "{color.palette.ink.600}"
+          }
+        },
+        "border": {
+          "hairline": {
+            "$value": "{color.palette.black}"
+          },
+          "control": {
+            "$value": "{color.palette.black}"
+          },
+          "controlFocusInner": {
+            "$value": "{color.palette.lantern.500}"
+          },
+          "controlFocusOuter": {
+            "$value": "{color.palette.black}"
+          }
+        },
+        "status": {
+          "infoBg": {
+            "$value": "{color.palette.white}"
+          },
+          "infoText": {
+            "$value": "{color.palette.black}"
+          },
+          "waitingBg": {
+            "$value": "{color.palette.white}"
+          },
+          "waitingText": {
+            "$value": "{color.palette.black}"
+          },
+          "confirmedBg": {
+            "$value": "{color.palette.white}"
+          },
+          "confirmedText": {
+            "$value": "{color.palette.black}"
+          },
+          "problemBg": {
+            "$value": "{color.palette.white}"
+          },
+          "problemText": {
+            "$value": "{color.palette.black}"
+          },
+          "accent": {
+            "$value": "{color.palette.amber.800}"
+          },
+          "success": {
+            "$value": "{color.palette.meadow.800}"
+          },
+          "danger": {
+            "$value": "{color.palette.brick.800}"
+          }
+        },
+        "crisis": {
+          "bg": {
+            "$value": "{color.palette.white}"
+          },
+          "text": {
+            "$value": "{color.palette.black}"
+          },
+          "border": {
+            "$value": "{color.palette.black}"
+          }
+        }
+      }
+    }
+  },
+  "typography": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": [
+          "Atkinson Hyperlegible Next",
+          "Atkinson Hyperlegible",
+          "Segoe UI",
+          "system-ui",
+          "-apple-system",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif"
+        ],
+        "$description": "Atkinson Hyperlegible Next, self-hosted WOFF2 subset (Latin + Latin-1 Supplement, which covers the Spanish diacritics and the inverted marks). Open licence. Chosen for disambiguated letterforms: the Braille Institute drew it so that b/d, i/l/1, 0/O, and rn/m do not collapse at low acuity. Fallback chain is deliberate: every fallback is metric-tolerable, and the stack never falls to a serif."
+      },
+      "mono": {
+        "$value": [
+          "ui-monospace",
+          "SFMono-Regular",
+          "Consolas",
+          "Liberation Mono",
+          "monospace"
+        ],
+        "$description": "Confirmation codes, ride ids, case numbers, and the CSV import preview only. Never body text."
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": {
+        "$value": 400
+      },
+      "semibold": {
+        "$value": 600
+      },
+      "bold": {
+        "$value": 700
+      },
+      "$description": "No weight below 400 exists in this product. Italic is available in the family but is forbidden for any run longer than three words."
+    },
+    "size": {
+      "$type": "dimension",
+      "standard": {
+        "xs": {
+          "$value": "0.875rem",
+          "$description": "14px. Timestamps and legal footnotes only. Never a sentence a decision depends on."
+        },
+        "sm": {
+          "$value": "1rem",
+          "$description": "16px. Secondary text, form hints."
+        },
+        "base": {
+          "$value": "1.125rem",
+          "$description": "18px. Body. Above the 16px absolute floor from the senior-UX guidance in the cycle-1 research digest section 8."
+        },
+        "lg": {
+          "$value": "1.25rem",
+          "$description": "20px. Primary line of a list item; the answer text in the concierge."
+        },
+        "xl": {
+          "$value": "1.5rem",
+          "$description": "24px. h3."
+        },
+        "2xl": {
+          "$value": "1.875rem",
+          "$description": "30px. h2."
+        },
+        "3xl": {
+          "$value": "2.25rem",
+          "$description": "36px. h1."
+        },
+        "4xl": {
+          "$value": "2.75rem",
+          "$description": "44px. The single number on a status screen; the pickup time."
+        }
+      },
+      "easy": {
+        "sm": {
+          "$value": "1.125rem",
+          "$description": "18px. The smallest type that exists in Easy Mode. Timestamps and the 'as of' line."
+        },
+        "base": {
+          "$value": "1.375rem",
+          "$description": "22px. Body."
+        },
+        "lg": {
+          "$value": "1.625rem",
+          "$description": "26px. The label on the single action."
+        },
+        "xl": {
+          "$value": "2rem",
+          "$description": "32px. The question the screen is asking. Easy Mode has exactly one heading level."
+        },
+        "2xl": {
+          "$value": "2.5rem",
+          "$description": "40px. A time, a date, or a confirmation code shown alone."
+        }
+      }
+    },
+    "lineHeight": {
+      "$type": "number",
+      "tight": {
+        "$value": 1.2,
+        "$description": "Display numerals only."
+      },
+      "heading": {
+        "$value": 1.3
+      },
+      "body": {
+        "$value": 1.5,
+        "$description": "WCAG 1.4.12 floor for paragraph text."
+      },
+      "bodyEasy": {
+        "$value": 1.55
+      }
+    },
+    "letterSpacing": {
+      "$type": "dimension",
+      "normal": {
+        "$value": "0em"
+      },
+      "wide": {
+        "$value": "0.12em",
+        "$description": "WCAG 1.4.12 requires text to survive 0.12em letter-spacing. Used natively only on the confirmation-code display."
+      }
+    },
+    "measure": {
+      "$type": "dimension",
+      "standard": {
+        "$value": "70ch",
+        "$description": "Maximum line length for body copy."
+      },
+      "easy": {
+        "$value": "52ch",
+        "$description": "Narrower on purpose: at 22px a 70ch line is a return-sweep failure for a reader with central-vision loss."
+      }
+    },
+    "style": {
+      "$type": "typography",
+      "standardBody": {
+        "$value": {
+          "fontFamily": "{typography.family.sans}",
+          "fontSize": "{typography.size.standard.base}",
+          "fontWeight": "{typography.weight.regular}",
+          "lineHeight": "{typography.lineHeight.body}",
+          "letterSpacing": "{typography.letterSpacing.normal}"
+        }
+      },
+      "easyBody": {
+        "$value": {
+          "fontFamily": "{typography.family.sans}",
+          "fontSize": "{typography.size.easy.base}",
+          "fontWeight": "{typography.weight.regular}",
+          "lineHeight": "{typography.lineHeight.bodyEasy}",
+          "letterSpacing": "{typography.letterSpacing.normal}"
+        }
+      },
+      "easyQuestion": {
+        "$value": {
+          "fontFamily": "{typography.family.sans}",
+          "fontSize": "{typography.size.easy.xl}",
+          "fontWeight": "{typography.weight.semibold}",
+          "lineHeight": "{typography.lineHeight.heading}",
+          "letterSpacing": "{typography.letterSpacing.normal}"
+        }
+      }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "$description": "8-point grid with a 2px and 4px sub-step for optical alignment only. Easy Mode does not invent new values: it steps up one or two rungs (12 becomes 20, 16 becomes 24, 24 becomes 32).",
+    "0": {
+      "$value": "0rem"
+    },
+    "2xs": {
+      "$value": "0.125rem",
+      "$description": "2px"
+    },
+    "xs": {
+      "$value": "0.25rem",
+      "$description": "4px"
+    },
+    "sm": {
+      "$value": "0.5rem",
+      "$description": "8px"
+    },
+    "md": {
+      "$value": "0.75rem",
+      "$description": "12px"
+    },
+    "lg": {
+      "$value": "1rem",
+      "$description": "16px"
+    },
+    "xl": {
+      "$value": "1.25rem",
+      "$description": "20px"
+    },
+    "2xl": {
+      "$value": "1.5rem",
+      "$description": "24px"
+    },
+    "3xl": {
+      "$value": "2rem",
+      "$description": "32px"
+    },
+    "4xl": {
+      "$value": "2.5rem",
+      "$description": "40px"
+    },
+    "5xl": {
+      "$value": "3rem",
+      "$description": "48px"
+    },
+    "6xl": {
+      "$value": "4rem",
+      "$description": "64px"
+    },
+    "targetGap": {
+      "$value": "0.75rem",
+      "$description": "12px. Minimum clear space between two adjacent activatable targets. Satisfies WCAG 2.2 2.5.8's spacing exception with room to spare and is the single most useful token for a tremor."
+    },
+    "targetGapEasy": {
+      "$value": "1.25rem",
+      "$description": "20px."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "none": {
+      "$value": "0rem"
+    },
+    "sm": {
+      "$value": "0.5rem",
+      "$description": "8px. Chips, inputs."
+    },
+    "md": {
+      "$value": "0.75rem",
+      "$description": "12px. Default: buttons, cards."
+    },
+    "lg": {
+      "$value": "1rem",
+      "$description": "16px. Easy Mode buttons and cards."
+    },
+    "pill": {
+      "$value": "62.4375rem",
+      "$description": "999px. Status chips only."
+    }
+  },
+  "border": {
+    "width": {
+      "$type": "dimension",
+      "hairline": {
+        "$value": "1px"
+      },
+      "control": {
+        "$value": "2px",
+        "$description": "Standard Mode control boundary."
+      },
+      "controlEasy": {
+        "$value": "3px"
+      },
+      "focusOuter": {
+        "$value": "3px"
+      },
+      "focusInner": {
+        "$value": "2px"
+      },
+      "crisis": {
+        "$value": "2px"
+      }
+    },
+    "focusOffset": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Gap between the control edge and the inner focus band, so the ring is never mistaken for part of the control."
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Shadow is a Standard Mode affordance only. In Easy Mode every shadow token resolves to none and elevation is expressed as a 3px border, because a 4px blur at 10% opacity is invisible at 300% zoom and to a screen reader alike.",
+    "none": {
+      "$value": {
+        "color": "#00000000",
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "0px",
+        "spread": "0px"
+      }
+    },
+    "raised": {
+      "$value": {
+        "color": "#1F2A3714",
+        "offsetX": "0px",
+        "offsetY": "1px",
+        "blur": "2px",
+        "spread": "0px"
+      }
+    },
+    "card": {
+      "$value": {
+        "color": "#1F2A371A",
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "12px",
+        "spread": "0px"
+      }
+    },
+    "overlay": {
+      "$value": {
+        "color": "#1F2A3729",
+        "offsetX": "0px",
+        "offsetY": "12px",
+        "blur": "32px",
+        "spread": "0px"
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "instant": {
+        "$value": "0ms"
+      },
+      "fast": {
+        "$value": "120ms",
+        "$description": "Colour and opacity changes on hover and focus."
+      },
+      "base": {
+        "$value": "200ms",
+        "$description": "The ceiling for anything a person has to wait through. Spine section 7: motion never exceeds 200ms."
+      },
+      "slow": {
+        "$value": "320ms",
+        "$description": "Reserved for a full-screen route transition in Standard Mode. Not used in the MVP."
+      }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": {
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "enter": {
+        "$value": [
+          0,
+          0,
+          0.2,
+          1
+        ]
+      },
+      "exit": {
+        "$value": [
+          0.4,
+          0,
+          1,
+          1
+        ]
+      },
+      "linear": {
+        "$value": [
+          0,
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    "reducedMotion": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Flag, not a duration. When 1 — set by prefers-reduced-motion: reduce, by the person's own toggle, or unconditionally in Easy Mode — every transform, translate, scale and parallax is removed, every duration resolves to motion.duration.instant except colour and opacity which resolve to motion.duration.fast, and every auto-advancing surface (carousel, marquee, auto-dismissing toast, auto-refreshing queue) stops and gains a manual control. This is the only token that is allowed to change behaviour rather than appearance, and the a11y test layer asserts it."
+    },
+    "autoAdvance": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Always 0 in this product, in both modes. There is no auto-advancing content anywhere: no carousel, no auto-dismissing toast, no timed redirect. Present as a token so that a builder who wants one has to change a token and face the ui-agent."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "target": {
+      "min": {
+        "$value": "2.75rem",
+        "$description": "44px. Standard Mode floor. WCAG 2.2 2.5.8 asks 24px; the platform guidelines ask 44px; we take 44px."
+      },
+      "easy": {
+        "$value": "3rem",
+        "$description": "48px. Easy Mode floor, from the senior-targeted 48x48dp recommendation in the cycle-1 research digest section 8."
+      },
+      "priority": {
+        "$value": "3.5rem",
+        "$description": "56px. The Priority Assistance button and the Easy Mode bottom-bar buttons."
+      }
+    },
+    "icon": {
+      "inline": {
+        "$value": "1.25rem",
+        "$description": "20px. Inside a line of Standard body text."
+      },
+      "control": {
+        "$value": "1.5rem",
+        "$description": "24px. In a Standard button, beside its text label."
+      },
+      "easy": {
+        "$value": "2rem",
+        "$description": "32px. In an Easy Mode button, beside its text label."
+      },
+      "bar": {
+        "$value": "2.5rem",
+        "$description": "40px. Easy Mode bottom bar."
+      }
+    },
+    "bottomBar": {
+      "easy": {
+        "$value": "5.5rem",
+        "$description": "88px. Height of the persistent Easy Mode bottom bar, reserved as body padding so it never covers content or a focused control (WCAG 2.2 2.4.11)."
+      }
+    },
+    "headerMax": {
+      "$value": "15vh",
+      "$description": "A sticky header may never exceed this. Above it a focused control at the top of the viewport can be fully obscured, which is exactly what 2.4.11 forbids."
+    }
+  },
+  "zIndex": {
+    "$type": "number",
+    "base": {
+      "$value": 0
+    },
+    "raised": {
+      "$value": 10
+    },
+    "sticky": {
+      "$value": 100
+    },
+    "header": {
+      "$value": 200
+    },
+    "bottomBar": {
+      "$value": 250
+    },
+    "dropdown": {
+      "$value": 300
+    },
+    "overlay": {
+      "$value": 400
+    },
+    "modal": {
+      "$value": 500
+    },
+    "toast": {
+      "$value": 600
+    },
+    "skipLink": {
+      "$value": 900
+    },
+    "crisisBanner": {
+      "$value": 1000,
+      "$description": "Highest layer in the product on purpose. The 911 and crisis line may never be covered by a dialog, a toast, a cookie notice or a chat launcher."
+    }
+  },
+  "breakpoint": {
+    "$type": "dimension",
+    "sm": {
+      "$value": "30rem",
+      "$description": "480px"
+    },
+    "md": {
+      "$value": "48rem",
+      "$description": "768px"
+    },
+    "lg": {
+      "$value": "64rem",
+      "$description": "1024px"
+    },
+    "xl": {
+      "$value": "80rem",
+      "$description": "1280px"
+    },
+    "reflowFloor": {
+      "$value": "20rem",
+      "$description": "320px. WCAG 1.4.10: every screen must work at 320 CSS px wide with no two-dimensional scrolling. Equivalent to a 1280px viewport at 400% zoom, which is how Galina (AR-10) reads."
+    },
+    "easyMaxColumns": {
+      "$value": "1",
+      "$description": "Not a length. Easy Mode is one column at every breakpoint, including a 27-inch desk monitor at the senior centre."
+    }
+  },
+  "$extensions": {
+    "porchlight": {
+      "themeName": "Porchlight",
+      "themeStatement": "A light left on for you. Warm, calm, legible, dignified: the product looks like a neighbour's porch at dusk, not a government form and not a hospital.",
+      "modes": [
+        "standard",
+        "easy",
+        "highContrast"
+      ],
+      "formula": "WCAG 2.x relative luminance. For each channel c of 0-255: cs = c/255; cl = cs/12.92 if cs <= 0.03928 else ((cs+0.055)/1.055)^2.4. L = 0.2126*Rl + 0.7152*Gl + 0.0722*Bl. Contrast = (Llighter + 0.05) / (Ldarker + 0.05). All ratios below were computed with this formula and are reproduced to three decimals; the worked arithmetic for the load-bearing pairs is in 06-ui-ux-system.md section 2.",
+      "bars": {
+        "textAA": 4.5,
+        "largeTextAA": 3.0,
+        "nonTextAA": 3.0,
+        "textAAA": 7.0,
+        "easyModeFloor": 7.0,
+        "note": "Standard Mode is held to WCAG 2.1 AA (4.5:1 text, 3:1 non-text). Easy Mode is held to 7:1 for every text pair, which is AAA, because Easy Mode exists for the people for whom AA is not enough."
+      },
+      "contrast": [
+        {
+          "pair": "ink.800 #1F2A37 on linen.100 #FAF6EF",
+          "ratio": 13.494,
+          "use": "Standard body text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on white #FFFFFF",
+          "ratio": 14.537,
+          "use": "Standard text on a card",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on linen.200 #F1EADD",
+          "ratio": 12.151,
+          "use": "Standard text on a chip or recessed band",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.900 #111827 on white #FFFFFF",
+          "ratio": 17.74,
+          "use": "Easy Mode body text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.900 #111827 on linen.50 #FDFBF7",
+          "ratio": 17.164,
+          "use": "Easy Mode text on a surface",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.600 #445366 on linen.100 #FAF6EF",
+          "ratio": 7.287,
+          "use": "Standard secondary text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.600 #445366 on white #FFFFFF",
+          "ratio": 7.851,
+          "use": "Easy Mode secondary text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.500 #5B6B7F on linen.100 #FAF6EF",
+          "ratio": 5.058,
+          "use": "Standard muted text — the darkest muted we permit",
+          "passes": "AA only"
+        },
+        {
+          "pair": "ink.400 #7A8899 on linen.100 #FAF6EF",
+          "ratio": 3.356,
+          "use": "Subtle border, disabled glyph",
+          "passes": "non-text AA only — BANNED as text"
+        },
+        {
+          "pair": "ink.700 #6E7E90 on linen.100 #FAF6EF",
+          "ratio": 3.86,
+          "use": "Control border on the canvas",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "ink.700 #6E7E90 on white #FFFFFF",
+          "ratio": 4.158,
+          "use": "Control border on a surface",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "white #FFFFFF on harbor.700 #155E8F",
+          "ratio": 6.932,
+          "use": "Standard primary button",
+          "passes": "AA"
+        },
+        {
+          "pair": "white #FFFFFF on harbor.800 #0F4C75",
+          "ratio": 9.087,
+          "use": "Easy Mode primary button",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "white #FFFFFF on harbor.900 #0B3A5B",
+          "ratio": 11.861,
+          "use": "Pressed primary, high-contrast primary",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "harbor.700 #155E8F on linen.100 #FAF6EF",
+          "ratio": 6.434,
+          "use": "Standard link text",
+          "passes": "AA"
+        },
+        {
+          "pair": "harbor.700 #155E8F on white #FFFFFF",
+          "ratio": 6.932,
+          "use": "Standard link on a card; secondary button text and border",
+          "passes": "AA"
+        },
+        {
+          "pair": "harbor.800 #0F4C75 on white #FFFFFF",
+          "ratio": 9.087,
+          "use": "Easy Mode link, Easy secondary button text and border",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "white #FFFFFF on harbor.600 #1C74B0",
+          "ratio": 5.031,
+          "use": "White label on the Standard primary button in its hover state — the label stays legible while the fill lightens",
+          "passes": "AA"
+        },
+        {
+          "pair": "ink.700 #6E7E90 on linen.200 #F1EADD",
+          "ratio": 3.476,
+          "use": "Control border on a recessed chip ground — the worst case for the control border, still above 3:1",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "ink.600 #445366 on linen.50 #FDFBF7",
+          "ratio": 7.596,
+          "use": "Easy Mode secondary text on the Easy surface",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "amber.800 #8A3F07 on linen.50 #FDFBF7",
+          "ratio": 7.27,
+          "use": "Easy Mode accent on the Easy surface — the tightest pair in Easy Mode",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "meadow.800 #24552E on linen.50 #FDFBF7",
+          "ratio": 8.417,
+          "use": "Easy Mode success on the Easy surface",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "brick.800 #7F2323 on linen.50 #FDFBF7",
+          "ratio": 9.376,
+          "use": "Easy Mode danger on the Easy surface",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "harbor.800 #0F4C75 on linen.50 #FDFBF7",
+          "ratio": 8.792,
+          "use": "Easy Mode link on the Easy surface",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "amber.700 #B4530A on linen.100 #FAF6EF",
+          "ratio": 4.661,
+          "use": "Standard accent text",
+          "passes": "AA only — fails the 7:1 Easy bar"
+        },
+        {
+          "pair": "white #FFFFFF on amber.700 #B4530A",
+          "ratio": 5.021,
+          "use": "Standard accent fill with white text",
+          "passes": "AA"
+        },
+        {
+          "pair": "amber.800 #8A3F07 on white #FFFFFF",
+          "ratio": 7.514,
+          "use": "Easy Mode accent text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "amber.800 #8A3F07 on linen.100 #FAF6EF",
+          "ratio": 6.975,
+          "use": "Why the Easy canvas is white and not Linen: 0.025 short of 7:1",
+          "passes": "AA only"
+        },
+        {
+          "pair": "meadow.700 #2E6B3A on linen.100 #FAF6EF",
+          "ratio": 5.943,
+          "use": "Standard success text",
+          "passes": "AA only"
+        },
+        {
+          "pair": "white #FFFFFF on meadow.700 #2E6B3A",
+          "ratio": 6.402,
+          "use": "Standard success fill",
+          "passes": "AA"
+        },
+        {
+          "pair": "meadow.800 #24552E on white #FFFFFF",
+          "ratio": 8.7,
+          "use": "Easy Mode success text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "brick.700 #A32D2D on linen.100 #FAF6EF",
+          "ratio": 6.562,
+          "use": "Standard danger and error text",
+          "passes": "AA only"
+        },
+        {
+          "pair": "white #FFFFFF on brick.700 #A32D2D",
+          "ratio": 7.069,
+          "use": "Standard danger fill",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "brick.800 #7F2323 on white #FFFFFF",
+          "ratio": 9.69,
+          "use": "Easy Mode danger and error text",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on harbor.100 #E3EFF7",
+          "ratio": 12.43,
+          "use": "Information chip",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on amber.100 #FBEEDF",
+          "ratio": 12.735,
+          "use": "Waiting chip",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on meadow.100 #E4F0E6",
+          "ratio": 12.395,
+          "use": "Confirmed chip",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on brick.100 #F8E6E6",
+          "ratio": 12.081,
+          "use": "Problem chip and the crisis banner",
+          "passes": "AA and AAA"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on linen.100 #FAF6EF",
+          "ratio": 1.621,
+          "use": "FAILURE. The spine's focus ring against the page ground. Fixed by the two-band ring: see focusRingChange below.",
+          "passes": "FAILS non-text AA"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on white #FFFFFF",
+          "ratio": 1.746,
+          "use": "Same failure on a card surface",
+          "passes": "FAILS non-text AA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 outer focus band on linen.100 #FAF6EF",
+          "ratio": 13.494,
+          "use": "The band that carries the focus indicator against the page",
+          "passes": "non-text AA, by a factor of 4.5"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on ink.800 #1F2A37",
+          "ratio": 8.325,
+          "use": "Inner focus band against the outer band",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on harbor.700 #155E8F",
+          "ratio": 3.97,
+          "use": "Inner focus band against the Standard primary button fill — this is why Lantern is kept",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on harbor.800 #0F4C75",
+          "ratio": 5.204,
+          "use": "Inner focus band against the Easy primary button fill",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "lantern.500 #FFB703 on brick.700 #A32D2D",
+          "ratio": 4.049,
+          "use": "Inner focus band against a danger button fill",
+          "passes": "non-text AA"
+        },
+        {
+          "pair": "ink.800 #1F2A37 on harbor.700 #155E8F",
+          "ratio": 2.097,
+          "use": "Why ink alone cannot be the whole ring: on a dark button it disappears",
+          "passes": "FAILS non-text AA"
+        },
+        {
+          "pair": "linen.300 #E4D9C6 on linen.100 #FAF6EF",
+          "ratio": 1.296,
+          "use": "Hairline rule. Decorative only; a build lint forbids it on any control.",
+          "passes": "FAILS non-text AA — by design, as a decorative rule"
+        },
+        {
+          "pair": "black #000000 on white #FFFFFF",
+          "ratio": 21.0,
+          "use": "High-contrast theme body text",
+          "passes": "AA and AAA"
+        }
+      ],
+      "changesFromSpine": [
+        {
+          "id": "HEX-01",
+          "token": "focus ring",
+          "spineValue": "Lantern #FFB703 3px ring with a 2px ink offset",
+          "newValue": "two-band ring: outer 3px ink (#1F2A37 Standard, #111827 Easy), inner 2px Lantern #FFB703, 2px offset from the control edge",
+          "reason": "Lantern against the Linen ground computes to 1.621:1, which fails WCAG 1.4.11's 3:1 for a non-text indicator. No amber that still reads as amber reaches 3:1 on a near-white ground — #C98A00 only reaches 2.738:1 and #E5A302 only 2.037:1. Reversing the band order puts ink (13.494:1 on Linen) against the page while keeping Lantern where it earns its place: against dark fills, where ink is only 2.097:1.",
+          "hexChanged": false,
+          "structureChanged": true
+        },
+        {
+          "id": "HEX-02",
+          "token": "Easy Mode accent",
+          "spineValue": "Porch Amber #B4530A in both modes",
+          "newValue": "#8A3F07 in Easy Mode; #B4530A retained in Standard Mode",
+          "reason": "#B4530A is 4.661:1 on Linen — AA, but short of the 7:1 floor the spine itself sets for Easy Mode. #8A3F07 is 7.514:1 on white.",
+          "hexChanged": true,
+          "structureChanged": false
+        },
+        {
+          "id": "HEX-03",
+          "token": "Easy Mode success",
+          "spineValue": "Meadow #2E6B3A in both modes",
+          "newValue": "#24552E in Easy Mode; #2E6B3A retained in Standard Mode",
+          "reason": "#2E6B3A is 5.943:1 on Linen, short of 7:1. #24552E is 8.700:1 on white.",
+          "hexChanged": true,
+          "structureChanged": false
+        },
+        {
+          "id": "HEX-04",
+          "token": "Easy Mode danger",
+          "spineValue": "Brick #A32D2D in both modes",
+          "newValue": "#7F2323 in Easy Mode; #A32D2D retained in Standard Mode",
+          "reason": "#A32D2D is 6.562:1 on Linen, short of 7:1. #7F2323 is 9.690:1 on white.",
+          "hexChanged": true,
+          "structureChanged": false
+        },
+        {
+          "id": "HEX-05",
+          "token": "Easy Mode canvas",
+          "spineValue": "not stated; Linen #FAF6EF implied by 'the same hues'",
+          "newValue": "#FFFFFF",
+          "reason": "amber.800 on Linen is 6.975:1, 0.025 short of the 7:1 floor. Rather than push the accent darker until it stops looking like a porch light, the Easy canvas moves to white, where every Easy pair clears 7:1 with margin. The warm ground stays in Standard Mode, which is where most people will see it.",
+          "hexChanged": true,
+          "structureChanged": false
+        },
+        {
+          "id": "HEX-06",
+          "token": "control border",
+          "spineValue": "none stated",
+          "newValue": "#6E7E90 (color.palette.ink.700)",
+          "reason": "The spine had no border colour. The obvious neutral #7A8899 computes to 3.356:1 on Linen and 3.022:1 on the Linen-200 chip ground — inside 3:1 but one rounding from failing. #6E7E90 gives 3.860:1 and 4.158:1 and leaves headroom. #7A8899 survives as border.subtle for decoration only."
+        },
+        {
+          "id": "HEX-07",
+          "token": "hairline rule",
+          "spineValue": "none stated",
+          "newValue": "#E4D9C6 (color.palette.linen.300), decorative only, forbidden on controls by lint",
+          "reason": "1.296:1. Legitimate as a table rule where the rule carries no information, illegal as the boundary of an input. Recorded here so nobody discovers the difference by shipping it."
+        }
+      ],
+      "bannedTokens": [
+        "color.palette.* referenced directly by a component",
+        "color.palette.ink.400 used as text at any size",
+        "color.palette.linen.300 used as the boundary of a control",
+        "any hex literal in a component file",
+        "any px literal for a font size, target size, or spacing value",
+        "any transition duration above motion.duration.base",
+        "colour as the only carrier of a status, an error, or a required field"
+      ]
+    }
+  }
+}

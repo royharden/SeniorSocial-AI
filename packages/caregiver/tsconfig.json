@@ -1,0 +1,5 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "allowImportingTsExtensions": true, "rootDir": "../..", "types": ["node"], "incremental": false },
+  "include": ["src/**/*.ts", "../../tests/unit/WP-017/**/*.ts", "../../tests/integration/WP-017/**/*.ts", "../../tests/security/WP-017/**/*.ts", "../../tests/contract/WP-017/**/*.ts"]
+}

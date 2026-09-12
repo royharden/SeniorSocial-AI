@@ -1,0 +1,1 @@
+{ "extends": "../../../tsconfig.base.json", "compilerOptions": { "allowImportingTsExtensions": true, "types": ["node", "vitest/globals"], "noEmit": true, "incremental": false }, "include": ["*.ts", "../../unit/WP-020-individual/fixtures.ts"] }

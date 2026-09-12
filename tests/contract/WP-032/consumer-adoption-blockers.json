@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "expected_resolver_import": "@seniorsocial/i18n/catalogs",
+  "findings": []
+}
