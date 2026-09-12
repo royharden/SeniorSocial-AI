@@ -23,7 +23,7 @@
     "postgres": "3.4.9"
   },
   "devDependencies": {
-    "@types/node": "24.13.4",
+    "@types/node": "26.5.0",
     "@vitest/coverage-v8": "5.0.0",
     "drizzle-kit": "0.31.10",
     "tsx": "4.23.13",

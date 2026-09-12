@@ -11,5 +11,5 @@
     "test:unit": "vitest run tests/unit/WP-013 tests/security/WP-013 tests/contract/WP-013 --root ../..",
     "test:integration": "vitest run tests/integration/WP-013 --root ../.."
   },
-  "devDependencies": { "@types/node": "24.13.4", "typescript": "5.9.3", "vitest": "5.0.0" }
+  "devDependencies": { "@types/node": "26.5.0", "typescript": "5.9.3", "vitest": "5.0.0" }
 }
